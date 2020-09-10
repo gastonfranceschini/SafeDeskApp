@@ -1,2 +1,2 @@
 # SafeDeskApp
-Safe Desk App fro Experta
+Safe Desk App for Experta
