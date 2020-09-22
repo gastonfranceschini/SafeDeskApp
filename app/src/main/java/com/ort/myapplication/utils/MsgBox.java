@@ -22,8 +22,8 @@ public class MsgBox {
                     }
                 })
                 .show();
-
 */
+
     }
 
     private AlertDialog dialog;

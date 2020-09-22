@@ -35,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myJsonTxtView = findViewById(R.id.jsonText);
-
+        //GET
         //getPost();
+
+        //POST
         sendPost();
     }
 
