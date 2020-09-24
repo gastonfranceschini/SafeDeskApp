@@ -2,6 +2,7 @@ package com.ort.myapplication.Interface;
 
 import com.ort.myapplication.Model.Post;
 import com.ort.myapplication.Model.Token;
+import com.ort.myapplication.Model.UserDTO;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ public interface Login {
     //@POST("api/auth/signin")
     //Call<List<Post>> getPost();
 
-    @POST("api/auth/signin")
-    Call<Token> login(@Body String body);
+    @POST("api/usuaraios/signin")
+    Call<Token> login(@Body UserDTO userDTO);
 
+    @POST("api/auth/signin/test")
+    Call<Token> loginTest();
     //Call<Token> savePost(@Field("email") String email,
                          //@Field("password") String password);
 

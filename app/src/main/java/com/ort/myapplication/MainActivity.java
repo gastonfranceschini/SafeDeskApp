@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         paramObject.addProperty("email","aas22");
         paramObject.addProperty("password","Samsung");
 
-        Call<Token> call = Login.login(paramObject.toString());
+        Call<Token> call = Login.loginTest();
         call.enqueue(new Callback<Token>()  {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
