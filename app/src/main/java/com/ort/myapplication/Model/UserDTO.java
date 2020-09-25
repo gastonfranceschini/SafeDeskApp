@@ -2,16 +2,16 @@ package com.ort.myapplication.Model;
 
 public class UserDTO {
 
-    private String username;
+    private String dni;
     private String password;
 
-    public UserDTO(String user, String pass){
-        this.username = user;
+    public UserDTO(String dni, String pass){
+        this.dni = dni;
         this.password = pass;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDNI() {
+        return dni;
     }
 
     public String getPassword() {

@@ -37,47 +37,6 @@ public class MainActivity extends AppCompatActivity {
         myJsonTxtView = findViewById(R.id.jsonText);
         //GET
         //getPost();
-
-        //POST
-        sendPost();
-    }
-
-    public void sendPost() {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3000/")
-                //.baseUrl("https://127.0.0.1:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Login Login = retrofit.create(Login.class);
-
-        JsonObject paramObject = new JsonObject();
-        paramObject.addProperty("email","aas22");
-        paramObject.addProperty("password","Samsung");
-
-        Call<Token> call = Login.loginTest();
-        call.enqueue(new Callback<Token>()  {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-
-                if(response.isSuccessful()) {
-
-                    Toast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
-                    toast.setMargin(50,50);
-                    toast.show();
-                    myJsonTxtView.setText("Respuesta OK:" + response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                Toast toast=Toast. makeText(getApplicationContext(),t.getMessage(),Toast. LENGTH_SHORT);
-                toast.setMargin(50,50);
-                toast.show();
-                myJsonTxtView.setText("Respuesta no exitosa:" + t.getMessage());
-            }
-        });
     }
 
     private void getPost(){
