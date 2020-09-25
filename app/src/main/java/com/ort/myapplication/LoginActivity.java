@@ -19,6 +19,8 @@ import com.ort.myapplication.Model.Post;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -66,16 +68,19 @@ public class LoginActivity extends AppCompatActivity {
         paramObject.addProperty("email", inputUser.getText().toString());
         paramObject.addProperty("password", inputPass.getText().toString());*/
 
-        //Call<Token> call = Login.login(new UserDTO(inputUser.getText().toString(), inputPass.getText().toString()));
+        Call<Token> call = Login.login(new UserDTO(inputUser.getText().toString(), inputPass.getText().toString()));
         //Call<Token> call = Login.login(paramObject.toString());
-        Call<Token> call = Login.loginTest();
+        //Call<Token> call = Login.loginTest();
         call.enqueue(new Callback<Token>()  {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if(response.isSuccessful()) {
+                    //Toast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
+                    //JSONObject jsonObject = new JSONObject(response.body().toString());
                     Toast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
                     toast.setMargin(50,50);
                     toast.show();
+
                     accessMainApp();
                 }
             }

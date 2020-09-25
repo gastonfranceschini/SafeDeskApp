@@ -18,11 +18,11 @@ public interface Login {
     //@POST("api/auth/signin")
     //Call<List<Post>> getPost();
 
-    @POST("api/usuaraios/signin")
+    @POST("api/auth/signin")
     Call<Token> login(@Body UserDTO userDTO);
 
-    @POST("api/auth/signin/test")
-    Call<Token> loginTest();
+    //@POST("api/auth/signin/test")
+    //Call<Token> loginTest();
     //Call<Token> savePost(@Field("email") String email,
                          //@Field("password") String password);
 
