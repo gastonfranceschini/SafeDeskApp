@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.ort.myapplication.Interface.JsonPlaceholderApi;
+import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.Login;
-import com.ort.myapplication.Model.Post;
+import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
+import com.ort.myapplication.utils.ApiUtils;
+import com.ort.myapplication.utils.RetrofitClient;
 
 import java.util.List;
 
@@ -36,41 +38,43 @@ public class MainActivity extends AppCompatActivity {
 
         myJsonTxtView = findViewById(R.id.jsonText);
         //GET
-        //getPost();
+        getPost();
     }
 
     private void getPost(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+        //GetEdificios getEdificios = RetrofitClient.getClient("http://10.0.2.2:3000/").create(GetEdificios.class);
 
-        Call<List<Post>> call = jsonPlaceholderApi.getPost();
+        GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
 
-        call.enqueue(new Callback<List<Post>>() {
+        Call<List<Edificio>> call = getEdificios.getEdificios();
+
+        call.enqueue(new Callback<List<Edificio>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
 
-                if(!response.isSuccessful()) {
-                       myJsonTxtView.setText("Respuesta no exitosa:" + response.code());
-                       return;
+                if (response.isSuccessful()) {
+                    List<Edificio> EdificiosList = response.body();
+                    for (Edificio edi: EdificiosList) {
+                        String content = "";
+                        content += "id: " + edi.getId() + "\n";
+                        content += "nombre: " + edi.getNombre() + "\n";
+                        myJsonTxtView.append(content);
+                    }
                 }
-
-                List<Post> postList = response.body();
-                for (Post post: postList) {
-                    String content = "";
-                    content += "userId: " + post.getUserId() + "\n";
-                    content += "id: " + post.getId() + "\n";
-                    content += "Title: " + post.getTitle() + "\n";
-                    content += "Body: " + post.getBody() + "\n\n";
-                    myJsonTxtView.append(content);
+                else
+                {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<Edificio>> call, Throwable t) {
                 myJsonTxtView.setText(t.getMessage());
             }
         });
