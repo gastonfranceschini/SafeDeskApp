@@ -13,11 +13,12 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
-import com.ort.myapplication.Interface.JsonPlaceholderApi;
+import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.Login;
-import com.ort.myapplication.Model.Post;
+import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
+import com.ort.myapplication.utils.Global;
 
 import org.json.JSONObject;
 
@@ -64,9 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText inputUser = username.getEditText();
         EditText inputPass = password.getEditText();
 
-        /*JsonObject paramObject = new JsonObject();
-        paramObject.addProperty("email", inputUser.getText().toString());
-        paramObject.addProperty("password", inputPass.getText().toString());*/
 
         Call<Token> call = Login.login(new UserDTO(inputUser.getText().toString(), inputPass.getText().toString()));
         //Call<Token> call = Login.login(paramObject.toString());
@@ -75,21 +73,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if(response.isSuccessful()) {
-                    //Toast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
-                    //JSONObject jsonObject = new JSONObject(response.body().toString());
-                    Toast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
-                    toast.setMargin(50,50);
-                    toast.show();
 
+                    Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
+                    Token token = response.body();
+                    Global.userId = token.getUserId();
+                    Global.token = token.getToken();
                     accessMainApp();
+                }
+                else
+                {
+                    //response.code() == 422
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
-                Toast toast=Toast. makeText(getApplicationContext(),t.getMessage(),Toast. LENGTH_SHORT);
-                toast.setMargin(50,50);
-                toast.show();
+                Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }

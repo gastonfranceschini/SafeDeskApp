@@ -1,6 +1,5 @@
 package com.ort.myapplication.Interface;
 
-import com.ort.myapplication.Model.Post;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
 
