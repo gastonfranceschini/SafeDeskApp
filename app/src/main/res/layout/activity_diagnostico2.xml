@@ -155,7 +155,7 @@
                 android:textSize="20dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonDiag"
                 android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/switch8"
