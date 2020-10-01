@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendPost() {
                Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3000/")
-                //.baseUrl("https://127.0.0.1:3000/")
+                .baseUrl("http://35.190.67.223/")
+                //.baseUrl("https://10.0.2.2:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
