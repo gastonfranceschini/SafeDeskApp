@@ -10,6 +10,6 @@ public class ApiUtils {
 
     public static Object getAPI(Class IClass) {
 
-       return RetrofitClient.getClient(BASE_URL).create(IClass);
+        return RetrofitClient.getClient(BASE_URL).create(IClass);
     }
 }
