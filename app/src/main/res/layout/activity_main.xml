@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="#fff"/>
-            
+
             <ImageView
                 android:layout_alignParentRight="true"
                 android:layout_width="62dp"
@@ -45,43 +45,44 @@
         </RelativeLayout>
 
         <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:columnCount="2"
-            android:rowCount="3"
             android:alignmentMode="alignMargins"
+            android:columnCount="2"
             android:columnOrderPreserved="false"
             android:padding="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:rowCount="3">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_local_hospital_24"/>
+                        android:src="@drawable/ic_baseline_local_hospital_24" />
+
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="Auto Diagnostico"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Auto Diagnostico"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -89,32 +90,33 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="wrap_content"
+                android:layout_width="152dp"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_insert_invitation_24"/>
+                        android:src="@drawable/ic_baseline_insert_invitation_24" />
+
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
                         android:text="Reservar Jornada"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -124,30 +126,31 @@
                 android:id="@+id/cardView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_import_contacts_24"/>
+                        android:src="@drawable/ic_baseline_import_contacts_24" />
+
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="Mis Reservas"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Mis Reservas"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -157,30 +160,31 @@
                 android:id="@+id/cardView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_security_24"/>
+                        android:src="@drawable/ic_baseline_security_24" />
+
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="Escanear QR"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Escanear QR"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -190,30 +194,31 @@
                 android:id="@+id/cardView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_assessment_24"/>
+                        android:src="@drawable/ic_baseline_assessment_24" />
+
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="Reportes"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Reportes"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -223,30 +228,31 @@
                 android:id="@+id/cardView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_assignment_ind_24"/>
+                        android:src="@drawable/ic_baseline_assignment_ind_24" />
+
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="Administracion"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Administracion"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
