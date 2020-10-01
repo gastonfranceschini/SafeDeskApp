@@ -4,7 +4,7 @@ public class Diagnostico {
 
     private float temperatura;
     private boolean perdioGusto;
-    private String contactoCercano;
+    private boolean contactoCercano;
     private boolean estoyEmbarazada;
     private boolean cancer;
     private boolean diabetes;
@@ -16,7 +16,7 @@ public class Diagnostico {
 
     public float getTemperatura(){ return temperatura; }
     public boolean isPerdioGusto() { return perdioGusto; }
-    public String getContactoCercano() { return contactoCercano; }
+    public boolean getContactoCercano() { return contactoCercano; }
     public boolean isEstoyEmbarazada() { return estoyEmbarazada; }
     public boolean isCancer() { return cancer; }
     public boolean isDiabetes() { return diabetes; }

@@ -38,7 +38,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="35dp"
         app:cardCornerRadius="16dp">
 
         <RelativeLayout
@@ -58,98 +58,109 @@
                 android:textColor="#000"/>
 
             <Switch
+                android:id="@+id/switch0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch1"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/armata"
+                android:text="Contacto cercano"
+                android:textSize="20dp" />
+
+            <Switch
                 android:id="@+id/switch1"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView2"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Perdida del gusto"
                 android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="397dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
-                android:layout_marginStart="15dp"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
             <Switch
                 android:id="@+id/switch2"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
-                android:layout_below="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch0"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Estoy Embarazada"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch3"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch2"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Cancer"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch4"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch3"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Diabetes"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch5"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch4"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Hepatitis"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch6"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch5"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Perdida del olfato"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch7"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch6"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Dolor de garganta"
                 android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch8"
-                android:layout_width="360dp"
-                android:layout_height="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/switch7"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:text="Dificultad respiratoria"
                 android:textSize="20dp" />
@@ -159,9 +170,9 @@
                 android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/switch8"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="137dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="25dp"
                 android:background="@drawable/button_gradient"
                 android:fontFamily="@font/armata"
                 android:text="Confirmar"
@@ -174,20 +185,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="185dp"
                 android:layout_marginTop="45dp"
+                android:layout_marginEnd="12dp"
                 android:max="10"
                 android:progress="3"/>
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="209dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/switch1"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
-                android:text="Contacto_cercano"
-                android:fontFamily="@font/armata"
-                android:textSize="20dp"
-                android:textColor="#000"/>
 
         </RelativeLayout>
 
