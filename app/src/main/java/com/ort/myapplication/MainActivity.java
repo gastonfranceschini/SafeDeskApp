@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         autoDiagnostico = findViewById(R.id.cardView1);
 
-        myJsonTxtView = findViewById(R.id.jsonText);
+        //myJsonTxtView = findViewById(R.id.jsonText);
         //GET
-        getPost();
+        //getPost();
 
         autoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accessMainApp(Diagnostico.class);
+                accessMainApp(DiagnosticoActivity.class);
             }
         });
     }
