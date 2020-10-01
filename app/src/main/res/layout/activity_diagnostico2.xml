@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DiagnosticoActivity"
-    android:background="#aaa">
+    android:background="@drawable/gradient">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="#fff"
+            android:fontFamily="@font/armata"
+            android:textStyle="bold"
+            android:text="Auto Diagnostico"/>
+
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/ca"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/cvDiagnostico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,101 +49,110 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9pt"
-                android:layout_marginStart="15dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/armata"
+                android:gravity="center"
                 android:layout_marginTop="40dp"
-                android:text="Temperatura" />
+                android:layout_marginStart="15dp"
+                android:text="Temperatura"
+                android:textColor="#000"/>
 
             <Switch
                 android:id="@+id/switch1"
-                android:layout_width="399dp"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView2"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Perdida del gusto"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
                 android:layout_width="397dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/switch1"
+                android:layout_below="@+id/textView"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:inputType="textPersonName" />
 
             <Switch
                 android:id="@+id/switch2"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/editTextTextPersonName"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Estoy Embarazada"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch3"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch2"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Cancer"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch4"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch3"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Diabetes"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch5"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch4"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Hepatitis"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch6"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch5"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Perdida del olfato"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch7"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch6"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Dolor de garganta"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch8"
-                android:layout_width="397dp"
+                android:layout_width="360dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/switch7"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/armata"
                 android:text="Dificultad respiratoria"
-                android:textSize="9pt" />
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/button"
@@ -131,8 +161,9 @@
                 android:layout_below="@+id/switch8"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="137dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_gradient"
+                android:fontFamily="@font/armata"
                 android:text="Confirmar"
                 android:textColor="#fff" />
 
@@ -141,10 +172,10 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="170dp"
+                android:layout_marginStart="185dp"
                 android:layout_marginTop="45dp"
                 android:max="10"
-                android:progress="3" />
+                android:progress="3"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -152,13 +183,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/switch1"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="30dp"
                 android:text="Contacto_cercano"
-                android:textSize="8pt" />
+                android:fontFamily="@font/armata"
+                android:textSize="20dp"
+                android:textColor="#000"/>
 
         </RelativeLayout>
 
-
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</ScrollView>

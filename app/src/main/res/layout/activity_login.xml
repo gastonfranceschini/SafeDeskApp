@@ -106,6 +106,7 @@
         android:fontFamily="@font/armata"
         android:text="SAFEDESK"
         android:textColor="#fff"
+        android:textStyle="bold"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
