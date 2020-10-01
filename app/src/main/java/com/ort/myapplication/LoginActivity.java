@@ -19,6 +19,7 @@ import com.ort.myapplication.Interface.Login;
 import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
+import com.ort.myapplication.utils.ApiUtils;
 import com.ort.myapplication.utils.Global;
 
 import org.json.JSONObject;
@@ -55,13 +56,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendPost() {
-        Retrofit retrofit = new Retrofit.Builder()
+               Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
                 //.baseUrl("https://127.0.0.1:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         Login Login = retrofit.create(Login.class);
+
+        //Login Login = (Login) ApiUtils.getAPI(Login.class);
 
         EditText inputUser = username.getEditText();
         EditText inputPass = password.getEditText();
@@ -75,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if(response.isSuccessful()) {
 
-                    Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
                     Token token = response.body();
                     Global.userId = token.getUserId();
                     Global.token = token.getToken();

@@ -10,13 +10,18 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.ort.myapplication.Interface.APIDiagnostico;
+import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.Login;
 import com.ort.myapplication.Model.Diagnostico;
+import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
+import com.ort.myapplication.utils.ApiUtils;
 import com.ort.myapplication.utils.Global;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,17 +60,19 @@ public class DiagnosticoActivity extends AppCompatActivity {
     }
 
     private void saveAutoDiagnostico(){
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        APIDiagnostico apiDiagnostico = retrofit.create(APIDiagnostico.class);
+        APIDiagnostico apiDiagnostico = retrofit.create(APIDiagnostico.class);*/
 
-        Call<Token> call = apiDiagnostico.saveDiagnostico(new Diagnostico());
-        call.enqueue(new Callback<Token>()  {
+        APIDiagnostico apiDiagnostico = (APIDiagnostico) ApiUtils.getAPI(APIDiagnostico.class);
+
+        Call<Diagnostico> call = apiDiagnostico.saveDiagnostico(new Diagnostico());
+        call.enqueue(new Callback<Diagnostico>()  {
             @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
+            public void onResponse(Call<Diagnostico> call, Response<Diagnostico> response) {
                 if(response.isSuccessful()) {
                     //response.code() == 200
                 }
@@ -76,7 +83,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Token> call, Throwable t) {
+            public void onFailure(Call<Diagnostico> call, Throwable t) {
                 Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
