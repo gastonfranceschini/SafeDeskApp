@@ -28,7 +28,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
 
     //private <> temperatura;
     private Switch perdidaGusto;
-    private EditText contactoCercano;
+    private Switch contactoCercano;
     private Switch embarazada;
     private Switch cancer;
     private Switch diabetes;
@@ -67,7 +67,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if(response.isSuccessful()) {
-
+                    //response.code() == 200
                 }
                 else
                 {
@@ -83,6 +83,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     }
 
     private void setSwitchsValue(){
+        contactoCercano = (Switch) findViewById(R.id.switch0);
         perdidaGusto = (Switch) findViewById(R.id.switch1);
         embarazada = (Switch) findViewById(R.id.switch2);
         cancer = (Switch) findViewById(R.id.switch3);

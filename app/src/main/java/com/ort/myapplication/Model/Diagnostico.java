@@ -15,7 +15,7 @@ public class Diagnostico {
 
     public Diagnostico(){}
 
-    public Diagnostico(float temp, boolean perdioGusto, String contacto, boolean estoyEmbarazada,
+    public Diagnostico(float temp, boolean perdioGusto, boolean contacto, boolean estoyEmbarazada,
                        boolean cancer, boolean diabetes, boolean hepatica, boolean perdioOlfato,
                        boolean dolorGarganta, boolean dificultadRespiratoria){
         this.temperatura = temp;
