@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DiagnosticoActivity"
+    android:background="#aaa">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="40dp"
+                android:text="Temperatura" />
+
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="252dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="400dp"
+                android:layout_marginTop="20dp"
+                android:textSize="15pt"
+                android:text="°" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="399dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView4"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Perdida del gusto"
+                android:textSize="9pt" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="397dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch1"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Contacto cercano" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/editTextTextPersonName"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Estoy Embarazada"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Cancer"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch4"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch3"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Diabetes"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch5"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch4"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Hepatitis"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch6"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch5"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Perdida del olfato"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch7"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch6"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Dolor de garganta"
+                android:textSize="9pt" />
+
+            <Switch
+                android:id="@+id/switch8"
+                android:layout_width="397dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/switch7"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Dificultad respiratoria"
+                android:textSize="9pt" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch8"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="37dp"
+                android:background="@drawable/button_gradient"
+                android:text="Confirmar"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
