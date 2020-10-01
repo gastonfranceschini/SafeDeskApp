@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         autoDiagnostico = findViewById(R.id.cardView1);
-
         //myJsonTxtView = findViewById(R.id.jsonText);
         //GET
         //getPost();
