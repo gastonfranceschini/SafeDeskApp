@@ -2,8 +2,11 @@ package com.ort.myapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -31,14 +34,34 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView myJsonTxtView;
 
+    private CardView autoDiagnostico;
+    private CardView reservaJornada;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myJsonTxtView = findViewById(R.id.jsonText);
+        autoDiagnostico = findViewById(R.id.cardView1);
+        reservaJornada = findViewById(R.id.cardView2);
+        //myJsonTxtView = findViewById(R.id.jsonText);
         //GET
-        getPost();
+        //getPost();
+
+        autoDiagnostico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessMainApp(DiagnosticoActivity.class);
+            }
+        });
+
+        reservaJornada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessMainApp(ReservaTurno.class);
+            }
+        });
     }
 
     private void getPost(){
@@ -78,5 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 myJsonTxtView.setText(t.getMessage());
             }
         });
+    }
+
+    private void accessMainApp(Class activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
     }
 }
