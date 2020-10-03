@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CardView autoDiagnostico;
     private CardView reservaJornada;
+    private CardView misReservas;
 
 
     @Override
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
+        misReservas = findViewById(R.id.cardView3);
         //myJsonTxtView = findViewById(R.id.jsonText);
         //GET
         //getPost();
@@ -60,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accessMainApp(ReservaTurno.class);
+            }
+        });
+
+        misReservas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessMainApp(MisReservasActivity.class);
             }
         });
     }
