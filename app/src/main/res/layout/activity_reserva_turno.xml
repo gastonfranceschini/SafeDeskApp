@@ -43,49 +43,123 @@
 
             <EditText
                 android:id="@+id/editTextFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="321dp"
+                android:layout_height="68dp"
                 android:layout_marginStart="130dp"
                 android:layout_marginTop="33dp"
-                android:hint="Elegí la Fecha"
-                android:enabled="false"
+                android:layout_marginEnd="30dp"
+                android:textSize="9pt"
                 android:ems="10"
+                android:enabled="false"
+                android:hint="Elegí la Fecha"
                 android:inputType="textPersonName"
-                android:text="Elegí la fecha" />
+                android:text="" />
 
             <ImageButton
                 android:id="@+id/imageButton"
-                android:layout_width="65dp"
-                android:layout_height="54dp"
-                android:layout_marginStart="35dp"
+                android:layout_width="87dp"
+                android:layout_height="73dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="419dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="160dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_below="@+id/textView4"
+                    android:layout_marginBottom="30dp" />
 
-                <View
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="419dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/spinner1"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="280dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="170dp"
+                android:layout_height="55dp"
+                android:layout_below="@+id/spinner2"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="30dp" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="170dp"
+                android:layout_height="55dp"
+                android:layout_below="@+id/spinner2"
+                android:layout_marginStart="275dp"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="60dp" />
+
+            <View
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="469dp"
                     android:background="?android:attr/listDivider" />
 
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="332dp"
-                    android:layout_height="42dp"
+                <TextView
+                    android:id="@+id/textView4"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="160dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="30dp" />
-            </RelativeLayout>
+                    android:layout_marginTop="130dp"
+                    android:textSize="9pt"
+                    android:layout_below="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edificio" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageButton"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="250dp"
+                android:text="Generencia"
+                android:textSize="9pt" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="390dp"
+                android:textSize="9pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Piso" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="275dp"
+                android:layout_marginTop="390dp"
+                android:text="Hora"
+                android:textSize="9pt" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="170dp"
+                android:layout_marginTop="600dp"
+                android:layout_width="144dp"
+                android:layout_height="63dp"
+                android:background="@drawable/button_gradient"
+                android:fontFamily="@font/armata"
+                android:text="Confirmar"
+                android:textColor="#fff" />
+
 
         </androidx.cardview.widget.CardView>
 
