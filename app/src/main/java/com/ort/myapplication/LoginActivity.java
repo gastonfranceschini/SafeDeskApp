@@ -4,27 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.JsonObject;
-import com.ort.myapplication.Interface.GetEdificios;
+import com.ort.myapplication.Interface.APIDiagnostico;
 import com.ort.myapplication.Interface.Login;
-import com.ort.myapplication.Model.Edificio;
+import com.ort.myapplication.Model.Diagnostico;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.Model.UserDTO;
 import com.ort.myapplication.utils.ApiUtils;
 import com.ort.myapplication.utils.Global;
 
 import org.json.JSONObject;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://35.190.67.223/")
                 //.baseUrl("https://10.0.2.2:3000/")
+               // .baseUrl("http://192.168.0.21:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -107,4 +103,5 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 }

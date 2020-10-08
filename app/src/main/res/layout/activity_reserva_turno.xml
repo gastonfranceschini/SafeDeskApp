@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,28 +9,28 @@
     tools:context=".ReservaTurno">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#fff"
-            android:fontFamily="@font/armata"
-            android:textStyle="bold"
-            android:text="Reservar Turno"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/armata"
+                android:text="Reservar Turno"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvReservar"
@@ -41,6 +42,25 @@
             android:layout_marginBottom="32dp"
             app:cardCornerRadius="16dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CalendarView
+                    android:id="@+id/calendarView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#E8E8E8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.488"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.137" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <EditText
                 android:id="@+id/editTextFecha"
                 android:layout_width="321dp"
@@ -159,6 +179,7 @@
                 android:fontFamily="@font/armata"
                 android:text="Confirmar"
                 android:textColor="#fff" />
+
 
 
         </androidx.cardview.widget.CardView>
