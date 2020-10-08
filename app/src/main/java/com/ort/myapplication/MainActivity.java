@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //GET
         //getPost();
 
-        autoDiagnostico.setOnClickListener(new View.OnClickListener() {
+       autoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accessMainApp(DiagnosticoActivity.class);
