@@ -41,94 +41,73 @@
             android:layout_marginBottom="32dp"
             app:cardCornerRadius="16dp">
 
-            <EditText
-                android:id="@+id/editTextFecha"
-                android:layout_width="321dp"
-                android:layout_height="68dp"
-                android:layout_marginStart="130dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginEnd="30dp"
-                android:textSize="9pt"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="Elegí la Fecha"
-                android:inputType="textPersonName"
-                android:text="" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="87dp"
-                android:layout_height="73dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
-
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="419dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="160dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_below="@+id/textView4"
-                    android:layout_marginBottom="30dp" />
-
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="419dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/spinner1"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="280dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="170dp"
-                android:layout_height="55dp"
-                android:layout_below="@+id/spinner2"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="420dp"
-                android:layout_marginEnd="30dp" />
-
-            <Spinner
-                android:id="@+id/spinner4"
-                android:layout_width="170dp"
-                android:layout_height="55dp"
-                android:layout_below="@+id/spinner2"
-                android:layout_marginStart="275dp"
-                android:layout_marginTop="420dp"
-                android:layout_marginEnd="60dp" />
-
-            <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="469dp"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="130dp"
-                    android:textSize="9pt"
-                    android:layout_below="@+id/imageButton"
+                <EditText
+                    android:id="@+id/editTextFecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edificio" />
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="7dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="Elegí la Fecha"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:textSize="9pt" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="75dp"
+                    android:layout_height="65dp"
+                    app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="130dp"
+                android:text="Edificio"
+                android:textColor="#000"
+                android:textSize="9pt" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageButton"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="250dp"
                 android:text="Generencia"
+                android:textColor="#000"
                 android:textSize="9pt" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="280dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -137,28 +116,57 @@
                 android:textSize="9pt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Piso" />
+                android:text="Piso"
+                android:textColor="#000"/>
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="120dp"
+                android:layout_height="55dp"
+                android:layout_below="@+id/spinner2"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="30dp" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="275dp"
+                android:layout_marginStart="240dp"
                 android:layout_marginTop="390dp"
                 android:text="Hora"
+                android:textColor="#000"
                 android:textSize="9pt" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="170dp"
-                android:layout_marginTop="600dp"
-                android:layout_width="144dp"
-                android:layout_height="63dp"
-                android:background="@drawable/button_gradient"
-                android:fontFamily="@font/armata"
-                android:text="Confirmar"
-                android:textColor="#fff" />
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="120dp"
+                android:layout_height="55dp"
+                android:layout_below="@+id/spinner2"
+                android:layout_marginStart="240dp"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="100dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="510dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_gradient"
+                    android:fontFamily="@font/armata"
+                    android:text="Confirmar"
+                    android:textColor="#fff" />
+
+            </RelativeLayout>
 
 
         </androidx.cardview.widget.CardView>
