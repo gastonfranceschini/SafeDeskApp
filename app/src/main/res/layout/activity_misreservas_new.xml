@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -72,12 +72,20 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:text="Reservas Activas"
+                        android:textSize="20sp"
+                        android:textColor="#000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
                     <ListView
                         android:id="@+id/userlist1"
                         android:layout_width="match_parent"
-                        android:layout_height="271dp"
+                        android:layout_height="match_parent"
                         android:entries="@array/listaprueba"
-                        android:padding="60dp"
+                        android:padding="20dp"
                         android:scrollbars="vertical" />
 
                 </LinearLayout>
@@ -101,12 +109,20 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:text="Reservas Pasadas"
+                        android:textSize="20sp"
+                        android:textColor="#000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
                     <ListView
                         android:id="@+id/userlist2"
                         android:layout_width="match_parent"
-                        android:layout_height="271dp"
+                        android:layout_height="match_parent"
                         android:entries="@array/listaprueba"
-                        android:padding="60dp"
+                        android:padding="20dp"
                         android:scrollbars="vertical" />
 
                 </LinearLayout>
@@ -117,4 +133,4 @@
         </GridLayout>
 
       </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
