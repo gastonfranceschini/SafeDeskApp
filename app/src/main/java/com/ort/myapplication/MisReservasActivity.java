@@ -21,7 +21,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class MisReservasActivity extends AppCompatActivity {
     private ListView mListView1, mListView2;
-    private CardView cardViewReserva2;
     private ImageView imageViewQR;
     private TextView reservaElegida;
     private LinearLayout reservasPasadas, codigoQR;
@@ -33,7 +32,6 @@ public class MisReservasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misreservas_new);
-        cardViewReserva2 = (CardView) findViewById(R.id.cardViewReserva2);
         mListView1 = (ListView) findViewById(R.id.userlist1);
         aAdapter1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, users1);
         mListView1.setAdapter(aAdapter1);
@@ -48,19 +46,18 @@ public class MisReservasActivity extends AppCompatActivity {
 
         mListView1.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (reservasPasadas.getVisibility() == View.VISIBLE) {
                     codigoQR.setVisibility(View.VISIBLE);
                     reservasPasadas.setVisibility(View.GONE);
                     reservaElegida.setText((String) parent.getItemAtPosition(position));
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                    try{
-                        BitMatrix bitMatrix = multiFormatWriter.encode((String) parent.getItemAtPosition(position),BarcodeFormat.QR_CODE,500,500);
+                    try {
+                        BitMatrix bitMatrix = multiFormatWriter.encode((String) parent.getItemAtPosition(position), BarcodeFormat.QR_CODE, 500, 500);
                         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                         Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                         imageViewQR.setImageBitmap(bitmap);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
