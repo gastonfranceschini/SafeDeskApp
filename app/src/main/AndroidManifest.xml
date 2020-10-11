@@ -16,6 +16,7 @@
         <activity android:name=".DiagnosticoActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MisReservasActivity" />
+        <activity android:name=".GeneracionQRActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

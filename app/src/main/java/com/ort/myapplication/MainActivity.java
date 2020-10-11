@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private CardView autoDiagnostico;
     private CardView reservaJornada;
     private CardView misReservas;
+    private CardView codigoQR;
 
 
     @Override
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
+        codigoQR = findViewById(R.id.cardView4);
         //myJsonTxtView = findViewById(R.id.jsonText);
         //GET
         //getPost();
@@ -69,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accessMainApp(MisReservasActivity.class);
+            }
+        });
+
+        codigoQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessMainApp(GeneracionQRActivity.class);
             }
         });
     }

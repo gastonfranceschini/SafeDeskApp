@@ -56,7 +56,7 @@
             android:rowCount="2">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
+                android:id="@+id/cardViewReserva1"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_rowWeight="1"
@@ -73,12 +73,12 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/txt_name"
-                        android:text="Reservas Activas"
-                        android:textSize="20sp"
-                        android:textColor="#000"
+                        android:id="@+id/txt_name2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="Reservas Activas"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
 
                     <ListView
                         android:id="@+id/userlist1"
@@ -93,7 +93,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/cardViewReserva2"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_rowWeight="1"
@@ -103,6 +103,7 @@
                 app:cardElevation="6dp">
 
                 <LinearLayout
+                    android:id="@+id/reservasPasadas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -110,12 +111,12 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/txt_name"
-                        android:text="Reservas Pasadas"
-                        android:textSize="20sp"
-                        android:textColor="#000"
+                        android:id="@+id/txt_name3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="Reservas Pasadas"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
 
                     <ListView
                         android:id="@+id/userlist2"
@@ -127,10 +128,45 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/codigoQR"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/txt_codigoQRTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Código QR"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/txt_reservaElegida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Example"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageviewQR"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="35dp"
+                        />
+
+                </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
 
         </GridLayout>
 
-      </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
