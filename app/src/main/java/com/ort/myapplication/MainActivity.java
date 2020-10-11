@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        CardView rep = (CardView) findViewById(R.id.cardView5);
+//        rep.setEnabled(false);
+//        rep.setCardBackgroundColor(979797);
 
 
         autoDiagnostico = findViewById(R.id.cardView1);
