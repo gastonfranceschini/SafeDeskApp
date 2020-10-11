@@ -43,19 +43,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="711dp">
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/armata"
                 android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="15dp"
                 android:text="Temperatura"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="20dp" />
 
             <Switch
                 android:id="@+id/switch0"
@@ -187,7 +187,7 @@
                 android:layout_marginTop="45dp"
                 android:layout_marginEnd="12dp"
                 android:max="10"
-                android:progress="3"/>
+                android:progress="3" />
 
         </RelativeLayout>
 
