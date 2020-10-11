@@ -30,13 +30,14 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView myJsonTxtView;
 
     private CardView autoDiagnostico;
     private CardView reservaJornada;
     private CardView misReservas;
+    private CardView codigoQR;
 
 
     @Override
@@ -47,33 +48,17 @@ public class MainActivity extends AppCompatActivity {
 //        rep.setEnabled(false);
 //        rep.setCardBackgroundColor(979797);
 
+
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
-        //myJsonTxtView = findViewById(R.id.jsonText);
-        //GET
-        //getPost();
+        codigoQR = findViewById(R.id.cardView4);
 
-       autoDiagnostico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accessMainApp(DiagnosticoActivity.class);
-            }
-        });
-
-        reservaJornada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accessMainApp(ReservaTurno.class);
-            }
-        });
-
-        misReservas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accessMainApp(MisReservasActivity.class);
-            }
-        });
+        //onClickListeners
+        autoDiagnostico.setOnClickListener(this);
+        reservaJornada.setOnClickListener(this);
+        misReservas.setOnClickListener(this);
+        codigoQR.setOnClickListener(this);
     }
 
     private void getPost(){
@@ -115,8 +100,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View view) {
+        if (autoDiagnostico.equals(view)) {
+            accessMainApp(DiagnosticoActivity.class);
+        }else if(reservaJornada.equals(view)){
+            accessMainApp(ReservaTurno.class);
+        }else if(misReservas.equals(view)){
+            accessMainApp(MisReservasActivity.class);
+        }else if(codigoQR.equals(view)){
+            accessMainApp(GeneracionQRActivity.class);
+        }
+    }
+
     private void accessMainApp(Class activity) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
+
 }
