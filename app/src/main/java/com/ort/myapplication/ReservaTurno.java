@@ -12,12 +12,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.UsuariosDependiente;
+import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.UsuarioDep;
 import com.ort.myapplication.utils.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,10 +48,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         edificiosDP = findViewById(R.id.spinner2);
         pisosDP = findViewById(R.id.spinner3);
         horasDP = findViewById(R.id.spinner4);
-        imageButton.setOnClickListener(this);
 
-        //se llenan los dropdowns con datos
-        configAllSpinners();
+        configUsuariosSpinner();
+        imageButton.setOnClickListener(this);
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -118,17 +120,12 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     fecha.setText(day + "/" + (month+1) + "/" + year);
+                    Date fecha = new Date(year, month, day);
+                    configEdificiosSpinner(fecha);
                 }
             }
                     ,ano, mes, dia);
             datePicker.show();
-    }
-
-    private void configAllSpinners(){
-        configUsuariosSpinner();
-        configEdificiosSpinner();
-        configPisosSpinner();
-        configHorasSpinner();
     }
 
     private void configPisosSpinner(){
@@ -155,17 +152,31 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             horasDP.setAdapter(horasAdapter);
         }
 
-    private void configEdificiosSpinner(){
+    private void configEdificiosSpinner(Date fechaParam){
             List<String> edificios = new ArrayList<String>();
 
+            GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
+            Call<List<Edificio>> call = getEdificios.getEdificios(fechaParam);
 
-            ArrayAdapter<String> gerenciasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, edificios);
-            gerenciasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            edificiosDP.setAdapter(gerenciasAdapter);
+            call.enqueue(new Callback<List<Edificio>>() {
+                @Override
+                public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
+                    List<Edificio> edificios = response.body();
+                    List<String> edificiosList = new ArrayList<String>();
+                    for (Edificio e : edificios) {
+                        edificiosList.add(e.getNombre() + " - " + e.getDireccion());
+                    }
+                    llenarSpinnersString(edificiosDP, edificiosList);
+                }
+
+                @Override
+                public void onFailure(Call<List<Edificio>> call, Throwable t) {
+
+                }
+            });
         }
 
     private void configUsuariosSpinner(){
-         List<String> usuariosList = new ArrayList<String>();
         UsuariosDependiente getUsuarios = (UsuariosDependiente)ApiUtils.getAPI(UsuariosDependiente.class);
 
         Call<List<UsuarioDep>> call = getUsuarios.getUsuarios();
@@ -178,6 +189,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 for(UsuarioDep u : usuarios){
                     usuariosList.add(u.getNombre());
                 }
+                llenarSpinnersString(usuariosDP, usuariosList);
             }
 
             @Override
@@ -185,9 +197,13 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        ArrayAdapter<String> usuariosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, usuariosList);
-        usuariosAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        usuariosDP.setAdapter(usuariosAdapter);
+
+        }
+
+        private void llenarSpinnersString(Spinner spinner, List<String> list){
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
         }
 
 }

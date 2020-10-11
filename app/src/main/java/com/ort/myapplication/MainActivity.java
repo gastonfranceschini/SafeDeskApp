@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codigoQR.setOnClickListener(this);
     }
 
-    private void getPost(){
+    /*private void getPost(){
 
         //GetEdificios getEdificios = RetrofitClient.getClient("http://10.0.2.2:3000/").create(GetEdificios.class);
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myJsonTxtView.setText(t.getMessage());
             }
         });
-    }
+    }*/
 
     @Override
     public void onClick(View view) {

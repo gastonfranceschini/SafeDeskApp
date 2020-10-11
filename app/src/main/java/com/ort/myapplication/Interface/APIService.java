@@ -17,6 +17,6 @@ public interface APIService {
     @POST("/posts")
     @FormUrlEncoded
     Call<Token> savePost(@Field("title") String title,
-                        @Field("body") String body,
-                        @Field("userId") long userId);
+                         @Field("body") String body,
+                         @Field("userId") long userId);
 }
