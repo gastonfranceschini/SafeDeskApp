@@ -79,8 +79,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="100dp"
-                android:text="Edificio"
-                android:layout_marginTop="130dp"
                 android:text="Usuario"
                 android:textColor="#000"
                 android:textSize="8pt" />
@@ -102,8 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="210dp"
-                android:text="Generencia"
-                android:layout_marginTop="250dp"
                 android:text="Edificio"
                 android:textColor="#000"
                 android:textSize="8pt" />
