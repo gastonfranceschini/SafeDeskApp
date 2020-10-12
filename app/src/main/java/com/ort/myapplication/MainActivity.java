@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codigoQR.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View view) {
         if (autoDiagnostico.equals(view)) {
