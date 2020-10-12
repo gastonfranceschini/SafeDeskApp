@@ -87,8 +87,6 @@
                 android:id="@+id/spinner1"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:outlineSpotShadowColor="#FF0000"
-                android:outlineAmbientShadowColor="#FF0000"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="130dp"
                 android:layout_marginEnd="30dp"
