@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView1"
                     android:layout_width="match_parent"
@@ -65,105 +65,64 @@
                     app:cardCornerRadius="10dp"
                     app:cardElevation="6dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="154dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="0dp"
+                            android:background="@drawable/end_view_background"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
-                    <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:src="@drawable/ic_baseline_local_hospital_24" />
+                        <ImageView
+                            android:id="@+id/imgico1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_baseline_local_hospital_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Auto Diagnostico"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/txttitle1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="80dp"
+                            android:text="Auto Diagnóstico"
+                            android:fontFamily="@font/armata"
+                            android:textColor="#000"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imgico1"
+                            app:layout_constraintTop_toTopOf="@+id/imgico1"/>
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtsub1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="Chequeá tus síntomas"
+                            android:fontFamily="@font/armata"
+                            android:textColor="#000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/txttitle1"
+                            app:layout_constraintStart_toStartOf="@+id/txttitle1"
+                            app:layout_constraintTop_toBottomOf="@+id/txttitle1"/>
 
-            </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="80dp"
-                        android:layout_height="0dp"
-                        android:background="@drawable/end_view_background"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <ImageView
-                        android:id="@+id/imgico1"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_baseline_local_hospital_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/txttitle1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="80dp"
-                        android:text="Auto Diagnóstico"
-                        android:fontFamily="@font/armata"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imgico1"
-                        app:layout_constraintTop_toTopOf="@+id/imgico1"/>
-
-                    <TextView
-                        android:id="@+id/txtsub1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="Verificá tus síntomas"
-                        android:fontFamily="@font/armata"
-                        android:textColor="#000"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/txttitle1"
-                        app:layout_constraintStart_toStartOf="@+id/txttitle1"
-                        app:layout_constraintTop_toBottomOf="@+id/txttitle1"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
