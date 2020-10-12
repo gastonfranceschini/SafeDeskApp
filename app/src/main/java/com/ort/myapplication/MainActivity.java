@@ -61,45 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codigoQR.setOnClickListener(this);
     }
 
-    private void getPost(){
-
-        //GetEdificios getEdificios = RetrofitClient.getClient("http://10.0.2.2:3000/").create(GetEdificios.class);
-
-        GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
-
-        Call<List<Edificio>> call = getEdificios.getEdificios();
-
-        call.enqueue(new Callback<List<Edificio>>() {
-            @Override
-            public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
-
-                if (response.isSuccessful()) {
-                    List<Edificio> EdificiosList = response.body();
-                    for (Edificio edi: EdificiosList) {
-                        String content = "";
-                        content += "id: " + edi.getId() + "\n";
-                        content += "nombre: " + edi.getNombre() + "\n";
-                        myJsonTxtView.append(content);
-                    }
-                }
-                else
-                {
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Edificio>> call, Throwable t) {
-                myJsonTxtView.setText(t.getMessage());
-            }
-        });
-    }
-
     @Override
     public void onClick(View view) {
         if (autoDiagnostico.equals(view)) {
