@@ -80,4 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
 }

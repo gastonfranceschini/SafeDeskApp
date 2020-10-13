@@ -23,7 +23,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="hideKeyboard">
 
             <TextView
                 android:id="@+id/txt_login"
@@ -33,7 +34,7 @@
                 android:layout_marginTop="100dp"
                 android:fontFamily="@font/armata"
                 android:text="INICIA SESIÓN"
-                android:textColor="#2a5298"
+                android:textColor="#364e74"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -46,11 +47,12 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="12dp"
                 android:hint="DNI"
-                android:textColorHint="#1e3c73">
+                android:textColorHint="#364e74">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -62,9 +64,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="12dp"
                 android:hint="Contraseña"
-                android:textColorHint="#1e3c73"
+                android:textColorHint="#364e74"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="#1e3c73">
+                app:passwordToggleTint="#364e74">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
