@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ort.myapplication.Interface.APIDiagnostico;
@@ -32,6 +34,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DiagnosticoActivity extends AppCompatActivity {
 
     //private <> temperatura;
+    private TextView tempTxt;
+    private SeekBar seekBar;
+
     private Switch perdidaGusto;
     private Switch contactoCercano;
     private Switch embarazada;
@@ -48,6 +53,26 @@ public class DiagnosticoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnostico2);
+
+        tempTxt = (TextView) findViewById(R.id.seekBarTxt);
+        seekBar = (SeekBar) findViewById(R.id.seekBar2);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tempTxt.setText("" + progress + "\u2103");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         setSwitchsValue();
         confirmar = findViewById(R.id.buttonDiag);
 

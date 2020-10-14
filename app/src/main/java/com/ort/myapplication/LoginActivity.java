@@ -69,12 +69,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Call<Token> call = Login.login(new UserDTO(inputUser.getText().toString(), inputPass.getText().toString()));
-        //Call<Token> call = Login.login(paramObject.toString());
-        //Call<Token> call = Login.loginTest();
         call.enqueue(new Callback<Token>()  {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
+
                 if(response.isSuccessful()) {
+
+                    /*bToast toast=Toast. makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show(); */
+
 
                     Toast.makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
                     Token token = response.body();
