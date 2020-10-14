@@ -2,14 +2,14 @@ package com.ort.myapplication.Model;
 
 public class Edificio {
 
-    private int id;
-    private String nombre;
-    private String direccion;
+    private int Id;
+    private String Nombre;
+    private String Direccion;
     /*private String lat;
     private String longitud;*/
 
     public String getDireccion() {
-        return direccion;
+        return Direccion;
     }
 
     /*public String getLat() {
@@ -21,11 +21,11 @@ public class Edificio {
     }*/
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
 }
