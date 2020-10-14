@@ -75,10 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void logout() {
-
-    }
-
     private void accessMainApp(Class activity) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
