@@ -7,14 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.ort.myapplication.Interface.GetEdificios;
+import com.ort.myapplication.Interface.GetHora;
+import com.ort.myapplication.Interface.GetPisos;
 import com.ort.myapplication.Interface.UsuariosDependiente;
 import com.ort.myapplication.Model.Edificio;
+import com.ort.myapplication.Model.Hora;
+import com.ort.myapplication.Model.Piso;
 import com.ort.myapplication.Model.UsuarioDep;
 import com.ort.myapplication.utils.ApiUtils;
 
@@ -35,8 +40,10 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private Spinner pisosDP;
     private Spinner horasDP;
     private ImageButton imageButton;
+    private Button reserva;
     private EditText fecha;
     private int dia, mes, ano;
+    private String fechaSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
         fecha = findViewById(R.id.editTextFecha);
         imageButton = findViewById(R.id.imageButton);
+        reserva = findViewById(R.id.btn_reserva);
         usuariosDP = findViewById(R.id.spinner1);
         edificiosDP = findViewById(R.id.spinner2);
         pisosDP = findViewById(R.id.spinner3);
@@ -52,13 +60,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
         configUsuariosSpinner();
         imageButton.setOnClickListener(this);
+        reserva.setOnClickListener(this);
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String usuarioSelected;
-                usuarioSelected = usuariosDP.getSelectedItem().toString();
-                System.out.println(usuarioSelected);
+                Object usuarioSelected;
+                usuarioSelected = usuariosDP.getSelectedItem();
+                System.out.println(usuarioSelected.toString());
             }
 
             @Override
@@ -70,9 +79,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         edificiosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String gerenciaSelected;
-                gerenciaSelected = edificiosDP.getSelectedItem().toString();
-                System.out.println(gerenciaSelected);
+                //configPisosSpinner(edificiosDP.getSelectedItemId());
+                //configHorasSpinner(edificiosDP.getSelectedItemId());
             }
 
             @Override
@@ -112,6 +120,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if(imageButton.equals(view)){
             Calendar c = Calendar.getInstance();
             dia = c.get(Calendar.DAY_OF_MONTH);
             mes = c.get(Calendar.MONTH);
@@ -121,43 +130,66 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     fecha.setText(day + "/" + (month+1) + "/" + year);
-
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     //String currentDateandTime = sdf.format(new Date());
                     //String fecha = sdf.format(new Date(year, month, day));
-                    String fecha = year + "-" + month + "-" + day;
-
+                    fechaSelected = year + "-" + month + "-" + day;
                     //Date fecha = new Date(year, month, day);
-                    configEdificiosSpinner(fecha);
+                    configEdificiosSpinner(fechaSelected);
                 }
             }
                     ,ano, mes, dia);
             datePicker.show();
+        }else{
+
+        }
     }
 
-    private void configPisosSpinner(){
-        List<String> pisos = new ArrayList<String>();
-        pisos.add("*~ Elegí un piso ~*");
-            pisos.add("PB");
-            pisos.add("Piso 4");
-            pisos.add("Piso 5");
+    private void configPisosSpinner(long idEdificio){
+        GetPisos getPisos = (GetPisos)ApiUtils.getAPI(GetPisos.class);
 
-            ArrayAdapter<String> pisosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pisos);
-            pisosAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            pisosDP.setAdapter(pisosAdapter);
+        Call<List<Piso>> call = getPisos.getPisos(fechaSelected, idEdificio);
+
+        call.enqueue(new Callback<List<Piso>>() {
+            @Override
+            public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
+                List<Piso> pisos = response.body();
+                List<String> pisosList = new ArrayList<String>();
+                for (Piso p : pisos) {
+                    pisosList.add(p.getNombre());
+                }
+                llenarSpinnersString(pisosDP, pisosList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Piso>> call, Throwable t) {
+
+            }
+        });
         }
 
-    private void configHorasSpinner(){
-            List<String> horas = new ArrayList<String>();
-            horas.add("*~ Elegí una hora ~*");
-            horas.add("09:00");
-            horas.add("09:30");
-            horas.add("10:00");
+    private void configHorasSpinner(long idEdificio){
+        GetHora getHora = (GetHora)ApiUtils.getAPI(GetHora.class);
 
-            ArrayAdapter<String> horasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, horas);
-            horasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            horasDP.setAdapter(horasAdapter);
-        }
+        Call<List<Hora>> call = getHora.getHoras(idEdificio, fechaSelected);
+
+        call.enqueue(new Callback<List<Hora>>() {
+            @Override
+            public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
+                List<Hora> horas = response.body();
+                List<String> horasList = new ArrayList<String>();
+                for (Hora h : horas) {
+                    horasList.add(h.getHora());
+                }
+                llenarSpinnersString(horasDP, horasList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Hora>> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void configEdificiosSpinner(String fechaParam){
             List<String> edificios = new ArrayList<String>();
