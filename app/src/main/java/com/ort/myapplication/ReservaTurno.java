@@ -18,6 +18,7 @@ import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.UsuarioDep;
 import com.ort.myapplication.utils.ApiUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
@@ -120,7 +121,13 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     fecha.setText(day + "/" + (month+1) + "/" + year);
-                    Date fecha = new Date(year, month, day);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    //String currentDateandTime = sdf.format(new Date());
+                    //String fecha = sdf.format(new Date(year, month, day));
+                    String fecha = year + "-" + month + "-" + day;
+
+                    //Date fecha = new Date(year, month, day);
                     configEdificiosSpinner(fecha);
                 }
             }
@@ -152,7 +159,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             horasDP.setAdapter(horasAdapter);
         }
 
-    private void configEdificiosSpinner(Date fechaParam){
+    private void configEdificiosSpinner(String fechaParam){
             List<String> edificios = new ArrayList<String>();
 
             GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);

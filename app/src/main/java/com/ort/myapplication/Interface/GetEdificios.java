@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 
 public interface GetEdificios {
 
-    @GET("/api/turnos/edificios/fecha/{fecha1} ")
-    Call<List<Edificio>> getEdificios(@Path("fecha1") Date fecha1);
+    @GET("/api/turnos/edificios/fecha/{fecha1}")
+    Call<List<Edificio>> getEdificios(@Path("fecha1") String fecha1);
 
 }
