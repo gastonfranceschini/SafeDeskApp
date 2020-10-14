@@ -26,6 +26,4 @@ public interface Login {
     //Call<Token> savePost(@Field("email") String email,
                          //@Field("password") String password);
 
-
-
 }
