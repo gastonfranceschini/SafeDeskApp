@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast.setMargin(50,50);
                     toast.show(); */
 
+
                     Toast.makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
                     Token token = response.body();
                     Global.userId = token.getUserId();

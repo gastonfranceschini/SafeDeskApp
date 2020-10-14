@@ -36,7 +36,6 @@ public class DiagnosticoActivity extends AppCompatActivity {
     //private <> temperatura;
     private TextView tempTxt;
     private SeekBar seekBar;
-    private String tempSygn;
 
     private Switch perdidaGusto;
     private Switch contactoCercano;
@@ -55,7 +54,6 @@ public class DiagnosticoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnostico2);
 
-        tempSygn = "&#176;";
         tempTxt = (TextView) findViewById(R.id.seekBarTxt);
         seekBar = (SeekBar) findViewById(R.id.seekBar2);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
