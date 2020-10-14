@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="contacto_cercano">Contacto Cercano</string>
+    <array name="listaprueba">Suresh Dasari, Rohini Alavala, Trishika Dasari, Praveen Alavala, Madav Sai, Hamsika Yemineni</array>
 </resources>

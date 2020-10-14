@@ -2,15 +2,20 @@ package com.ort.myapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.ort.myapplication.Interface.JsonPlaceholderApi;
+import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.Login;
-import com.ort.myapplication.Model.Post;
+import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
+import com.ort.myapplication.utils.ApiUtils;
+import com.ort.myapplication.utils.RetrofitClient;
 
 import java.util.List;
 
@@ -25,54 +30,58 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView myJsonTxtView;
+
+    private CardView autoDiagnostico;
+    private CardView reservaJornada;
+    private CardView misReservas;
+    private CardView codigoQR;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        CardView rep = (CardView) findViewById(R.id.cardView5);
+//        rep.setEnabled(false);
+//        rep.setCardBackgroundColor(979797);
 
-        myJsonTxtView = findViewById(R.id.jsonText);
-        //GET
-        //getPost();
+
+        autoDiagnostico = findViewById(R.id.cardView1);
+        reservaJornada = findViewById(R.id.cardView2);
+        misReservas = findViewById(R.id.cardView3);
+        codigoQR = findViewById(R.id.cardView4);
+
+        //onClickListeners
+        autoDiagnostico.setOnClickListener(this);
+        reservaJornada.setOnClickListener(this);
+        misReservas.setOnClickListener(this);
+        codigoQR.setOnClickListener(this);
     }
 
-    private void getPost(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-
-        Call<List<Post>> call = jsonPlaceholderApi.getPost();
-
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-
-                if(!response.isSuccessful()) {
-                       myJsonTxtView.setText("Respuesta no exitosa:" + response.code());
-                       return;
-                }
-
-                List<Post> postList = response.body();
-                for (Post post: postList) {
-                    String content = "";
-                    content += "userId: " + post.getUserId() + "\n";
-                    content += "id: " + post.getId() + "\n";
-                    content += "Title: " + post.getTitle() + "\n";
-                    content += "Body: " + post.getBody() + "\n\n";
-                    myJsonTxtView.append(content);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                myJsonTxtView.setText(t.getMessage());
-            }
-        });
+    @Override
+    public void onClick(View view) {
+        if (autoDiagnostico.equals(view)) {
+            accessMainApp(DiagnosticoActivity.class);
+        }else if(reservaJornada.equals(view)){
+            accessMainApp(ReservaTurno.class);
+        }else if(misReservas.equals(view)){
+            accessMainApp(MisReservasActivity.class);
+        }else if(codigoQR.equals(view)){
+            accessMainApp(GeneracionQRActivity.class);
+        }
     }
+
+    private void accessMainApp(Class activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+    }
+
 }
