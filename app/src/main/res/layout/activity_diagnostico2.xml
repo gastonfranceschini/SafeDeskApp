@@ -205,16 +205,6 @@
                 android:layout_toEndOf="@+id/textView2"
                 android:max="45"
                 android:progress="37" />
-            <SeekBar
-                android:id="@+id/seekBar2"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="192dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="185dp"
-                android:layout_marginTop="45dp"
-                android:layout_marginEnd="12dp"
-                android:max="10"
-                android:progress="3" />
 
         </RelativeLayout>
 
