@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView reservaJornada;
     private CardView misReservas;
     private CardView codigoQR;
+    private CardView logout;
 
 
     @Override
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
         codigoQR = findViewById(R.id.cardView4);
+        logout = findViewById(R.id.cardView7);
 
         //onClickListeners
         autoDiagnostico.setOnClickListener(this);
         reservaJornada.setOnClickListener(this);
         misReservas.setOnClickListener(this);
         codigoQR.setOnClickListener(this);
+        logout.setOnClickListener(this);
     }
 
 
@@ -72,7 +76,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             accessMainApp(MisReservasActivity.class);
         }else if(codigoQR.equals(view)){
             accessMainApp(GeneracionQRActivity.class);
+        }else if(logout.equals(view)){
+            logout();
         }
+    }
+
+    private void logout() {
+
     }
 
     private void accessMainApp(Class activity) {

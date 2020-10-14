@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,162 +8,203 @@
     tools:context=".ReservaTurno">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#fff"
-            android:fontFamily="@font/armata"
-            android:textStyle="bold"
-            android:text="Reservar Turno"/>
-
-    </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvReservar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="18dp"
-            app:cardCornerRadius="16dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp">
-
-                <EditText
-                    android:id="@+id/editTextFecha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="7dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="Elegí la Fecha"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:textSize="9pt" />
-
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="75dp"
-                    android:layout_height="65dp"
-                    app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
-
-            </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp">
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="100dp"
-                android:text="Usuario"
-                android:textColor="#000"
-                android:textSize="8pt" />
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:background="@drawable/spinner_background"
+                android:id="@+id/txtnombre"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="130dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="210dp"
-                android:text="Edificio"
-                android:textColor="#000"
-                android:textSize="8pt" />
-
-            <Spinner
-                android:id="@+id/spinner2"
-                android:background="@drawable/spinner_background"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="240dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="320dp"
-                android:textSize="8pt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Piso"
-                android:textColor="#000"/>
-
-            <Spinner
-                android:id="@+id/spinner3"
-                android:background="@drawable/spinner_background"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_below="@+id/spinner2"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="350dp"
-                android:layout_marginEnd="30dp" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="430dp"
-                android:text="Hora"
-                android:textColor="#000"
-                android:textSize="8pt" />
-
-            <Spinner
-                android:id="@+id/spinner4"
-                android:background="@drawable/spinner_background"
-                android:layout_width="335dp"
-                android:layout_height="55dp"
-                android:layout_below="@+id/spinner2"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="460dp"
-                android:layout_marginEnd="100dp" />
-
-            <Button
-                android:id="@+id/btn_reserva"
-                android:layout_width="128dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="260dp"
-                android:background="@drawable/button_gradient"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="confirmar"
-                android:textColor="#fff" />
+                android:gravity="center"
+                android:text="Reserva Turno"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvReservar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="18dp"
+                app:cardCornerRadius="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="0dp">
+
+                    <EditText
+                        android:id="@+id/editTextFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:hint="Elegí la Fecha"
+                        android:inputType="textPersonName"
+                        android:text=""
+                        android:textSize="9pt"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.617"
+                        app:layout_constraintStart_toEndOf="@+id/imageButton"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Usuario"
+                        android:textColor="#000"
+                        android:textSize="8pt"
+                        app:layout_constraintBottom_toTopOf="@+id/spinner1"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="65dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/spinner_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextFecha" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Edificio"
+                        android:textColor="#000"
+                        android:textSize="8pt"
+                        app:layout_constraintBottom_toTopOf="@+id/spinner2"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="55dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/spinner_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="20dp"
+                        android:text="Piso"
+                        android:textColor="#000"
+                        android:textSize="8pt"
+                        app:layout_constraintBottom_toTopOf="@+id/spinner3"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/spinner3"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="55dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/spinner_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="20dp"
+                        android:text="Hora"
+                        android:textColor="#000"
+                        android:textSize="8pt"
+                        app:layout_constraintBottom_toTopOf="@+id/spinner4"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/spinner4"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="55dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/spinner_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+
+                    <Button
+                        android:id="@+id/btn_reserva"
+                        android:layout_width="128dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/button_gradient"
+                        android:fontFamily="@font/armata"
+                        android:text="confirmar"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
