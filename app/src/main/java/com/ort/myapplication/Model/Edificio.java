@@ -2,7 +2,7 @@ package com.ort.myapplication.Model;
 
 public class Edificio {
 
-    private int Id;
+    private int eID;
     private String Nombre;
     private String Direccion;
     /*private String lat;
@@ -21,7 +21,7 @@ public class Edificio {
     }*/
 
     public int getId() {
-        return Id;
+        return eID;
     }
 
     public String getNombre() {

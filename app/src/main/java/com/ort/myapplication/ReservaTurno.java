@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.GetHora;
@@ -45,6 +46,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private int dia, mes, ano;
     private String fechaSelected;
 
+    private List<Piso> pisos;
+    private List<Hora> horas;
+    private List<Edificio> edificios;
+    private List<UsuarioDep> usuarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,15 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
 
+        List<String> selFecha = new ArrayList<String>();
+        selFecha.add("Selecciona Fecha");
+        llenarSpinnersString(edificiosDP, selFecha);
+
+        List<String> selEdi = new ArrayList<String>();
+        selEdi.add("Selecciona Edificio");
+        llenarSpinnersString(pisosDP, selEdi);
+        llenarSpinnersString(horasDP, selEdi);
+
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,25 +91,30 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+
         edificiosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //configPisosSpinner(edificiosDP.getSelectedItemId());
-                //configHorasSpinner(edificiosDP.getSelectedItemId());
+                if (edificios != null) {
+                    configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                    configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                //configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                //configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
             }
         });
 
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String pisoSelected;
-                pisoSelected = pisosDP.getSelectedItem().toString();
-                System.out.println(pisoSelected);
+                //String pisoSelected;
+                //pisoSelected = pisosDP.getSelectedItem().toString();
+                //System.out.println(pisoSelected);
             }
 
             @Override
@@ -106,9 +126,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String horaSelected;
-                horaSelected = horasDP.getSelectedItem().toString();
-                System.out.println(horaSelected);
+                //String horaSelected;
+                //horaSelected = horasDP.getSelectedItem().toString();
+                //System.out.println(horaSelected);
             }
 
             @Override
@@ -153,7 +173,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<List<Piso>>() {
             @Override
             public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
-                List<Piso> pisos = response.body();
+                pisos = response.body();
                 List<String> pisosList = new ArrayList<String>();
                 for (Piso p : pisos) {
                     pisosList.add(p.getNombre());
@@ -176,7 +196,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<List<Hora>>() {
             @Override
             public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
-                List<Hora> horas = response.body();
+                horas = response.body();
                 List<String> horasList = new ArrayList<String>();
                 for (Hora h : horas) {
                     horasList.add(h.getHora());
@@ -192,7 +212,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     }
 
     private void configEdificiosSpinner(String fechaParam){
-            List<String> edificios = new ArrayList<String>();
 
             GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
             Call<List<Edificio>> call = getEdificios.getEdificios(fechaParam);
@@ -200,7 +219,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             call.enqueue(new Callback<List<Edificio>>() {
                 @Override
                 public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
-                    List<Edificio> edificios = response.body();
+                    edificios = response.body();
                     List<String> edificiosList = new ArrayList<String>();
                     for (Edificio e : edificios) {
                         edificiosList.add(e.getNombre() + " - " + e.getDireccion());
@@ -223,7 +242,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<List<UsuarioDep>>() {
             @Override
             public void onResponse(Call<List<UsuarioDep>> call, Response<List<UsuarioDep>> response) {
-                List<UsuarioDep> usuarios = response.body();
+                usuarios = response.body();
                 List<String> usuariosList = new ArrayList<String>();
                 for(UsuarioDep u : usuarios){
                     usuariosList.add(u.getNombre());

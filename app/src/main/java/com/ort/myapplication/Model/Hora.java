@@ -1,10 +1,14 @@
 package com.ort.myapplication.Model;
 
 public class Hora {
-
-    private String hora;
+    private int id;
+    private String horario;
 
     public String getHora() {
-        return hora;
+        return horario;
+    }
+
+    public int getId() {
+        return id;
     }
 }
