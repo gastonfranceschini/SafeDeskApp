@@ -21,6 +21,7 @@ import com.ort.myapplication.Interface.UsuariosDependiente;
 import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Hora;
 import com.ort.myapplication.Model.Piso;
+import com.ort.myapplication.Model.Turnos;
 import com.ort.myapplication.Model.UsuarioDep;
 import com.ort.myapplication.utils.ApiUtils;
 
@@ -68,21 +69,19 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
 
-        List<String> selFecha = new ArrayList<String>();
+        /*List<String> selFecha = new ArrayList<String>();
         selFecha.add("Selecciona Fecha");
         llenarSpinnersString(edificiosDP, selFecha);
 
         List<String> selEdi = new ArrayList<String>();
         selEdi.add("Selecciona Edificio");
         llenarSpinnersString(pisosDP, selEdi);
-        llenarSpinnersString(horasDP, selEdi);
+        llenarSpinnersString(horasDP, selEdi);*/
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Object usuarioSelected;
-                usuarioSelected = usuariosDP.getSelectedItem();
-                System.out.println(usuarioSelected.toString());
+
             }
 
             @Override
@@ -104,17 +103,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
-                //configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+
             }
         });
 
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String pisoSelected;
-                //pisoSelected = pisosDP.getSelectedItem().toString();
-                //System.out.println(pisoSelected);
+
             }
 
             @Override
@@ -126,9 +122,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String horaSelected;
-                //horaSelected = horasDP.getSelectedItem().toString();
-                //System.out.println(horaSelected);
+
             }
 
             @Override
@@ -175,6 +169,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
                 pisos = response.body();
                 List<String> pisosList = new ArrayList<String>();
+                pisosList.add("Selecciona el piso");
                 for (Piso p : pisos) {
                     pisosList.add(p.getNombre());
                 }
@@ -198,6 +193,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
                 horas = response.body();
                 List<String> horasList = new ArrayList<String>();
+                horasList.add("Selecciona la hora");
                 for (Hora h : horas) {
                     horasList.add(h.getHora());
                 }
@@ -221,6 +217,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
                     edificios = response.body();
                     List<String> edificiosList = new ArrayList<String>();
+                    edificiosList.add("Selecciona el edificio");
                     for (Edificio e : edificios) {
                         edificiosList.add(e.getNombre() + " - " + e.getDireccion());
                     }
@@ -244,6 +241,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<UsuarioDep>> call, Response<List<UsuarioDep>> response) {
                 usuarios = response.body();
                 List<String> usuariosList = new ArrayList<String>();
+                usuariosList.add("Selecciona el usuario");
                 for(UsuarioDep u : usuarios){
                     usuariosList.add(u.getNombre());
                 }

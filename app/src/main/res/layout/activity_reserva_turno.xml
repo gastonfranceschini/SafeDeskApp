@@ -64,6 +64,7 @@
                         android:enabled="false"
                         android:hint="Elegí la Fecha"
                         android:inputType="textPersonName"
+                        android:textAlignment="center"
                         android:text=""
                         android:textSize="9pt"
                         android:layout_marginTop="25dp"
