@@ -69,14 +69,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
 
-        /*List<String> selFecha = new ArrayList<String>();
+        List<String> selFecha = new ArrayList<String>();
         selFecha.add("Selecciona Fecha");
         llenarSpinnersString(edificiosDP, selFecha);
 
         List<String> selEdi = new ArrayList<String>();
         selEdi.add("Selecciona Edificio");
         llenarSpinnersString(pisosDP, selEdi);
-        llenarSpinnersString(horasDP, selEdi);*/
+        llenarSpinnersString(horasDP, selEdi);
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -153,6 +153,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 }
             }
                     ,ano, mes, dia);
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() + 10);
             datePicker.show();
         }else{
 
@@ -169,7 +171,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
                 pisos = response.body();
                 List<String> pisosList = new ArrayList<String>();
-                pisosList.add("Selecciona el piso");
                 for (Piso p : pisos) {
                     pisosList.add(p.getNombre());
                 }
@@ -193,7 +194,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
                 horas = response.body();
                 List<String> horasList = new ArrayList<String>();
-                horasList.add("Selecciona la hora");
                 for (Hora h : horas) {
                     horasList.add(h.getHora());
                 }
@@ -217,7 +217,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
                     edificios = response.body();
                     List<String> edificiosList = new ArrayList<String>();
-                    edificiosList.add("Selecciona el edificio");
                     for (Edificio e : edificios) {
                         edificiosList.add(e.getNombre() + " - " + e.getDireccion());
                     }
@@ -241,7 +240,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<UsuarioDep>> call, Response<List<UsuarioDep>> response) {
                 usuarios = response.body();
                 List<String> usuariosList = new ArrayList<String>();
-                usuariosList.add("Selecciona el usuario");
                 for(UsuarioDep u : usuarios){
                     usuariosList.add(u.getNombre());
                 }
