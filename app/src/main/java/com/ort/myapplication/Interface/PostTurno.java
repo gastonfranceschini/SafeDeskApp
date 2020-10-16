@@ -1,15 +1,15 @@
 package com.ort.myapplication.Interface;
 
 import com.ort.myapplication.Model.Diagnostico;
-import com.ort.myapplication.Model.Token;
+import com.ort.myapplication.Model.TurnoBody;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface APIDiagnostico {
+public interface PostTurno {
 
-    @POST("api/diagnostico")
-    Call<Diagnostico> saveDiagnostico(@Body Diagnostico diagnostico);
+    @POST("api/turnos")
+    Call<TurnoBody> saveTurno(@Body TurnoBody turno);
 
 }
