@@ -15,6 +15,7 @@ import com.ort.myapplication.Interface.Login;
 import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Token;
 import com.ort.myapplication.utils.ApiUtils;
+import com.ort.myapplication.utils.Global;
 import com.ort.myapplication.utils.RetrofitClient;
 
 import java.util.List;
@@ -38,22 +39,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView reservaJornada;
     private CardView misReservas;
     private CardView codigoQR;
+    private CardView reportes;
+    private CardView administracion;
     private CardView cerrarSesion;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//      CardView rep = (CardView) findViewById(R.id.cardView5);
-//      rep.setEnabled(false);
-//      rep.setCardBackgroundColor(979797);
-
+        //setEnableCardViews(Global.token.getIdTipoDeUsuario());
+        setEnableCardViews(1);
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
         codigoQR = findViewById(R.id.cardView4);
+        reportes = (CardView) findViewById(R.id.cardView5);
+        administracion = (CardView) findViewById(R.id.cardView6);
         cerrarSesion = findViewById(R.id.cardView7);
 
         //onClickListeners
@@ -78,6 +80,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(cerrarSesion.equals(view)){
             accessMainApp(LoginActivity.class);
             finish();
+        }
+    }
+
+    private void setEnableCardViews(int idTipoUsuario){
+        CardView resJor = (CardView) findViewById(R.id.cardView2);
+        CardView reser = (CardView) findViewById(R.id.cardView3);
+        CardView rep = (CardView) findViewById(R.id.cardView5);
+        CardView admin = (CardView) findViewById(R.id.cardView6);
+        switch(idTipoUsuario){
+            case 1:
+                rep.setEnabled(false);
+                rep.setCardBackgroundColor(979797);
+                admin.setEnabled(false);
+                admin.setCardBackgroundColor(979797);
+                break;
+
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+            case 5:
+                rep.setEnabled(false);
+                rep.setCardBackgroundColor(979797);
+                admin.setEnabled(false);
+                admin.setCardBackgroundColor(979797);
+                resJor.setEnabled(false);
+                resJor.setCardBackgroundColor(979797);
+                reser.setEnabled(false);
+                reser.setCardBackgroundColor(979797);
+                break;
+
+            default:
+                break;
         }
     }
 
