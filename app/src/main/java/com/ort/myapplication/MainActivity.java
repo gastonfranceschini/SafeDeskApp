@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setEnableCardViews(Global.token.getIdTipoDeUsuario());
-        setEnableCardViews(5);
+        setEnableCardViews(1);
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
