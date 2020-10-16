@@ -3,6 +3,7 @@ package com.ort.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,16 +15,22 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ort.myapplication.Interface.APIDiagnostico;
 import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.GetHora;
 import com.ort.myapplication.Interface.GetPisos;
+import com.ort.myapplication.Interface.PostTurno;
 import com.ort.myapplication.Interface.UsuariosDependiente;
+import com.ort.myapplication.Model.Diagnostico;
 import com.ort.myapplication.Model.Edificio;
 import com.ort.myapplication.Model.Hora;
 import com.ort.myapplication.Model.Piso;
-import com.ort.myapplication.Model.Turnos;
+import com.ort.myapplication.Model.TurnoBody;
 import com.ort.myapplication.Model.UsuarioDep;
 import com.ort.myapplication.utils.ApiUtils;
+import com.ort.myapplication.utils.Global;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -147,7 +154,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     //String currentDateandTime = sdf.format(new Date());
                     //String fecha = sdf.format(new Date(year, month, day));
-                    fechaSelected = year + "-" + month + "-" + day;
+                    fechaSelected = year + "-" + (month +1) + "-" + day;
                     //Date fecha = new Date(year, month, day);
                     configEdificiosSpinner(fechaSelected);
                 }
@@ -156,9 +163,59 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() + 10);
             datePicker.show();
-        }else{
+        }
+        else if(reserva.equals(view)) {
+
+            if (edificios != null && usuarios != null && pisos != null && horas != null) {
+                saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
+                        fechaSelected, horas.get((int) horasDP.getSelectedItemId()).getId(),
+                        pisos.get((int) pisosDP.getSelectedItemId()).getId(),
+                        edificios.get((int) edificiosDP.getSelectedItemId()).getId()));
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Faltan seleccionar parametros!",Toast. LENGTH_SHORT).show();
+            }
 
         }
+        else{
+
+        }
+    }
+
+    private void accessMainApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void saveTurno(TurnoBody turnoNuevo){
+
+        PostTurno postTurno = (PostTurno) ApiUtils.getAPI(PostTurno.class);
+
+        Call<TurnoBody> call = postTurno.saveTurno(turnoNuevo);
+        call.enqueue(new Callback<TurnoBody>()  {
+            @Override
+            public void onResponse(Call<TurnoBody> call, Response<TurnoBody> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
+                    accessMainApp();
+                }
+                else
+                {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TurnoBody> call, Throwable t) {
+                Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void configPisosSpinner(long idEdificio){

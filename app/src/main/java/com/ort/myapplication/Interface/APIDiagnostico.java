@@ -9,6 +9,7 @@ import retrofit2.http.POST;
 
 public interface APIDiagnostico {
 
+
     @POST("api/diagnosticos")
     Call<Diagnostico> saveDiagnostico(@Body Diagnostico diagnostico);
 
