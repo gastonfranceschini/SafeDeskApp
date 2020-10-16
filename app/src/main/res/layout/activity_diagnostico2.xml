@@ -203,6 +203,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="45dp"
                 android:layout_toEndOf="@+id/textView2"
+                android:min="34"
                 android:max="45"
                 android:progress="37" />
 
