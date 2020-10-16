@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(idTipoUsuario){
             case 1:
                 rep.setEnabled(false);
-                rep.setCardBackgroundColor(979797);
+                rep.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 admin.setEnabled(false);
-                admin.setCardBackgroundColor(979797);
+                admin.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 break;
 
             case 2:
@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 reser.setEnabled(false);
                 reser.setCardBackgroundColor(979797);
                 break;
-
             default:
                 break;
         }

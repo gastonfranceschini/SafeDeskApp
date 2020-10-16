@@ -82,7 +82,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Perdida del gusto"
+                android:text="Pérdida del gusto"
                 android:textSize="20dp" />
 
             <Switch
@@ -106,7 +106,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Cancer"
+                android:text="Cáncer"
                 android:textSize="20dp" />
 
             <Switch
@@ -142,7 +142,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Perdida del olfato"
+                android:text="Pérdida del olfato"
                 android:textSize="20dp" />
 
             <Switch
@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/switch8"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="25dp"
                 android:background="@drawable/button_gradient"
                 android:fontFamily="@font/armata"
