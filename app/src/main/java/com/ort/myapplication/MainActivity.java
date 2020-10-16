@@ -33,7 +33,8 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView myJsonTxtView;
+    private TextView nombre;
+    private TextView email;
 
     private CardView autoDiagnostico;
     private CardView reservaJornada;
@@ -48,7 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setEnableCardViews(Global.token.getIdTipoDeUsuario());
-        setEnableCardViews(5);
+        setEnableCardViews(1);
+        if(!isAutoDiagSubmited()){
+            CardView resJor = (CardView) findViewById(R.id.cardView2);
+            resJor.setEnabled(false);
+            resJor.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
+        }
+        nombre = findViewById(R.id.txtnombre);
+        nombre.setText(Global.token.getNombre());
+        email = findViewById(R.id.txtemail);
+        email.setText(Global.token.getEmail());
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
@@ -86,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setEnableCardViews(int idTipoUsuario){
         CardView resJor = (CardView) findViewById(R.id.cardView2);
         CardView reser = (CardView) findViewById(R.id.cardView3);
+        CardView codigoQR = (CardView) findViewById(R.id.cardView4);
         CardView rep = (CardView) findViewById(R.id.cardView5);
         CardView admin = (CardView) findViewById(R.id.cardView6);
         switch(idTipoUsuario){
@@ -97,10 +108,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case 2:
-                break;
+
             case 3:
-                break;
+
             case 4:
+                codigoQR.setEnabled(false);
+                codigoQR.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 break;
 
             case 5:
@@ -116,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    private boolean isAutoDiagSubmited(){
+        //aca se llama al back y se consulta por el autodiagnostico del usuario
+        return true;
     }
 
     private void accessMainApp(Class activity) {
