@@ -2,42 +2,42 @@ package com.ort.myapplication.Model;
 
 public class Diagnostico {
 
-    private float temperatura;
-    private boolean perdioGusto;
-    private boolean contactoCercano;
-    private boolean estoyEmbarazada;
-    private boolean cancer;
-    private boolean diabetes;
-    private boolean hepatica;
-    private boolean perdioOlfato;
-    private boolean dolorGarganta;
-    private boolean dificultadRespiratoria;
+    private float Temperatura;
+    private boolean PerdioGusto;
+    private boolean ContactoCercano;
+    private boolean EstoyEmbarazada;
+    private boolean Cancer;
+    private boolean Diabetes;
+    private boolean Hepatica;
+    private boolean PerdioOlfato;
+    private boolean DolorGarganta;
+    private boolean DificultadRespiratoria;
 
     public Diagnostico(){}
 
     public Diagnostico(float temp, boolean perdioGusto, boolean contacto, boolean estoyEmbarazada,
                        boolean cancer, boolean diabetes, boolean hepatica, boolean perdioOlfato,
                        boolean dolorGarganta, boolean dificultadRespiratoria){
-        this.temperatura = temp;
-        this.perdioGusto = perdioGusto;
-        this.contactoCercano = contacto;
-        this.estoyEmbarazada = estoyEmbarazada;
-        this.cancer = cancer;
-        this.diabetes = diabetes;
-        this.hepatica = hepatica;
-        this.perdioOlfato = perdioOlfato;
-        this.dolorGarganta = dolorGarganta;
-        this.dificultadRespiratoria = dificultadRespiratoria;
+        this.Temperatura = temp;
+        this.PerdioGusto = perdioGusto;
+        this.ContactoCercano = contacto;
+        this.EstoyEmbarazada = estoyEmbarazada;
+        this.Cancer = cancer;
+        this.Diabetes = diabetes;
+        this.Hepatica = hepatica;
+        this.PerdioOlfato = perdioOlfato;
+        this.DolorGarganta = dolorGarganta;
+        this.DificultadRespiratoria = dificultadRespiratoria;
     }
 
-    public float getTemperatura(){ return temperatura; }
-    public boolean isPerdioGusto() { return perdioGusto; }
-    public boolean getContactoCercano() { return contactoCercano; }
-    public boolean isEstoyEmbarazada() { return estoyEmbarazada; }
-    public boolean isCancer() { return cancer; }
-    public boolean isDiabetes() { return diabetes; }
-    public boolean isHepatica() { return hepatica; }
-    public boolean isPerdioOlfato() { return perdioOlfato; }
-    public boolean isDolorGarganta() { return dolorGarganta; }
-    public boolean isDificultadRespiratoria() { return dificultadRespiratoria; }
+    public float getTemperatura(){ return Temperatura; }
+    public boolean isPerdioGusto() { return PerdioGusto; }
+    public boolean getContactoCercano() { return ContactoCercano; }
+    public boolean isEstoyEmbarazada() { return EstoyEmbarazada; }
+    public boolean isCancer() { return Cancer; }
+    public boolean isDiabetes() { return Diabetes; }
+    public boolean isHepatica() { return Hepatica; }
+    public boolean isPerdioOlfato() { return PerdioOlfato; }
+    public boolean isDolorGarganta() { return DolorGarganta; }
+    public boolean isDificultadRespiratoria() { return DificultadRespiratoria; }
 }
