@@ -29,7 +29,10 @@ import com.ort.myapplication.utils.ApiUtils;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +48,7 @@ public class MisReservasActivity extends AppCompatActivity {
     private String[] users1 = {"Suresh Dasari", "Rohini Alavala", "Trishika Dasari", "Praveen Alavala", "Madav Sai", "Hamsika Yemineni"};
     private String[] users2 = {"Maria Jose", "Alan Muskat", "Ariel Sapir", "Praveen Alavala", "Madav Sai", "Hamsika Yemineni"};
     private List<Turnos> ListaTurnos;
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private void getTurnos(){
 
@@ -64,6 +68,7 @@ public class MisReservasActivity extends AppCompatActivity {
 
                     for(Turnos t : ListaTurnos){
                         ListaTurnosS.add(t.getFechaTurno() + " - " + t.getEdificio());
+
                     }
                     LlenarTurnos(ListaTurnosS);
                 }
@@ -100,6 +105,9 @@ public class MisReservasActivity extends AppCompatActivity {
                     List<String> ListaTurnosHS = new ArrayList<String>();
                     for(Turnos t : ListaTurnosH){
                         ListaTurnosHS.add(t.getFechaTurno() + " - " + t.getEdificio());
+
+
+
                     }
                     LlenarTurnosHistoricos(ListaTurnosHS);
                 }
