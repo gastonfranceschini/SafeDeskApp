@@ -10,163 +10,155 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp">
 
             <TextView
-                android:id="@+id/txt_name"
-                android:text="Reservas Pepito Perez"
-                android:textSize="22sp"
-                android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/txt_email"
-                android:text="example@gmail.com"
-                android:layout_marginTop="6dp"
-                android:layout_below="@+id/txt_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtnombre"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="#fff"/>
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/armata"
+                android:gravity="center"
+                android:text="Mis Reservas"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_width="62dp"
-                android:layout_height="62dp"/>
+        </LinearLayout>
 
-        </RelativeLayout>
-
-        <GridLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="579dp"
-            android:layout_marginTop="18dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="1"
-            android:columnOrderPreserved="false"
-            android:padding="8dp"
-            android:rowCount="2">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewReserva1"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewReserva1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_margin="12dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="6dp">
 
-                    <TextView
-                        android:id="@+id/txt_name2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reservas Activas"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
-
-                    <ListView
-                        android:id="@+id/userlist1"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/listaprueba"
-                        android:padding="20dp"
-                        android:scrollbars="vertical" />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_name2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Activas"
+                            android:fontFamily="@font/armata"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
 
-            </androidx.cardview.widget.CardView>
+                        <ListView
+                            android:id="@+id/userlist1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:entries="@array/listaprueba"
+                            android:layout_marginTop="15dp"
+                            android:padding="20dp"
+                            android:scrollbars="vertical" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewReserva2"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/reservasPasadas"
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewReserva2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_margin="12dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="6dp">
 
-                    <TextView
-                        android:id="@+id/txt_name3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reservas Pasadas"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
-
-                    <ListView
-                        android:id="@+id/userlist2"
+                    <LinearLayout
+                        android:id="@+id/reservasPasadas"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/listaprueba"
-                        android:padding="20dp"
-                        android:scrollbars="vertical" />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_name3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pasadas"
+                            android:fontFamily="@font/armata"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
 
-                <LinearLayout
-                    android:id="@+id/codigoQR"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                        <ListView
+                            android:id="@+id/userlist2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:entries="@array/listaprueba"
+                            android:layout_marginTop="15dp"
+                            android:padding="20dp"
+                            android:scrollbars="vertical" />
 
-                    <TextView
-                        android:id="@+id/txt_codigoQRTitulo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Código QR"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/txt_reservaElegida"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Example"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
+                    <LinearLayout
+                        android:id="@+id/codigoQR"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageviewQR"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="35dp"
-                        />
+                        <TextView
+                            android:id="@+id/txt_codigoQRTitulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Código QR"
+                            android:fontFamily="@font/armata"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_reservaElegida"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Example"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
 
-            </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageviewQR"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="35dp" />
 
+                    </LinearLayout>
 
-        </GridLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
