@@ -189,7 +189,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveTurno(TurnoBody turnoNuevo){
-
         PostTurno postTurno = (PostTurno) ApiUtils.getAPI(PostTurno.class);
 
         Call<TurnoBody> call = postTurno.saveTurno(turnoNuevo);
