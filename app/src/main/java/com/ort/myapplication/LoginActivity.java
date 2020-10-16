@@ -80,10 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show(); */
 
 
-                    Toast.makeText(getApplicationContext(),response.body().toString(),Toast. LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Bienvenido a Safe Desk!",Toast. LENGTH_SHORT).show();
                     Token token = response.body();
-                    Global.userId = token.getUserId();
-                    Global.token = token.getToken();
+                    Global.token = token;
+                    //Global.userId = token.getUserId();
+                    //Global.token = token.getToken();
                     accessMainApp();
                 }
                 else
