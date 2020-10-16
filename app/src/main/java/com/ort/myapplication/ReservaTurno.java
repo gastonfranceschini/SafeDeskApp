@@ -88,9 +88,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Object usuarioSelected;
-                usuarioSelected = usuariosDP.getSelectedItem();
-                System.out.println(usuarioSelected.toString());
+
             }
 
             @Override
@@ -112,17 +110,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
-                //configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+
             }
         });
 
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String pisoSelected;
-                //pisoSelected = pisosDP.getSelectedItem().toString();
-                //System.out.println(pisoSelected);
+
             }
 
             @Override
@@ -134,9 +129,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String horaSelected;
-                //horaSelected = horasDP.getSelectedItem().toString();
-                //System.out.println(horaSelected);
+
             }
 
             @Override
@@ -167,6 +160,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 }
             }
                     ,ano, mes, dia);
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() + 10);
             datePicker.show();
         }
         else if(reserva.equals(view)) {

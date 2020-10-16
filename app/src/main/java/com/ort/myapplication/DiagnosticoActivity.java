@@ -2,6 +2,7 @@ package com.ort.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,10 +34,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiagnosticoActivity extends AppCompatActivity {
 
-    //private <> temperatura;
     private TextView tempTxt;
     private SeekBar seekBar;
 
+    private float temperatura;
     private Switch perdidaGusto;
     private Switch contactoCercano;
     private Switch embarazada;
@@ -60,6 +61,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tempTxt.setText("" + progress + "\u2103");
+                temperatura = progress;
             }
 
             @Override
@@ -79,31 +81,29 @@ public class DiagnosticoActivity extends AppCompatActivity {
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //saveAutoDiagnostico();
+                saveAutoDiagnostico();
             }
         });
     }
 
     private void saveAutoDiagnostico(){
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        APIDiagnostico apiDiagnostico = retrofit.create(APIDiagnostico.class);*/
-
         APIDiagnostico apiDiagnostico = (APIDiagnostico) ApiUtils.getAPI(APIDiagnostico.class);
 
-        Call<Diagnostico> call = apiDiagnostico.saveDiagnostico(new Diagnostico());
+        Diagnostico diagnostico = new Diagnostico(temperatura, perdidaGusto.isChecked(), contactoCercano.isChecked(), embarazada.isChecked(),
+                cancer.isChecked(), diabetes.isChecked(), hepatitis.isChecked(), perdidaOlfato.isChecked(), dolorGarganta.isChecked(),
+                dificultadRespiratoria.isChecked());
+
+        Call<Diagnostico> call = apiDiagnostico.saveDiagnostico(diagnostico);
         call.enqueue(new Callback<Diagnostico>()  {
             @Override
             public void onResponse(Call<Diagnostico> call, Response<Diagnostico> response) {
                 if(response.isSuccessful()) {
-                    //response.code() == 200
+                    Toast.makeText(getApplicationContext(),"Guardado con exito",Toast. LENGTH_SHORT).show();
+                    accessMainApp();
                 }
                 else
                 {
-                    //response.code() == 422
+                    Toast.makeText(getApplicationContext(),"Error al guardar",Toast. LENGTH_SHORT).show();
                 }
             }
 
@@ -124,5 +124,10 @@ public class DiagnosticoActivity extends AppCompatActivity {
         perdidaOlfato = (Switch) findViewById(R.id.switch6);
         dolorGarganta = (Switch) findViewById(R.id.switch7);
         dificultadRespiratoria = (Switch) findViewById(R.id.switch8);
+    }
+
+    private void accessMainApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

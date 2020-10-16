@@ -52,6 +52,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/armata"
@@ -185,13 +186,11 @@
                 android:id="@+id/seekBarTxt"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/seekBar2"
                 android:layout_alignBottom="@+id/seekBar2"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="46dp"
-                android:layout_marginEnd="-47dp"
-                android:layout_marginBottom="-2dp"
                 android:layout_toEndOf="@+id/seekBar2"
                 android:text="37\u2103" />
 
@@ -200,9 +199,11 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="184dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="45dp"
                 android:layout_toEndOf="@+id/textView2"
+                android:min="34"
                 android:max="45"
                 android:progress="37" />
 

@@ -38,27 +38,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView reservaJornada;
     private CardView misReservas;
     private CardView codigoQR;
+    private CardView cerrarSesion;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        CardView rep = (CardView) findViewById(R.id.cardView5);
-//        rep.setEnabled(false);
-//        rep.setCardBackgroundColor(979797);
+//      CardView rep = (CardView) findViewById(R.id.cardView5);
+//      rep.setEnabled(false);
+//      rep.setCardBackgroundColor(979797);
 
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
         codigoQR = findViewById(R.id.cardView4);
+        cerrarSesion = findViewById(R.id.cardView7);
 
         //onClickListeners
         autoDiagnostico.setOnClickListener(this);
         reservaJornada.setOnClickListener(this);
         misReservas.setOnClickListener(this);
         codigoQR.setOnClickListener(this);
+        cerrarSesion.setOnClickListener(this);
     }
 
 
@@ -72,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             accessMainApp(MisReservasActivity.class);
         }else if(codigoQR.equals(view)){
             accessMainApp(GeneracionQRActivity.class);
+        }else if(cerrarSesion.equals(view)){
+            accessMainApp(LoginActivity.class);
+            finish();
         }
     }
 
