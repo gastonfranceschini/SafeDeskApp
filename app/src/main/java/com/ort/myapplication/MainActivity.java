@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.ort.myapplication.Interface.APIDiagnostico;
 import com.ort.myapplication.Interface.GetEdificios;
 import com.ort.myapplication.Interface.Login;
 import com.ort.myapplication.Model.Edificio;
@@ -50,16 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         //setEnableCardViews(Global.token.getIdTipoDeUsuario());
         setEnableCardViews(1);
-        if(!isAutoDiagSubmited()){
-            CardView resJor = (CardView) findViewById(R.id.cardView2);
-            resJor.setEnabled(false);
-            resJor.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
-        }
+        isAutoDiagSubmited(Global.token.getUserId());
+
+        //Textos / nombre-email
         nombre = findViewById(R.id.txtnombre);
         nombre.setText(Global.token.getNombre());
         email = findViewById(R.id.txtemail);
         email.setText(Global.token.getEmail());
-
+        //CardViews
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reportes = findViewById(R.id.cardView5);
         administracion = findViewById(R.id.cardView6);
         cerrarSesion = findViewById(R.id.cardView7);
-
         //onClickListeners
         autoDiagnostico.setOnClickListener(this);
         reservaJornada.setOnClickListener(this);
@@ -76,6 +74,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cerrarSesion.setOnClickListener(this);
     }
 
+
+    private void isAutoDiagSubmited(String id){
+        APIDiagnostico apiDiagnostico = (APIDiagnostico)ApiUtils.getAPI(APIDiagnostico.class);
+
+        Call<Boolean> call = apiDiagnostico.getDiagnosticoUsuario(id);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.body().booleanValue()){
+                    CardView resJor = (CardView) findViewById(R.id.cardView2);
+                    resJor.setEnabled(false);
+                    resJor.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
+                }else{
+                    CardView resJor = (CardView) findViewById(R.id.cardView2);
+                    resJor.setEnabled(true);
+                    resJor.setCardBackgroundColor(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {
