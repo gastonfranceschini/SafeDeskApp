@@ -76,14 +76,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
 
-        List<String> selFecha = new ArrayList<String>();
+       /*List<String> selFecha = new ArrayList<String>();
         selFecha.add("Selecciona Fecha");
         llenarSpinnersString(edificiosDP, selFecha);
 
         List<String> selEdi = new ArrayList<String>();
         selEdi.add("Selecciona Edificio");
         llenarSpinnersString(pisosDP, selEdi);
-        llenarSpinnersString(horasDP, selEdi);
+        llenarSpinnersString(horasDP, selEdi);*/
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -161,7 +161,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             }
                     ,ano, mes, dia);
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() + 10);
             datePicker.show();
         }
         else if(reserva.equals(view)) {
@@ -189,7 +188,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveTurno(TurnoBody turnoNuevo){
-
         PostTurno postTurno = (PostTurno) ApiUtils.getAPI(PostTurno.class);
 
         Call<TurnoBody> call = postTurno.saveTurno(turnoNuevo);

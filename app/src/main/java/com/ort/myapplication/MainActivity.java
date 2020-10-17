@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setEnableCardViews(Global.token.getIdTipoDeUsuario());
-        setEnableCardViews(1);
+        setEnableCardViews(5);
 
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
         codigoQR = findViewById(R.id.cardView4);
-        reportes = (CardView) findViewById(R.id.cardView5);
-        administracion = (CardView) findViewById(R.id.cardView6);
+        reportes = findViewById(R.id.cardView5);
+        administracion = findViewById(R.id.cardView6);
         cerrarSesion = findViewById(R.id.cardView7);
 
         //onClickListeners
@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(idTipoUsuario){
             case 1:
                 rep.setEnabled(false);
-                rep.setCardBackgroundColor(979797);
+                rep.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 admin.setEnabled(false);
-                admin.setCardBackgroundColor(979797);
+                admin.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 break;
 
             case 2:
@@ -105,15 +105,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case 5:
                 rep.setEnabled(false);
-                rep.setCardBackgroundColor(979797);
+                rep.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 admin.setEnabled(false);
-                admin.setCardBackgroundColor(979797);
+                admin.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 resJor.setEnabled(false);
-                resJor.setCardBackgroundColor(979797);
+                resJor.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 reser.setEnabled(false);
-                reser.setCardBackgroundColor(979797);
+                reser.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
                 break;
-
             default:
                 break;
         }
