@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
     defaultConfig {
-        applicationId "com.ort.myapplication"
+        applicationId "com.ort.SafeDesk"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
@@ -31,5 +31,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
-
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
