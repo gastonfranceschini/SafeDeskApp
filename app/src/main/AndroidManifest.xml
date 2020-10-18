@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ort.myapplication">
+    package="com.ort.SafeDesk">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReservaTurno"></activity>
+        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".ReservaTurno" />
         <activity android:name=".DiagnosticoActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MisReservasActivity" />
