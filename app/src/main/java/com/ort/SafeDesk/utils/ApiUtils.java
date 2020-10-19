@@ -16,6 +16,6 @@ public class ApiUtils {
     }
 
     public static Object getAPISinToken(Class IClass) {
-        return RetrofitClient.getClient(BASE_URL).create(IClass);
+        return RetrofitClient.getClientSinToken(BASE_URL).create(IClass);
     }
 }
