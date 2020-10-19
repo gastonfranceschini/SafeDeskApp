@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView reportes;
     private CardView administracion;
     private CardView cerrarSesion;
+    private TextView nombre;
+    private TextView email;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reportes = findViewById(R.id.cardView5);
         administracion = findViewById(R.id.cardView6);
         cerrarSesion = findViewById(R.id.cardView7);
+        nombre = findViewById(R.id.txtnombre);
+        email = findViewById(R.id.txtemail);
+        nombre.setText(Global.token.getNombre());
+        email.setText(Global.token.getEmail());
 
         setEnableCardViews(Global.token.getIdTipoDeUsuario());
 

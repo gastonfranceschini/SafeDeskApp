@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout password;
     //private TextView myJsonTxtView;
     private SettingPreferences settingPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,15 @@ public class LoginActivity extends AppCompatActivity {
     public void sendPost() {
 
         Login Login = (Login) ApiUtils.getAPI(Login.class);
+
+        /* Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://safedesk.apiexperta.com.ar")
+                        //.baseUrl("https://10.0.2.2:3000/%22)
+                        // .baseUrl("http://192.168.0.21:3000/%22)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+        Login Login = retrofit.create(Login.class);*/
 
         EditText inputUser = username.getEditText();
         EditText inputPass = password.getEditText();
