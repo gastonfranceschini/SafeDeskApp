@@ -2,6 +2,7 @@ package com.ort.SafeDesk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ort.SafeDesk.Interface.GetEdificios;
@@ -47,6 +49,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private ImageButton imageButton;
     private Button reserva;
     private EditText fecha;
+    private TextView cupoE;
+    private TextView cupoP;
+    private TextView cupoH;
     private int dia, mes, ano;
     private String fechaSelected;
 
@@ -61,6 +66,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_reserva_turno);
 
         fecha = findViewById(R.id.editTextFecha);
+        cupoE = findViewById(R.id.textView8);
+        cupoP = findViewById(R.id.textView9);
+        cupoH = findViewById(R.id.textView10);
         imageButton = findViewById(R.id.imageButton);
         reserva = findViewById(R.id.btn_reserva);
         usuariosDP = findViewById(R.id.spinner1);
@@ -72,14 +80,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
 
-       /*List<String> selFecha = new ArrayList<String>();
+       List<String> selFecha = new ArrayList<String>();
         selFecha.add("Selecciona Fecha");
         llenarSpinnersString(edificiosDP, selFecha);
 
         List<String> selEdi = new ArrayList<String>();
         selEdi.add("Selecciona Edificio");
         llenarSpinnersString(pisosDP, selEdi);
-        llenarSpinnersString(horasDP, selEdi);*/
+        llenarSpinnersString(horasDP, selEdi);
 
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,11 +104,15 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
 
         edificiosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (edificios != null) {
                     configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
                     configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                    setCuposView(cupoE);
+                    //cupoE.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
+
                 }
             }
 
@@ -111,8 +123,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
 
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //setCuposView(cupoP);
+                //cupoP.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
 
             }
 
@@ -123,8 +138,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
 
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //setCuposView(cupoH);
+                //cupoH.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
 
             }
 
@@ -133,6 +151,17 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setCuposView(TextView view){
+        if(cupoE.equals(view)){
+            cupoE.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
+        }else if(cupoP.equals(view)){
+            cupoP.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
+        }else if(cupoH.equals(view)){
+            cupoH.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
+        }
     }
 
     @Override

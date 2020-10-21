@@ -4,7 +4,10 @@ public class Piso {
 
     private String Nombre;
     private int Numero;
+    private int Cupo;
     private int pID;
+
+    public int getCupo() { return Cupo; }
 
     public int getNumero() {
         return Numero;
