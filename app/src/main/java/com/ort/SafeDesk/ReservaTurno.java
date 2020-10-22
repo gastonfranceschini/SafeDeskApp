@@ -252,9 +252,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 pisos = response.body();
                 List<String> pisosList = new ArrayList<String>();
                 for (Piso p : pisos) {
-                    if(p.getCupo() > 0){
-                        pisosList.add(p.getNombre());
-                    }
+                    pisosList.add(p.getNombre());
                 }
                 llenarSpinnersString(pisosDP, pisosList);
             }
@@ -277,9 +275,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 horas = response.body();
                 List<String> horasList = new ArrayList<String>();
                 for (Hora h : horas) {
-                    if(h.getCupo() > 0){
-                        horasList.add(h.getHora());
-                    }
+                    horasList.add(h.getHora());
                 }
                 llenarSpinnersString(horasDP, horasList);
             }
@@ -302,9 +298,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                     edificios = response.body();
                     List<String> edificiosList = new ArrayList<String>();
                     for (Edificio e : edificios) {
-                        if(e.getCupo() > 0){
-                            edificiosList.add(e.getNombre() + " - " + e.getDireccion());
-                        }
+                        edificiosList.add(e.getNombre() + " - " + e.getDireccion());
                     }
                     llenarSpinnersString(edificiosDP, edificiosList);
                 }
