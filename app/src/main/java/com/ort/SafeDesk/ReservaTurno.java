@@ -111,7 +111,6 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                     configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
                     configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
                     setCuposView(cupoE);
-                    //cupoE.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
 
                 }
             }
@@ -123,12 +122,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
 
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //setCuposView(cupoP);
-                //cupoP.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
-
+                setCuposView(cupoP);
             }
 
             @Override
@@ -138,12 +134,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
 
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //setCuposView(cupoH);
-                //cupoH.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
-
+                setCuposView(cupoH);
             }
 
             @Override
@@ -157,9 +150,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private void setCuposView(TextView view){
         if(cupoE.equals(view)){
             view.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
-        }else if(cupoP.equals(view)){
+        }else if(cupoP.equals(view) && pisos != null){
             view.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
-        }else if(cupoH.equals(view)){
+        }else if(cupoH.equals(view) && horas != null){
             view.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
         }
     }
