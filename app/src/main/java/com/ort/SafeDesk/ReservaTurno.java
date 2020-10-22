@@ -156,11 +156,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("SetTextI18n")
     private void setCuposView(TextView view){
         if(cupoE.equals(view)){
-            cupoE.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
+            view.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
         }else if(cupoP.equals(view)){
-            cupoP.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
+            view.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
         }else if(cupoH.equals(view)){
-            cupoH.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
+            view.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
         }
     }
 
@@ -252,7 +252,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 pisos = response.body();
                 List<String> pisosList = new ArrayList<String>();
                 for (Piso p : pisos) {
-                    pisosList.add(p.getNombre());
+                    if(p.getCupo() > 0){
+                        pisosList.add(p.getNombre());
+                    }
                 }
                 llenarSpinnersString(pisosDP, pisosList);
             }
@@ -275,7 +277,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 horas = response.body();
                 List<String> horasList = new ArrayList<String>();
                 for (Hora h : horas) {
-                    horasList.add(h.getHora());
+                    if(h.getCupo() > 0){
+                        horasList.add(h.getHora());
+                    }
                 }
                 llenarSpinnersString(horasDP, horasList);
             }
@@ -298,7 +302,9 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                     edificios = response.body();
                     List<String> edificiosList = new ArrayList<String>();
                     for (Edificio e : edificios) {
-                        edificiosList.add(e.getNombre() + " - " + e.getDireccion());
+                        if(e.getCupo() > 0){
+                            edificiosList.add(e.getNombre() + " - " + e.getDireccion());
+                        }
                     }
                     llenarSpinnersString(edificiosDP, edificiosList);
                 }
