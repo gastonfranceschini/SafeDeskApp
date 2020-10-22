@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.ort.SafeDesk.Model.Token;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardView cerrarSesion;
     private TextView nombre;
     private TextView email;
+    private Switch switchReserva;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         email = findViewById(R.id.txtemail);
         nombre.setText(Global.token.getNombre());
         email.setText(Global.token.getEmail());
+        switchReserva = findViewById(R.id.switchReserva);
 
         setEnableCardViews(Global.token.getIdTipoDeUsuario());
 
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reservaJornada.setOnClickListener(this);
         misReservas.setOnClickListener(this);
         codigoQR.setOnClickListener(this);
+        administracion.setOnClickListener(this);
         cerrarSesion.setOnClickListener(this);
     }
 
@@ -69,8 +73,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             accessMainApp(ReservaTurno.class);
         }else if(misReservas.equals(view)){
             accessMainApp(MisReservasActivity.class);
-        }else if(codigoQR.equals(view)){
+        }else if(codigoQR.equals(view)) {
             accessMainApp(GeneracionQRActivity.class);
+        }else if(administracion.equals(view)){
+            accessMainApp(AdministracionActivity.class);
         }else if(cerrarSesion.equals(view)){
             accessMainApp(LoginActivity.class);
             SettingPreferences settingPreferences = new SettingPreferences(getApplicationContext());
