@@ -100,7 +100,7 @@
                         android:id="@+id/spinner1"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:layout_marginTop="65dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
@@ -114,6 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
                         android:text="Edificio"
                         android:textColor="#000"
                         android:textSize="8pt"
@@ -124,7 +125,7 @@
                         android:id="@+id/spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
@@ -137,13 +138,15 @@
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="25dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="3dp"
                         android:text="Cupo: -"
                         android:textColor="#ff0006"
                         android:textSize="6pt"
                         app:layout_constraintBottom_toTopOf="@+id/textView6"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -174,13 +177,15 @@
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="25dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="3dp"
                         android:text="Cupo: -"
                         android:textColor="#ff0006"
                         android:textSize="6pt"
                         app:layout_constraintBottom_toTopOf="@+id/textView7"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -211,12 +216,13 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="3dp"
                         android:text="Cupo: -"
                         android:textColor="#ff0006"
                         android:textSize="6pt"
-                        app:layout_constraintBottom_toTopOf="@+id/btn_reserva"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner4" />
 
                     <Button
                         android:id="@+id/btn_reserva"
