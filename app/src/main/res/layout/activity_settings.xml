@@ -55,6 +55,18 @@
                 android:fontFamily="@font/armata"
                 android:text="Deshabilitar reserva de turno"
                 android:textSize="20dp"  />
+
+            <Switch
+                android:id="@+id/switchAutodiag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/switchReserva"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/armata"
+                android:text="Deshabilitar autodiagnostico"
+                android:textSize="20dp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

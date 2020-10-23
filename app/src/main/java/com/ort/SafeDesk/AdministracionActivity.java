@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView;
 public class AdministracionActivity extends AppCompatActivity {
 
     private Switch enabledReserva;
-    private CardView reservaTurno;
+    private Switch enabledAutodiag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,7 @@ public class AdministracionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         enabledReserva = findViewById(R.id.switchReserva);
-        reservaTurno = findViewById(R.id.cardView2);
-
+        enabledAutodiag = findViewById(R.id.switchAutodiag);
     }
 
 }
