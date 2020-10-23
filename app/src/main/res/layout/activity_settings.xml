@@ -22,7 +22,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
                 android:gravity="center"
-                android:text="ADMINISTRACIÓN"
+                android:text="Administración"
                 android:textColor="#fff"
                 android:textSize="25sp"
                 android:textStyle="bold" />
