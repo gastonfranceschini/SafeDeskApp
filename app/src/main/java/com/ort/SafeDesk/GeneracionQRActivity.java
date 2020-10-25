@@ -18,6 +18,19 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.ort.SafeDesk.Interface.GetTurnos;
+import com.ort.SafeDesk.Interface.GetTurnosHistoricos;
+import com.ort.SafeDesk.Model.Turnos;
+import com.ort.SafeDesk.utils.ApiUtils;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class GeneracionQRActivity extends AppCompatActivity implements View.OnClickListener{
@@ -28,6 +41,8 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codigo_qr);
+
+        //getTurno(Integer.parseInt("1"));
 
         scanCode();
 
@@ -48,29 +63,70 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
         integrator.setPrompt("Escaneando ...");
         integrator.initiateScan();
     }
+    private void MostrarTurno(Turnos turno)
+    {
+        AlertDialog.Builder builder = null;
+        builder = new AlertDialog.Builder(this);
 
+        String msj =
+                "Fecha: " + turno.getFechaTurno() + "\n" +
+                "Edificio: " + turno.getEdificio() + "\n" +
+                "Piso: " + turno.getPiso() + "\n" +
+                "Horario: " + turno.getHorario() + "\n" +
+                "";
+        builder.setMessage(msj);
+        builder.setTitle("Turno Encontrado");
+        builder.setPositiveButton("Escanear nuevamente.", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                scanCode();
+            }
+        }).setNegativeButton("Finalizar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void getTurno(int idTurno){
+        GetTurnos getTurno = (GetTurnos) ApiUtils.getAPI(GetTurnos.class);
+        Call<Turnos> call = getTurno.getTurno(idTurno);
+        call.enqueue(new Callback<Turnos>() {
+            @Override
+            public void onResponse(Call<Turnos> call, Response<Turnos> response) {
+
+                if (response.isSuccessful()) {
+                    Turnos turno = response.body();
+                    MostrarTurno(turno);
+                }
+                else
+                {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Turnos> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        AlertDialog.Builder builder = null;
+
         if (result != null) {
             if (result.getContents() != null) {
-                builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Escaneando Resultado");
-                builder.setPositiveButton("Escanear nuevamente.", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanCode();
-                    }
-                }).setNegativeButton("Finalizar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                getTurno(Integer.parseInt(result.getContents()));
+
             } else {
                 Toast.makeText( this, "Sin resultados", Toast.LENGTH_LONG).show();
             }

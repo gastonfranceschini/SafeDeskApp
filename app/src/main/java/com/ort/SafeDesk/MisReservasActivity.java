@@ -82,9 +82,7 @@ public class MisReservasActivity extends AppCompatActivity {
 
     private void getTurnosHistorico(){
         GetTurnosHistoricos getTurnosHistoria = (GetTurnosHistoricos) ApiUtils.getAPI(GetTurnosHistoricos.class);
-
         Call<List<Turnos>> call = getTurnosHistoria.getTurnos();
-
         call.enqueue(new Callback<List<Turnos>>() {
             @Override
             public void onResponse(Call<List<Turnos>> call, Response<List<Turnos>> response) {
