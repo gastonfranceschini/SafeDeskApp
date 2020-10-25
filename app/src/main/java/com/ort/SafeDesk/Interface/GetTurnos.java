@@ -14,6 +14,9 @@ public interface GetTurnos {
     @GET("api/turnos/misturnos/")
     Call<List<Turnos>> getTurnos();
 
+    @GET("api/turnos/{turno}")
+    Call<Turnos> getTurno(@Path("turno") int idTurno);
+
     @POST("api/turnos/{turno}")
     Call<Turnos> saveTurno(@Path("turno") Turnos turno);
 }
