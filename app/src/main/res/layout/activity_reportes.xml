@@ -35,6 +35,10 @@
 
         </LinearLayout>
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -51,15 +55,14 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="807dp"
-                    android:padding="0dp">
+                    android:layout_height="match_parent">
 
                     <Spinner
                         android:id="@+id/spinner7"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="65dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/armata"
                         android:text="Usuario"
                         android:textColor="#000"
@@ -84,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/armata"
                         android:text="Hora"
                         android:textColor="#000"
@@ -97,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="40dp"
                         android:layout_marginEnd="20dp"
                         android:ems="10"
                         android:enabled="false"
@@ -132,7 +136,7 @@
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="35dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spinner7"
                         app:srcCompat="@drawable/ic_baseline_insert_invitation_24" />
@@ -142,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +159,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/armata"
                         android:text="Reporte"
                         android:textColor="#000"
@@ -167,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/armata"
                         android:text="Edificio"
                         android:textColor="#000"
@@ -180,7 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +199,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/armata"
                         android:text="Piso"
                         android:textColor="#000"
@@ -206,7 +212,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -219,6 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/armata"
                         android:text="Gerencia"
                         android:textColor="#000"
@@ -231,7 +238,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
+                        android:layout_marginTop="55dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/spinner_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -248,16 +255,21 @@
                         android:fontFamily="@font/armata"
                         android:text="GENERAR"
                         android:textColor="#fff"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spinner4"
-                        app:layout_constraintVertical_bias="0.438"
-                        tools:layout_editor_absoluteX="153dp" />
+                        app:layout_constraintVertical_bias="0.438" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
