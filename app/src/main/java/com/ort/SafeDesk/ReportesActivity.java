@@ -55,7 +55,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     private Spinner reportesDP;
 
     private ImageButton imageButton;
-    private Button reserva;
+    private Button reporte;
     private EditText fecha;
     private TextView cupoE;
     private TextView cupoP;
@@ -78,24 +78,21 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reportes);
 
-        fecha = findViewById(R.id.editTextFecha);
-        cupoE = findViewById(R.id.textView8);
-        cupoP = findViewById(R.id.textView9);
-        cupoH = findViewById(R.id.textView10);
-        imageButton = findViewById(R.id.imageButton);
-        reserva = findViewById(R.id.btn_reserva);
-        usuariosDP = findViewById(R.id.spinner1);
-        edificiosDP = findViewById(R.id.spinner2);
-        pisosDP = findViewById(R.id.spinner3);
-        horasDP = findViewById(R.id.spinner4);
+        fecha = findViewById(R.id.editTextFecha2);
+        imageButton = findViewById(R.id.imageButton2);
+        reporte = findViewById(R.id.btn_reporte);
+        usuariosDP = findViewById(R.id.spinner7);
+        edificiosDP = findViewById(R.id.spinner8);
+        pisosDP = findViewById(R.id.spinner9);
+        horasDP = findViewById(R.id.spinner10);
 
-        reportesDP = findViewById(R.id.spinner7);
+        reportesDP = findViewById(R.id.spinner5);
         gerenciasDP = findViewById(R.id.spinner6);
 
         configReportesSpinner();
 
         imageButton.setOnClickListener(this);
-        reserva.setOnClickListener(this);
+        reporte.setOnClickListener(this);
 
         //seteo defaults
         List<String> selRep = new ArrayList<String>();
@@ -221,7 +218,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePicker.show();
         }
-        else if(reserva.equals(view)) {
+        else if(reporte.equals(view)) {
 
             if (edificios != null && usuarios != null && pisos != null && horas != null) {
                 saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
