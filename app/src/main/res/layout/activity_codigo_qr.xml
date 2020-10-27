@@ -11,14 +11,14 @@
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:orientation="vertical"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="1dp">
 
         <Button
             android:id="@+id/scanQR"
             android:layout_width="117dp"
-            android:layout_height="70dp"
+            android:layout_height="69dp"
             android:layout_marginStart="150dp"
             android:layout_marginTop="450dp"
             android:text="Escanear"
@@ -30,12 +30,11 @@
             app:layout_constraintVertical_bias="0.499" />
 
         <ImageView
+            android:id="@+id/imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageview"
             android:layout_gravity="center"
-            android:layout_marginTop="35dp"
-            />
+            android:layout_marginTop="35dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
