@@ -16,9 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ReportesActivity"></activity>
         <activity
             android:name=".AdministracionActivity"
-            android:label="@string/title_activity_administracion"></activity>
+            android:label="@string/title_activity_administracion" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".ReservaTurno" />
         <activity android:name=".DiagnosticoActivity" />
@@ -36,7 +37,7 @@
             android:name=".CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <meta-data
             android:name="preloaded_fonts"
