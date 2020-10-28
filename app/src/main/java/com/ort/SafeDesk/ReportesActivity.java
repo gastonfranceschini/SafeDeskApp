@@ -432,7 +432,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         spinner.setAdapter(adapter);
 
         if (llevaTodos == 1)
-            spinner.setSelection(list.size());
+            spinner.setSelection(list.size()-1);
 
     }
 
