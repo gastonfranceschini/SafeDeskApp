@@ -65,11 +65,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_turno);
 
-        fecha = findViewById(R.id.editTextFecha);
-        cupoE = findViewById(R.id.textView8);
-        cupoP = findViewById(R.id.textView9);
-        cupoH = findViewById(R.id.textView10);
-        imageButton = findViewById(R.id.imageButton);
+        fecha = findViewById(R.id.editTextFecha1);
+        cupoE = findViewById(R.id.textView5);
+        cupoP = findViewById(R.id.textView6);
+        cupoH = findViewById(R.id.textView7);
+        imageButton = findViewById(R.id.imageButton1);
         reserva = findViewById(R.id.btn_reserva);
         usuariosDP = findViewById(R.id.spinner1);
         edificiosDP = findViewById(R.id.spinner2);
