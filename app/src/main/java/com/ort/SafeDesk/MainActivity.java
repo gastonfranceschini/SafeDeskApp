@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misReservas.setOnClickListener(this);
         codigoQR.setOnClickListener(this);
         administracion.setOnClickListener(this);
+        reportes.setOnClickListener(this);
         cerrarSesion.setOnClickListener(this);
     }
 
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             accessMainApp(GeneracionQRActivity.class);
         }else if(administracion.equals(view)){
             accessMainApp(AdministracionActivity.class);
+        }else if(reportes.equals(view)){
+            accessMainApp(ReportesActivity.class);
         }else if(cerrarSesion.equals(view)){
             accessMainApp(LoginActivity.class);
             SettingPreferences settingPreferences = new SettingPreferences(getApplicationContext());

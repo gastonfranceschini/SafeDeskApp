@@ -1,6 +1,8 @@
 package com.ort.SafeDesk.Model;
 
-public class Edificio {
+import com.ort.SafeDesk.Interface.Spinnereable;
+
+public class Edificio implements Spinnereable {
 
     private int eID;
     private String Nombre;

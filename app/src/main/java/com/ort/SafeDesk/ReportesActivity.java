@@ -21,10 +21,14 @@ import com.ort.SafeDesk.Interface.GetEdificios;
 import com.ort.SafeDesk.Interface.GetHora;
 import com.ort.SafeDesk.Interface.GetPisos;
 import com.ort.SafeDesk.Interface.PostTurno;
+import com.ort.SafeDesk.Interface.Reportes;
+import com.ort.SafeDesk.Interface.Spinnereable;
 import com.ort.SafeDesk.Interface.Usuarios;
 import com.ort.SafeDesk.Model.Edificio;
+import com.ort.SafeDesk.Model.Gerencias;
 import com.ort.SafeDesk.Model.Hora;
 import com.ort.SafeDesk.Model.Piso;
+import com.ort.SafeDesk.Model.Reporte;
 import com.ort.SafeDesk.Model.TurnoBody;
 import com.ort.SafeDesk.Model.UsuarioDep;
 import com.ort.SafeDesk.utils.ApiUtils;
@@ -40,14 +44,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReservaTurno extends AppCompatActivity implements View.OnClickListener {
+public class ReportesActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner usuariosDP;
     private Spinner edificiosDP;
     private Spinner pisosDP;
     private Spinner horasDP;
+
+    private Spinner gerenciasDP;
+    private Spinner reportesDP;
+
     private ImageButton imageButton;
-    private Button reserva;
+    private Button reporte;
     private EditText fecha;
     private TextView cupoE;
     private TextView cupoP;
@@ -60,29 +68,38 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private List<Edificio> edificios;
     private List<UsuarioDep> usuarios;
 
+    private List<Gerencias> gerencias;
+    private List<Reporte> reportes;
+
+    private Reporte reporteSeleccionado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reserva_turno);
+        setContentView(R.layout.activity_reportes);
 
-        fecha = findViewById(R.id.editTextFecha1);
-        cupoE = findViewById(R.id.textView5);
-        cupoP = findViewById(R.id.textView6);
-        cupoH = findViewById(R.id.textView7);
-        imageButton = findViewById(R.id.imageButton1);
-        reserva = findViewById(R.id.btn_reserva);
-        usuariosDP = findViewById(R.id.spinner1);
-        edificiosDP = findViewById(R.id.spinner2);
-        pisosDP = findViewById(R.id.spinner3);
-        horasDP = findViewById(R.id.spinner4);
+        fecha = findViewById(R.id.editTextFecha2);
+        imageButton = findViewById(R.id.imageButton2);
+        reporte = findViewById(R.id.btn_reporte);
+        usuariosDP = findViewById(R.id.spinner7);
+        edificiosDP = findViewById(R.id.spinner8);
+        pisosDP = findViewById(R.id.spinner9);
+        horasDP = findViewById(R.id.spinner10);
 
-        configUsuariosSpinner();
+        reportesDP = findViewById(R.id.spinner5);
+        gerenciasDP = findViewById(R.id.spinner6);
+
+        configReportesSpinner();
+
         imageButton.setOnClickListener(this);
-        reserva.setOnClickListener(this);
+        reporte.setOnClickListener(this);
 
-       List<String> selFecha = new ArrayList<String>();
-        selFecha.add("Selecciona Fecha");
-        llenarSpinnersString(edificiosDP, selFecha);
+        //seteo defaults
+        List<String> selRep = new ArrayList<String>();
+        selRep.add("Selecciona Reporte");
+        llenarSpinnersString(edificiosDP, selRep);
+        llenarSpinnersString(gerenciasDP, selRep);
+        llenarSpinnersString(usuariosDP, selRep);
 
         List<String> selEdi = new ArrayList<String>();
         selEdi.add("Selecciona Edificio");
@@ -92,16 +109,11 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         usuariosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
-
 
         edificiosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
@@ -110,21 +122,15 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 if (edificios != null) {
                     configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
                     configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
-                    setCuposView(cupoE);
-
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
         pisosDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                setCuposView(cupoP);
             }
 
             @Override
@@ -132,11 +138,27 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
         horasDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                setCuposView(cupoH);
+                //setCuposView(cupoH);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        reportesDP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (reportes != null) {
+                    configBotonesActivos(reportes.get((int) reportesDP.getSelectedItemId()));
+                    configGerenciasSpinner();
+                    configUsuariosSpinner();
+                    configEdificiosSpinner("2099-1-1");
+                    fechaSelected = "NULL";
+                }
             }
 
             @Override
@@ -146,15 +168,34 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @SuppressLint("SetTextI18n")
-    private void setCuposView(TextView view){
-        if(cupoE.equals(view)){
-            view.setText("Cupo: " + (edificios.get((int) edificiosDP.getSelectedItemId()).getCupo()));
-        }else if(cupoP.equals(view) && pisos != null){
-            view.setText("Cupo: " + (pisos.get((int) pisosDP.getSelectedItemId()).getCupo()));
-        }else if(cupoH.equals(view) && horas != null){
-            view.setText("Cupo: " + (horas.get((int) horasDP.getSelectedItemId()).getCupo()));
-        }
+    int definirColor(int valor)
+    {
+        if (valor == 1)//activo
+            return getResources().getColor(R.color.colorEnabled);
+        else if (valor == 2) //obligatorio
+            return getResources().getColor(R.color.colorMandatory);
+        else //desactivado
+            return getResources().getColor(R.color.colorDisabled);
+    }
+
+    private void EvaluarActivacionSpinner(Spinner spinner, int valor)
+    {
+        spinner.setBackgroundColor(definirColor(valor));
+        spinner.setEnabled(valor > 0);
+    }
+
+    private void configBotonesActivos(Reporte reporteSel)
+    {
+        reporteSeleccionado = reporteSel;
+        EvaluarActivacionSpinner(gerenciasDP,reporteSel.isSelGerencia());
+        EvaluarActivacionSpinner(usuariosDP,reporteSel.isSelUsuario());
+        EvaluarActivacionSpinner(edificiosDP,reporteSel.isSelEdificio());
+        EvaluarActivacionSpinner(horasDP,reporteSel.isSelHorario());
+        EvaluarActivacionSpinner(pisosDP,reporteSel.isSelPiso());
+
+        imageButton.setBackgroundColor(definirColor(reporteSel.isSelFecha()));
+        imageButton.setEnabled(reporteSel.isSelFecha() > 0);
+
     }
 
     @Override
@@ -170,18 +211,14 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     fecha.setText(day + "/" + (month+1) + "/" + year);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    //String currentDateandTime = sdf.format(new Date());
-                    //String fecha = sdf.format(new Date(year, month, day));
                     fechaSelected = year + "-" + (month +1) + "-" + day;
-                    //Date fecha = new Date(year, month, day);
-                    configEdificiosSpinner(fechaSelected);
                 }
             }
                     ,ano, mes, dia);
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePicker.show();
         }
-        else if(reserva.equals(view)) {
+        else if(reporte.equals(view)) {
 
             if (edificios != null && usuarios != null && pisos != null && horas != null) {
                 saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
@@ -237,7 +274,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private void configPisosSpinner(long idEdificio){
         GetPisos getPisos = (GetPisos)ApiUtils.getAPI(GetPisos.class);
 
-        Call<List<Piso>> call = getPisos.getPisos(fechaSelected, idEdificio);
+        Call<List<Piso>> call = getPisos.getPisos("2099-1-1", idEdificio);
 
         call.enqueue(new Callback<List<Piso>>() {
             @Override
@@ -247,7 +284,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 for (Piso p : pisos) {
                     pisosList.add(p.getNombre());
                 }
-                llenarSpinnersString(pisosDP, pisosList);
+                llenarSpinnersString(pisosDP, pisosList,reporteSeleccionado.isSelPiso());
             }
 
             @Override
@@ -255,12 +292,12 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        }
+    }
 
     private void configHorasSpinner(long idEdificio){
         GetHora getHora = (GetHora)ApiUtils.getAPI(GetHora.class);
 
-        Call<List<Hora>> call = getHora.getHoras(idEdificio, fechaSelected);
+        Call<List<Hora>> call = getHora.getHoras(idEdificio, "2099-1-1");
 
         call.enqueue(new Callback<List<Hora>>() {
             @Override
@@ -270,7 +307,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 for (Hora h : horas) {
                     horasList.add(h.getHora());
                 }
-                llenarSpinnersString(horasDP, horasList);
+                llenarSpinnersString(horasDP, horasList,reporteSeleccionado.isSelHorario());
             }
 
             @Override
@@ -282,26 +319,78 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
 
     private void configEdificiosSpinner(String fechaParam){
 
-            GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
-            Call<List<Edificio>> call = getEdificios.getEdificios(fechaParam);
+        GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
+        Call<List<Edificio>> call = getEdificios.getEdificios(fechaParam);
 
-            call.enqueue(new Callback<List<Edificio>>() {
-                @Override
-                public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
-                    edificios = response.body();
-                    List<String> edificiosList = new ArrayList<String>();
-                    for (Edificio e : edificios) {
-                        edificiosList.add(e.getNombre() + " - " + e.getDireccion());
-                    }
-                    llenarSpinnersString(edificiosDP, edificiosList);
+        call.enqueue(new Callback<List<Edificio>>() {
+            @Override
+            public void onResponse(Call<List<Edificio>> call, Response<List<Edificio>> response) {
+                edificios = response.body();
+                List<String> edificiosList = new ArrayList<String>();
+                for (Edificio e : edificios) {
+                    edificiosList.add(e.getNombre() + " - " + e.getDireccion());
+                }
+                llenarSpinnersString(edificiosDP, edificiosList,reporteSeleccionado.isSelEdificio());
+            }
+
+            @Override
+            public void onFailure(Call<List<Edificio>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void configGerenciasSpinner(){
+        Usuarios getGerencias = (Usuarios)ApiUtils.getAPI(Usuarios.class);
+
+        Call<List<Gerencias>> call = getGerencias.getGerencias();
+
+        call.enqueue(new Callback<List<Gerencias>>() {
+            @Override
+            public void onResponse(Call<List<Gerencias>> call, Response<List<Gerencias>> response) {
+                gerencias = response.body();
+                List<String> gerenciasList = new ArrayList<String>();
+
+                for(Gerencias u : gerencias){
+                    gerenciasList.add(u.getNombre());
                 }
 
-                @Override
-                public void onFailure(Call<List<Edificio>> call, Throwable t) {
+                llenarSpinnersString(gerenciasDP, gerenciasList,reporteSeleccionado.isSelGerencia());
+            }
 
+            @Override
+            public void onFailure(Call<List<Gerencias>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+
+    private void configReportesSpinner(){
+        Reportes getReportes = (Reportes) ApiUtils.getAPI(Reportes.class);
+
+        Call<List<Reporte>> call = getReportes.getReportes();
+
+        call.enqueue(new Callback<List<Reporte>>() {
+            @Override
+            public void onResponse(Call<List<Reporte>> call, Response<List<Reporte>> response) {
+                reportes = response.body();
+                List<String> reportesList = new ArrayList<String>();
+                for(Reporte u : reportes){
+                    reportesList.add(u.getNombre());
                 }
-            });
-        }
+                llenarSpinnersString(reportesDP, reportesList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Reporte>> call, Throwable t) {
+
+            }
+        });
+
+    }
 
     private void configUsuariosSpinner(){
         Usuarios getUsuarios = (Usuarios)ApiUtils.getAPI(Usuarios.class);
@@ -316,7 +405,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 for(UsuarioDep u : usuarios){
                     usuariosList.add(u.getNombre());
                 }
-                llenarSpinnersString(usuariosDP, usuariosList);
+                llenarSpinnersString(usuariosDP, usuariosList,reporteSeleccionado.isSelUsuario());
             }
 
             @Override
@@ -325,12 +414,23 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        }
+    }
+    private void llenarSpinnersString(Spinner spinner, List<String> list)
+    {
+        llenarSpinnersString(spinner,list,0);
+    }
 
-        private void llenarSpinnersString(Spinner spinner, List<String> list){
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-        }
+    private void llenarSpinnersString(Spinner spinner, List<String> list,int llevaTodos){
+        if (llevaTodos == 1)
+            list.add("-TODOS-");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        if (llevaTodos == 1)
+            spinner.setSelection(list.size());
+
+    }
 
 }
