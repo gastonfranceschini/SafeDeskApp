@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -120,8 +121,15 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (edificios != null) {
-                    configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
-                    configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                    Log.d("Test",edificiosDP.getSelectedItem().toString());
+                    int EdificioId = 0;
+
+                    if (edificiosDP.getSelectedItem().toString() != "-TODOS-")
+                        EdificioId = edificios.get((int) edificiosDP.getSelectedItemId()).getId();
+
+                    configPisosSpinner(EdificioId);
+                    configHorasSpinner(EdificioId);
+
                 }
             }
             @Override
@@ -219,18 +227,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             datePicker.show();
         }
         else if(reporte.equals(view)) {
-
-            if (edificios != null && usuarios != null && pisos != null && horas != null) {
-                saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
-                        fechaSelected, horas.get((int) horasDP.getSelectedItemId()).getId(),
-                        pisos.get((int) pisosDP.getSelectedItemId()).getId(),
-                        edificios.get((int) edificiosDP.getSelectedItemId()).getId()));
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"Faltan seleccionar parametros!",Toast. LENGTH_SHORT).show();
-            }
-
+            validarYConstruirReporte();
         }
         else{
 
@@ -240,6 +237,60 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     private void accessMainApp() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+    private boolean validarYAgregarSpinner(List<String> campos,List<String> valores,List<? extends Spinnereable> datos, Spinner spinner,int valorRep,String valorBack)
+    {
+        if (valorRep == 1)//activo
+        {
+            campos.add(valorBack);
+            if (datos == null || (spinner.getSelectedItem().toString() == "-TODOS-")) {
+                valores.add("NULL");
+            } else {
+                valores.add("" + datos.get((int) spinner.getSelectedItemId()).getId());
+            }
+        }
+        else if (valorRep == 2) //obligatorio
+        {
+            if (datos == null || (spinner.getSelectedItem().toString() == "-TODOS-")) {
+                Toast.makeText(getApplicationContext(), "El parametro " + valorBack + " es obligatorio!", Toast.LENGTH_SHORT).show();
+                return false; //aca no vale NULL, devuelvo invalido
+            }
+            else {
+                campos.add(valorBack);
+                valores.add("" + datos.get((int) spinner.getSelectedItemId()).getId());
+            }
+        }
+
+        return true;
+    }
+    private void validarYConstruirReporte() {
+        List<String> campos = new ArrayList<String>();
+        List<String> valores = new ArrayList<String>();
+
+        if (!validarYAgregarSpinner(campos, valores, usuarios ,usuariosDP,reporteSeleccionado.isSelUsuario(),"usuario"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, edificios ,edificiosDP,reporteSeleccionado.isSelEdificio(),"edificio"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, pisos ,pisosDP,reporteSeleccionado.isSelPiso(),"piso"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, horas ,horasDP,reporteSeleccionado.isSelHorario(),"horario"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, horas ,horasDP,reporteSeleccionado.isSelHorario(),"piso"))
+            return;
+
+        Log.e("xx",campos.toString());
+
+       /* if (edificios != null && usuarios != null && pisos != null && horas != null) {
+            saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
+                    fechaSelected, horas.get((int) horasDP.getSelectedItemId()).getId(),
+                    pisos.get((int) pisosDP.getSelectedItemId()).getId(),
+                    edificios.get((int) edificiosDP.getSelectedItemId()).getId()));*/
+
+
     }
 
     private void saveTurno(TurnoBody turnoNuevo){
@@ -272,10 +323,13 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void configPisosSpinner(long idEdificio){
+        if (idEdificio == 0)
+        {
+            llenarSpinnersString(pisosDP, new ArrayList<String>(),reporteSeleccionado.isSelPiso());
+        }
+
         GetPisos getPisos = (GetPisos)ApiUtils.getAPI(GetPisos.class);
-
         Call<List<Piso>> call = getPisos.getPisos("2099-1-1", idEdificio);
-
         call.enqueue(new Callback<List<Piso>>() {
             @Override
             public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
@@ -295,10 +349,13 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void configHorasSpinner(long idEdificio){
+        if (idEdificio == 0)
+        {
+            llenarSpinnersString(horasDP, new ArrayList<String>(),reporteSeleccionado.isSelHorario());
+        }
+
         GetHora getHora = (GetHora)ApiUtils.getAPI(GetHora.class);
-
         Call<List<Hora>> call = getHora.getHoras(idEdificio, "2099-1-1");
-
         call.enqueue(new Callback<List<Hora>>() {
             @Override
             public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
