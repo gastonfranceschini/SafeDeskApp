@@ -1,10 +1,14 @@
 package com.ort.SafeDesk;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,8 +29,14 @@ import com.ort.SafeDesk.utils.ApiUtils;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,16 +101,44 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
         dialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void chequeoTurno(Turnos turno){
+        //ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
+        //LocalTime now = LocalTime.now(z);
+        //LocalTime limit = LocalTime.parse( turno.getHorario() );
+        Date fHoy = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String fFinal = df.format(fHoy);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(fFinal.equals(turno.getFechaTurno())){
+            builder.setTitle("Turno Confirmado!");
+            builder.setMessage("El turno se confirmo con éxito");
+            builder.setPositiveButton("Ok", null);
+            AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GREEN));
+            dialog.show();
+        }else {
+            builder.setTitle("Turno Inválido!");
+            builder.setMessage("El turno no corresponde a la fecha de hoy");
+            builder.setPositiveButton("Ok", null);
+            AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.RED));
+            dialog.show();
+        }
+    }
+
     private void getTurno(int idTurno){
         GetTurnos getTurno = (GetTurnos) ApiUtils.getAPI(GetTurnos.class);
         Call<Turnos> call = getTurno.getTurno(idTurno);
         call.enqueue(new Callback<Turnos>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<Turnos> call, Response<Turnos> response) {
 
                 if (response.isSuccessful()) {
                     Turnos turno = response.body();
-                    MostrarTurno(turno);
+                    //MostrarTurno(turno);
+                    chequeoTurno(turno);
                 }
                 else
                 {
