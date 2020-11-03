@@ -29,6 +29,7 @@ import com.ort.SafeDesk.utils.ApiUtils;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -73,19 +74,37 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
         integrator.setPrompt("Escaneando ...");
         integrator.initiateScan();
     }
-    private void MostrarTurno(Turnos turno)
-    {
-        AlertDialog.Builder builder = null;
-        builder = new AlertDialog.Builder(this);
-
-        String msj =
+    private String construirMsgTurno(Turnos turno) throws ParseException {
+        return
                 "Fecha: " + turno.getFechaTurno() + "\n" +
                 "Edificio: " + turno.getEdificio() + "\n" +
                 "Piso: " + turno.getPiso() + "\n" +
                 "Horario: " + turno.getHorario() + "\n" +
                 "";
-        builder.setMessage(msj);
-        builder.setTitle("Turno Encontrado");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void chequeoTurno(Turnos turno) throws ParseException {
+        //ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
+        //LocalTime now = LocalTime.now(z);
+        //LocalTime limit = LocalTime.parse( turno.getHorario() );
+
+        Date fHoy = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String fFinal = df.format(fHoy);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        int colorBackground;
+
+        if(fFinal.equals(turno.getFechaTurno())){
+            builder.setTitle("Turno Confirmado!");
+            builder.setMessage("El turno se confirmo con éxito \n" + construirMsgTurno(turno));
+            colorBackground = Color.GREEN;
+        }else {
+            builder.setTitle("Turno Inválido!");
+            builder.setMessage("El turno no corresponde a la fecha de hoy \n" + construirMsgTurno(turno));
+            colorBackground = Color.RED;
+        }
+
         builder.setPositiveButton("Escanear nuevamente.", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -98,33 +117,9 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(colorBackground));
         dialog.show();
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void chequeoTurno(Turnos turno){
-        //ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
-        //LocalTime now = LocalTime.now(z);
-        //LocalTime limit = LocalTime.parse( turno.getHorario() );
-        Date fHoy = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String fFinal = df.format(fHoy);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if(fFinal.equals(turno.getFechaTurno())){
-            builder.setTitle("Turno Confirmado!");
-            builder.setMessage("El turno se confirmo con éxito");
-            builder.setPositiveButton("Ok", null);
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GREEN));
-            dialog.show();
-        }else {
-            builder.setTitle("Turno Inválido!");
-            builder.setMessage("El turno no corresponde a la fecha de hoy");
-            builder.setPositiveButton("Ok", null);
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.RED));
-            dialog.show();
-        }
     }
 
     private void getTurno(int idTurno){
@@ -137,8 +132,11 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
 
                 if (response.isSuccessful()) {
                     Turnos turno = response.body();
-                    //MostrarTurno(turno);
-                    chequeoTurno(turno);
+                    try {
+                        chequeoTurno(turno);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {

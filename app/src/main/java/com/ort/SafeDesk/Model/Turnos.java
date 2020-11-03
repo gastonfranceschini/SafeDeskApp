@@ -1,5 +1,12 @@
 package com.ort.SafeDesk.Model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class Turnos {
 
     private int TurnoId;
@@ -19,9 +26,18 @@ public class Turnos {
         return TurnoId;
     }
 
-    public String getFechaTurno() {
-        return FechaTurno;
+    public String getFechaTurno() throws ParseException {
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
+        Date date = inputFormat.parse(FechaTurno);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String fFinal = df.format(date);
+
+        return fFinal; //FechaTurno;
     }
+
+
 
     public String getPiso() {
         return Piso;
