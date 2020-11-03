@@ -25,6 +25,7 @@ import com.ort.SafeDesk.utils.ApiUtils;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,11 @@ public class MisReservasActivity extends AppCompatActivity {
                     ListaTurnos = response.body();
                     List<String> ListaTurnosS = new ArrayList<String>();
                     for(Turnos t : ListaTurnos){
-                        ListaTurnosS.add(t.getFechaTurno() + " - " + t.getEdificio());
+                        try {
+                            ListaTurnosS.add(t.getFechaTurno() + " - " + t.getEdificio() + " - " + t.getPiso());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     LlenarTurnos(ListaTurnosS);
@@ -92,7 +97,11 @@ public class MisReservasActivity extends AppCompatActivity {
 
                     List<String> ListaTurnosHS = new ArrayList<String>();
                     for(Turnos t : ListaTurnosH){
-                        ListaTurnosHS.add(t.getFechaTurno() + " - " + t.getEdificio());
+                        try {
+                            ListaTurnosHS.add(t.getFechaTurno() + " - " + t.getEdificio() + " - " + t.getPiso());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                     LlenarTurnosHistoricos(ListaTurnosHS);
                 }
@@ -126,7 +135,12 @@ public class MisReservasActivity extends AppCompatActivity {
         aAdapter1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListaTurnos);
         mListView1.setAdapter(aAdapter1);
     }
-
+    private String construirMsgTurno(Turnos turno) throws ParseException {
+        return
+                "Fecha: " + turno.getFechaTurno() + "\n" +
+                        "Edificio: " + turno.getEdificio() + " " + turno.getPiso() + "\n" +
+                        "Horario: " + turno.getHorario() ;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +164,13 @@ public class MisReservasActivity extends AppCompatActivity {
                 if (reservasPasadas.getVisibility() == View.VISIBLE) {
                     codigoQR.setVisibility(View.VISIBLE);
                     reservasPasadas.setVisibility(View.GONE);
-                    reservaElegida.setText((String) parent.getItemAtPosition(position));
+
+                    try {
+                        reservaElegida.setText(construirMsgTurno(ListaTurnos.get(position)));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    //reservaElegida.setText((String) parent.getItemAtPosition(position));
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                     try {
                         BitMatrix bitMatrix = multiFormatWriter.encode(Integer.toString(ListaTurnos.get(position).getTurnoId()), BarcodeFormat.QR_CODE, 500, 500);

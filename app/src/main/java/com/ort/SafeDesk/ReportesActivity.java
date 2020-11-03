@@ -1,11 +1,21 @@
 package com.ort.SafeDesk;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,20 +39,31 @@ import com.ort.SafeDesk.Model.Gerencias;
 import com.ort.SafeDesk.Model.Hora;
 import com.ort.SafeDesk.Model.Piso;
 import com.ort.SafeDesk.Model.Reporte;
+import com.ort.SafeDesk.Model.ReporteDTO;
 import com.ort.SafeDesk.Model.TurnoBody;
 import com.ort.SafeDesk.Model.UsuarioDep;
 import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.utils.Global;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class ReportesActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -120,8 +141,15 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (edificios != null) {
-                    configPisosSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
-                    configHorasSpinner(edificios.get((int) edificiosDP.getSelectedItemId()).getId());
+                    Log.d("Test",edificiosDP.getSelectedItem().toString());
+                    int EdificioId = 0;
+
+                    if (edificiosDP.getSelectedItem().toString() != "-TODOS-")
+                        EdificioId = edificios.get((int) edificiosDP.getSelectedItemId()).getId();
+
+                    configPisosSpinner(EdificioId);
+                    configHorasSpinner(EdificioId);
+
                 }
             }
             @Override
@@ -158,6 +186,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                     configUsuariosSpinner();
                     configEdificiosSpinner("2099-1-1");
                     fechaSelected = "NULL";
+                    fecha.setText("Ingresar Fecha");
                 }
             }
 
@@ -215,22 +244,11 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
                     ,ano, mes, dia);
-            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePicker.getDatePicker();
             datePicker.show();
         }
         else if(reporte.equals(view)) {
-
-            if (edificios != null && usuarios != null && pisos != null && horas != null) {
-                saveTurno(new TurnoBody(usuarios.get((int) usuariosDP.getSelectedItemId()).getDni(),
-                        fechaSelected, horas.get((int) horasDP.getSelectedItemId()).getId(),
-                        pisos.get((int) pisosDP.getSelectedItemId()).getId(),
-                        edificios.get((int) edificiosDP.getSelectedItemId()).getId()));
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"Faltan seleccionar parametros!",Toast. LENGTH_SHORT).show();
-            }
-
+            validarYConstruirReporte();
         }
         else{
 
@@ -241,17 +259,74 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    private boolean validarYAgregarSpinner(List<String> campos,List<String> valores,List<? extends Spinnereable> datos, Spinner spinner,int valorRep,String valorBack)
+    {
+        if (valorRep == 1)//activo
+        {
+            campos.add(valorBack);
+            if (datos == null || (spinner.getSelectedItem().toString() == "-TODOS-")) {
+                valores.add("NULL");
+            } else {
+                valores.add("" + datos.get((int) spinner.getSelectedItemId()).getId());
+            }
+        }
+        else if (valorRep == 2) //obligatorio
+        {
+            if (datos == null || (spinner.getSelectedItem().toString() == "-TODOS-")) {
+                Toast.makeText(getApplicationContext(), "El parametro " + valorBack + " es obligatorio!", Toast.LENGTH_SHORT).show();
+                return false; //aca no vale NULL, devuelvo invalido
+            }
+            else {
+                campos.add(valorBack);
+                valores.add("" + datos.get((int) spinner.getSelectedItemId()).getId());
+            }
+        }
 
-    private void saveTurno(TurnoBody turnoNuevo){
-        PostTurno postTurno = (PostTurno) ApiUtils.getAPI(PostTurno.class);
+        return true;
+    }
+    private void validarYConstruirReporte() {
+        List<String> campos = new ArrayList<String>();
+        List<String> valores = new ArrayList<String>();
 
-        Call<TurnoBody> call = postTurno.saveTurno(turnoNuevo);
-        call.enqueue(new Callback<TurnoBody>()  {
+        if (!validarYAgregarSpinner(campos, valores, usuarios ,usuariosDP,reporteSeleccionado.isSelUsuario(),"usuario"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, edificios ,edificiosDP,reporteSeleccionado.isSelEdificio(),"edificio"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, pisos ,pisosDP,reporteSeleccionado.isSelPiso(),"piso"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, horas ,horasDP,reporteSeleccionado.isSelHorario(),"horario"))
+            return;
+
+        if (!validarYAgregarSpinner(campos, valores, gerencias ,gerenciasDP,reporteSeleccionado.isSelGerencia(),"gerencia"))
+            return;
+
+        if (reporteSeleccionado.isSelFecha() == 2 && fechaSelected == "NULL") //obligatorio
+        {
+                Toast.makeText(getApplicationContext(), "El parametro fecha es obligatorio!", Toast.LENGTH_SHORT).show();
+                return; //aca no vale NULL, devuelvo invalido
+        }
+
+        campos.add("fecha");
+        valores.add("" + fechaSelected);
+
+        Log.e("xx",campos.toString());
+
+        postReporte(campos,valores);
+
+    }
+
+    private void postReporte(List<String> campos, List<String> valores){
+        Reportes reportes = (Reportes) ApiUtils.getAPI(Reportes.class);
+
+        Call<ResponseBody> call = reportes.getReporteDinamico(new ReporteDTO(campos,valores) ,reporteSeleccionado.getId());
+        call.enqueue(new Callback<ResponseBody>()  {
             @Override
-            public void onResponse(Call<TurnoBody> call, Response<TurnoBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
-                    accessMainApp();
+                    boolean writtenToDisk = writeResponseBodyToDisk(response.body());
                 }
                 else
                 {
@@ -265,17 +340,122 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(Call<TurnoBody> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
+    private void envioEmail(File reporte)
+    {
+        Uri uri = Uri.fromFile(reporte);
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("text/html");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"" + Global.token.getEmail()});
+        emailIntent.putExtra(android.content.Intent.EXTRA_TITLE, "Reporte " + reporteSeleccionado.getNombre());
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Nuevo Reporte " + reporteSeleccionado.getNombre() +  " Adjunto, Fecha: " + Calendar.getInstance().getTime());
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Enviar Correo..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "No hay ningun cliente de correo instalado.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private void Visualizar(File reporte)
+    {
+        Uri selectedUri = Uri.fromFile(reporte);
+        Intent intent = new Intent(Intent.ACTION_VIEW); //ACTION_GET_CONTENT,
+        intent.setDataAndType(selectedUri, "text/csv");
+        try {
+            startActivity(Intent.createChooser(intent, "Seleccionar Visualizador"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "ActivityNotFound" , Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    private boolean writeResponseBodyToDisk(ResponseBody body) {
+        try {
+            final File reporte = new File(getExternalFilesDir(null) + File.separator + "Reporte.csv"); //getFilesDir
+
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+
+            try {
+                byte[] fileReader = new byte[4096];
+
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                inputStream = body.byteStream();
+                outputStream = new FileOutputStream(reporte);
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+
+                    outputStream.write(fileReader, 0, read);
+                    fileSizeDownloaded += read;
+                    Log.d("File Download: " , fileSizeDownloaded + " of " + fileSize);
+                }
+
+                outputStream.flush();
+
+                return true;
+            } catch (IOException e) {
+                return false;
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+
+                if(reporte.exists()) {
+
+                    AlertDialog.Builder builder = null;
+                    builder = new AlertDialog.Builder(this);
+
+                    String msj = "¿Desea envia un mail con el Reporte?";
+                    builder.setMessage(msj);
+                    builder.setTitle("Reporte Generado");
+                    builder.setPositiveButton("Enviar email", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            envioEmail(reporte);
+                        }
+                    }).setNegativeButton("Visualizar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Visualizar(reporte);
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "No se encontro el reporte..." , Toast.LENGTH_LONG).show();
+                }
+
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
     private void configPisosSpinner(long idEdificio){
+        if (idEdificio == 0)
+        {
+            llenarSpinnersString(pisosDP, new ArrayList<String>(),reporteSeleccionado.isSelPiso());
+        }
+
         GetPisos getPisos = (GetPisos)ApiUtils.getAPI(GetPisos.class);
-
         Call<List<Piso>> call = getPisos.getPisos("2099-1-1", idEdificio);
-
         call.enqueue(new Callback<List<Piso>>() {
             @Override
             public void onResponse(Call<List<Piso>> call, Response<List<Piso>> response) {
@@ -295,10 +475,13 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void configHorasSpinner(long idEdificio){
+        if (idEdificio == 0)
+        {
+            llenarSpinnersString(horasDP, new ArrayList<String>(),reporteSeleccionado.isSelHorario());
+        }
+
         GetHora getHora = (GetHora)ApiUtils.getAPI(GetHora.class);
-
         Call<List<Hora>> call = getHora.getHoras(idEdificio, "2099-1-1");
-
         call.enqueue(new Callback<List<Hora>>() {
             @Override
             public void onResponse(Call<List<Hora>> call, Response<List<Hora>> response) {
@@ -429,7 +612,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         spinner.setAdapter(adapter);
 
         if (llevaTodos == 1)
-            spinner.setSelection(list.size());
+            spinner.setSelection(list.size()-1);
 
     }
 
