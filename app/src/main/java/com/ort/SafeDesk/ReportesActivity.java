@@ -1,5 +1,6 @@
 package com.ort.SafeDesk;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
@@ -7,6 +8,7 @@ import androidx.core.content.FileProvider;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -53,6 +55,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -183,6 +186,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                     configUsuariosSpinner();
                     configEdificiosSpinner("2099-1-1");
                     fechaSelected = "NULL";
+                    fecha.setText("Ingresar Fecha");
                 }
             }
 
@@ -315,8 +319,6 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void postReporte(List<String> campos, List<String> valores){
-
-
         Reportes reportes = (Reportes) ApiUtils.getAPI(Reportes.class);
 
         Call<ResponseBody> call = reportes.getReporteDinamico(new ReporteDTO(campos,valores) ,reporteSeleccionado.getId());
@@ -324,11 +326,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
-
                     boolean writtenToDisk = writeResponseBodyToDisk(response.body());
-
-                    //Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
-                    //accessMainApp();
                 }
                 else
                 {
@@ -349,13 +347,12 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
     private void envioEmail(File reporte)
     {
-        //Uri uri = Uri.parse(getExternalFilesDir(null) + File.separator + "Reporte.csv");
         Uri uri = Uri.fromFile(reporte);
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("text/html");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"" + Global.token.getEmail()});
-        emailIntent.putExtra(android.content.Intent.EXTRA_TITLE, "Reporte");
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Nuevo Reporte Adjunto");
+        emailIntent.putExtra(android.content.Intent.EXTRA_TITLE, "Reporte " + reporteSeleccionado.getNombre());
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Nuevo Reporte " + reporteSeleccionado.getNombre() +  " Adjunto, Fecha: " + Calendar.getInstance().getTime());
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
         try {
             startActivity(Intent.createChooser(emailIntent, "Enviar Correo..."));
@@ -364,9 +361,23 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void Visualizar(File reporte)
+    {
+        Uri selectedUri = Uri.fromFile(reporte);
+        Intent intent = new Intent(Intent.ACTION_VIEW); //ACTION_GET_CONTENT,
+        intent.setDataAndType(selectedUri, "text/csv");
+        try {
+            startActivity(Intent.createChooser(intent, "Seleccionar Visualizador"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "ActivityNotFound" , Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
     private boolean writeResponseBodyToDisk(ResponseBody body) {
         try {
-            File reporte = new File(getExternalFilesDir(null) + File.separator + "Reporte.csv"); //getFilesDir
+            final File reporte = new File(getExternalFilesDir(null) + File.separator + "Reporte.csv"); //getFilesDir
 
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -408,25 +419,28 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
 
                 if(reporte.exists()) {
 
-                    envioEmail(reporte);
+                    AlertDialog.Builder builder = null;
+                    builder = new AlertDialog.Builder(this);
 
-                    //Uri selectedUri = Uri.parse(reporte.getPath()); //"file://" + Environment.getExternalStorageDirectory() + "/tuCarpeta"
-                    //Uri selectedUri = Uri.parse(getExternalFilesDir(null) + File.separator + "Reporte.csv");
-                    //Uri selectedUri = Uri.fromFile(reporte);
-                    //Uri selectedUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", reporte);
-                    /*
-                    Intent intent = new Intent(Intent.ACTION_VIEW); //ACTION_GET_CONTENT,
-                    intent.setDataAndType(selectedUri, "text/html");
-                    //intent.setDataAndType(selectedUri, "application/*");
-                    //intent.setDataAndType(selectedUri, "text/csv");
-                    try {
-                        startActivity(Intent.createChooser(intent, "Open folder"));
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(getApplicationContext(), "ActivityNotFound" , Toast.LENGTH_LONG).show();
-                    }
-                    */
+                    String msj = "¿Desea envia un mail con el Reporte?";
+                    builder.setMessage(msj);
+                    builder.setTitle("Reporte Generado");
+                    builder.setPositiveButton("Enviar email", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            envioEmail(reporte);
+                        }
+                    }).setNegativeButton("Visualizar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Visualizar(reporte);
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
                 }else{
-                    Toast.makeText(getApplicationContext(), "El archivo no existe." , Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No se encontro el reporte..." , Toast.LENGTH_LONG).show();
                 }
 
             }
