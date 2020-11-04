@@ -11,6 +11,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +66,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
+import static androidx.core.content.FileProvider.getUriForFile;
 
 public class ReportesActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -91,7 +94,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
 
     private List<Gerencias> gerencias;
     private List<Reporte> reportes;
-
+    private Switch formatoAlternativo;
     private Reporte reporteSeleccionado;
 
     @Override
@@ -106,7 +109,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         edificiosDP = findViewById(R.id.spinner8);
         pisosDP = findViewById(R.id.spinner9);
         horasDP = findViewById(R.id.spinner10);
-
+        formatoAlternativo = (Switch)findViewById(R.id.switch9);
         reportesDP = findViewById(R.id.spinner5);
         gerenciasDP = findViewById(R.id.spinner6);
 
@@ -187,6 +190,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                     configEdificiosSpinner("2099-1-1");
                     fechaSelected = "NULL";
                     fecha.setText("Ingresar Fecha");
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 }
             }
 
@@ -321,7 +325,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     private void postReporte(List<String> campos, List<String> valores){
         Reportes reportes = (Reportes) ApiUtils.getAPI(Reportes.class);
 
-        Call<ResponseBody> call = reportes.getReporteDinamico(new ReporteDTO(campos,valores) ,reporteSeleccionado.getId());
+        Call<ResponseBody> call = reportes.getReporteDinamico(new ReporteDTO(campos,valores,formatoAlternativo.isChecked()) ,reporteSeleccionado.getId());
         call.enqueue(new Callback<ResponseBody>()  {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -345,27 +349,40 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-    private void envioEmail(File reporte)
+    private void envioEmail(Uri uri)
     {
-        Uri uri = Uri.fromFile(reporte);
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("text/html");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"" + Global.token.getEmail()});
         emailIntent.putExtra(android.content.Intent.EXTRA_TITLE, "Reporte " + reporteSeleccionado.getNombre());
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Nuevo Reporte " + reporteSeleccionado.getNombre() +  " Adjunto, Fecha: " + Calendar.getInstance().getTime());
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Nuevo Reporte Adjunto: " + reporteSeleccionado.getNombre() +  " \n Fecha: " + Calendar.getInstance().getTime());
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        getPermisos(emailIntent,uri);
+
         try {
             startActivity(Intent.createChooser(emailIntent, "Enviar Correo..."));
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "No hay ningun cliente de correo instalado.", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private void Visualizar(File reporte)
+    private void getPermisos(Intent intent, Uri selectedUri)
     {
-        Uri selectedUri = Uri.fromFile(reporte);
+        List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+
+            String packageName = resolveInfo.activityInfo.packageName;
+            Log.d("grantUriPermission" , packageName);
+            this.grantUriPermission(packageName, selectedUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+    }
+    private void Visualizar(Uri selectedUri)
+    {
         Intent intent = new Intent(Intent.ACTION_VIEW); //ACTION_GET_CONTENT,
         intent.setDataAndType(selectedUri, "text/csv");
+
+        getPermisos(intent,selectedUri);
+
         try {
             startActivity(Intent.createChooser(intent, "Seleccionar Visualizador"));
         } catch (ActivityNotFoundException e) {
@@ -418,6 +435,15 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 if(reporte.exists()) {
+                    final Uri uriFile;
+
+                    if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+                        uriFile = getUriForFile(getApplicationContext(), "com.ort.SafeDesk.fileprovider", reporte);
+                    } else{
+                        uriFile = Uri.fromFile(reporte);
+                    }
+
+                    Log.d("Uri ToString" , reporte.toString());
 
                     AlertDialog.Builder builder = null;
                     builder = new AlertDialog.Builder(this);
@@ -428,12 +454,12 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
                     builder.setPositiveButton("Enviar email", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            envioEmail(reporte);
+                            envioEmail(uriFile);
                         }
                     }).setNegativeButton("Visualizar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Visualizar(reporte);
+                            Visualizar(uriFile);
                         }
                     });
                     AlertDialog dialog = builder.create();
