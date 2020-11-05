@@ -49,8 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cerrarSesion = findViewById(R.id.cardView7);
         nombre = findViewById(R.id.txtnombre);
         email = findViewById(R.id.txtemail);
-        nombre.setText(Global.token.getNombre());
-        email.setText(Global.token.getEmail());
+
+        if (Global.token.getNombre() != null)
+            nombre.setText(Global.token.getNombre());
+
+        if (Global.token.getEmail() != null)
+            email.setText(Global.token.getEmail());
+
         switchReserva = findViewById(R.id.switchReserva);
 
         setEnableCardViews(Global.token.getIdTipoDeUsuario());

@@ -251,17 +251,29 @@
                         android:layout_width="128dp"
                         android:layout_height="44dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@drawable/button_gradient"
                         android:fontFamily="@font/armata"
                         android:text="GENERAR"
                         android:textColor="#fff"
-                        android:layout_marginTop="35dp"
-                        android:layout_marginBottom="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spinner10"
-                        app:layout_constraintVertical_bias="0.438" />
+                        app:layout_constraintTop_toBottomOf="@+id/switch9"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <Switch
+                        android:id="@+id/switch9"
+                        android:layout_width="181dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Formato Alternativo"
+                        android:fontFamily="@font/armata"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.510"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner10" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -272,5 +284,19 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="#2196F3"
+            android:visibility="visible" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
