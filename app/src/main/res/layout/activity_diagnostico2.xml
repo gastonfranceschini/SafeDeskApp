@@ -48,18 +48,17 @@
             android:layout_width="match_parent"
             android:layout_height="711dp">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+            <Switch
+                android:id="@+id/switch15"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:gravity="center"
-                android:text="Temperatura"
-                android:textColor="#000"
-                android:textSize="20dp" />
+                android:text="Tengo temperatura mayor a 37°"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch0"
@@ -70,20 +69,20 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Contacto cercano"
-                android:textSize="20dp" />
+                android:text="Tuve contacto cercano con COVID"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView2"
+                android:layout_below="@+id/switch15"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Pérdida del gusto"
-                android:textSize="20dp" />
+                android:text="Tengo pérdida del gusto"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch2"
@@ -94,8 +93,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Estoy Embarazada"
-                android:textSize="20dp" />
+                android:text="Estoy embarazada"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch3"
@@ -106,8 +105,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Cáncer"
-                android:textSize="20dp" />
+                android:text="Tengo/tuve Cáncer"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch4"
@@ -118,8 +117,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Diabetes"
-                android:textSize="20dp" />
+                android:text="Tengo diabetes"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch5"
@@ -130,8 +129,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Hepatitis"
-                android:textSize="20dp" />
+                android:text="Tengo alguna enfermadad hepatica"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch6"
@@ -142,8 +141,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Pérdida del olfato"
-                android:textSize="20dp" />
+                android:text="Tengo pérdida del olfato"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch7"
@@ -154,8 +153,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Dolor de garganta"
-                android:textSize="20dp" />
+                android:text="Tengo dolor de garganta"
+                android:textSize="18sp" />
 
             <Switch
                 android:id="@+id/switch8"
@@ -166,8 +165,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Dificultad respiratoria"
-                android:textSize="20dp" />
+                android:text="Tengo dificultad respiratoria"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/buttonDiag"
@@ -181,31 +180,6 @@
                 android:fontFamily="@font/armata"
                 android:text="Confirmar"
                 android:textColor="#fff" />
-
-            <TextView
-                android:id="@+id/seekBarTxt"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/seekBar2"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="46dp"
-                android:layout_toEndOf="@+id/seekBar2"
-                android:text="37\u2103" />
-
-            <SeekBar
-                android:id="@+id/seekBar2"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="184dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="45dp"
-                android:layout_toEndOf="@+id/textView2"
-                android:min="34"
-                android:max="45"
-                android:progress="37" />
 
         </RelativeLayout>
 

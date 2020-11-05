@@ -2,7 +2,7 @@ package com.ort.SafeDesk.Model;
 
 public class Diagnostico {
 
-    private float Temperatura;
+    private boolean Temperatura;
     private boolean PerdioGusto;
     private boolean ContactoCercano;
     private boolean EstoyEmbarazada;
@@ -15,7 +15,7 @@ public class Diagnostico {
 
     public Diagnostico(){}
 
-    public Diagnostico(float temp, boolean perdioGusto, boolean contacto, boolean estoyEmbarazada,
+    public Diagnostico(boolean temp, boolean perdioGusto, boolean contacto, boolean estoyEmbarazada,
                        boolean cancer, boolean diabetes, boolean hepatica, boolean perdioOlfato,
                        boolean dolorGarganta, boolean dificultadRespiratoria){
         this.Temperatura = temp;
@@ -30,7 +30,7 @@ public class Diagnostico {
         this.DificultadRespiratoria = dificultadRespiratoria;
     }
 
-    public float getTemperatura(){ return Temperatura; }
+    public boolean getTemperatura(){ return Temperatura; }
     public boolean isPerdioGusto() { return PerdioGusto; }
     public boolean getContactoCercano() { return ContactoCercano; }
     public boolean isEstoyEmbarazada() { return EstoyEmbarazada; }
