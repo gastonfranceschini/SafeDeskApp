@@ -2,10 +2,15 @@ package com.ort.SafeDesk.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.ort.SafeDesk.Model.Token;
+
+import java.util.Locale;
+
+import javax.sql.CommonDataSource;
 
 
 public class SettingPreferences {
@@ -14,7 +19,10 @@ public class SettingPreferences {
     private final Context context;
 
     public SettingPreferences(Context context) {
+
         this.context = context;
+        // AR Pongo las fechas en español
+        Commons.cambiarContextoEspanol(this.context);
     }
 
     public void saveToken(Token token) {

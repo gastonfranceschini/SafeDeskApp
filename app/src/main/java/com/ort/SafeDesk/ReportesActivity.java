@@ -8,10 +8,12 @@ import androidx.core.content.FileProvider;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ import com.ort.SafeDesk.Model.ReporteDTO;
 import com.ort.SafeDesk.Model.TurnoBody;
 import com.ort.SafeDesk.Model.UsuarioDep;
 import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.utils.Commons;
 import com.ort.SafeDesk.utils.Global;
 
 import org.json.JSONObject;
@@ -59,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -249,6 +253,8 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             }
                     ,ano, mes, dia);
             datePicker.getDatePicker();
+            // AR convierto el datePicker en español (lo tengo que hacer en el contexto del datePicker para que funcione)
+            Commons.cambiarContextoEspanol(datePicker.getContext());
             datePicker.show();
         }
         else if(reporte.equals(view)) {
