@@ -24,7 +24,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     private TextView tempTxt;
     private SeekBar seekBar;
 
-    private float temperatura;
+    //private float temperatura;
     private Switch perdidaGusto;
     private Switch contactoCercano;
     private Switch embarazada;
@@ -34,6 +34,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     private Switch perdidaOlfato;
     private Switch dolorGarganta;
     private Switch dificultadRespiratoria;
+    private Switch temperatura;
 
     private Button confirmar;
 
@@ -41,26 +42,6 @@ public class DiagnosticoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnostico2);
-
-        tempTxt = (TextView) findViewById(R.id.seekBarTxt);
-        seekBar = (SeekBar) findViewById(R.id.seekBar2);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tempTxt.setText("" + progress + "\u2103");
-                temperatura = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         setSwitchsValue();
         confirmar = findViewById(R.id.buttonDiag);
@@ -76,7 +57,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     private void saveAutoDiagnostico(){
         APIDiagnostico apiDiagnostico = (APIDiagnostico) ApiUtils.getAPI(APIDiagnostico.class);
 
-        Diagnostico diagnostico = new Diagnostico(temperatura, perdidaGusto.isChecked(), contactoCercano.isChecked(), embarazada.isChecked(),
+        Diagnostico diagnostico = new Diagnostico(temperatura.isChecked(), perdidaGusto.isChecked(), contactoCercano.isChecked(), embarazada.isChecked(),
                 cancer.isChecked(), diabetes.isChecked(), hepatitis.isChecked(), perdidaOlfato.isChecked(), dolorGarganta.isChecked(),
                 dificultadRespiratoria.isChecked());
 
@@ -111,6 +92,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
         perdidaOlfato = (Switch) findViewById(R.id.switch6);
         dolorGarganta = (Switch) findViewById(R.id.switch7);
         dificultadRespiratoria = (Switch) findViewById(R.id.switch8);
+        temperatura = (Switch) findViewById(R.id.switch15);
     }
 
     private void accessMainApp() {
