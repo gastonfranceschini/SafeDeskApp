@@ -13,7 +13,7 @@ public class Diagnostico {
     private boolean DolorGarganta;
     private boolean DificultadRespiratoria;
 
-    public Diagnostico(){}
+    public Diagnostico(boolean checked, boolean perdidaGustoChecked, boolean contactoCercanoChecked, boolean embarazadaChecked, boolean cancerChecked, boolean diabetesChecked, boolean hepatitisChecked, boolean perdidaOlfatoChecked, boolean dolorGargantaChecked, boolean dificultadRespiratoriaChecked){}
 
     public Diagnostico(float temp, boolean perdioGusto, boolean contacto, boolean estoyEmbarazada,
                        boolean cancer, boolean diabetes, boolean hepatica, boolean perdioOlfato,
