@@ -57,7 +57,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/armata"
-                android:text="Tengo temperatura mayor a 37°"
+                android:text="Temperatura mayor a 37°"
                 android:textSize="18sp" />
 
             <Switch

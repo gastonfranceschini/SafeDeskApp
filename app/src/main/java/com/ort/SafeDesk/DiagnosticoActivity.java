@@ -22,9 +22,7 @@ import retrofit2.Response;
 public class DiagnosticoActivity extends AppCompatActivity {
 
     private TextView tempTxt;
-    private SeekBar seekBar;
-
-    //private float temperatura;
+    private Switch temperatura;
     private Switch perdidaGusto;
     private Switch contactoCercano;
     private Switch embarazada;
@@ -34,7 +32,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     private Switch perdidaOlfato;
     private Switch dolorGarganta;
     private Switch dificultadRespiratoria;
-    private Switch temperatura;
+
 
     private Button confirmar;
 
@@ -83,6 +81,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
     }
 
     private void setSwitchsValue(){
+        temperatura = (Switch) findViewById(R.id.switch15);
         contactoCercano = (Switch) findViewById(R.id.switch0);
         perdidaGusto = (Switch) findViewById(R.id.switch1);
         embarazada = (Switch) findViewById(R.id.switch2);
@@ -92,7 +91,6 @@ public class DiagnosticoActivity extends AppCompatActivity {
         perdidaOlfato = (Switch) findViewById(R.id.switch6);
         dolorGarganta = (Switch) findViewById(R.id.switch7);
         dificultadRespiratoria = (Switch) findViewById(R.id.switch8);
-        temperatura = (Switch) findViewById(R.id.switch15);
     }
 
     private void accessMainApp() {
