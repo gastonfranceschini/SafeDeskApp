@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.ort.SafeDesk.Model.Token;
 import com.ort.SafeDesk.utils.Global;
 import com.ort.SafeDesk.utils.SettingPreferences;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -98,33 +101,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         view.setEnabled(false);
         view.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
     }
+
+    private void OcultarBoton(CardView view)
+    {
+        view.setVisibility(View.GONE);
+    }
+
+
     private void setEnableCardViews(int idTipoUsuario){
         switch(idTipoUsuario){
             case OPERADOR:
-                DesactivarBoton(codigoQR);
-                DesactivarBoton(administracion);
-                DesactivarBoton(reportes);
+                OcultarBoton(codigoQR);
+                OcultarBoton(administracion);
+                OcultarBoton(reportes);
                 break;
             case SUPERVISOR:
             case GERENTE:
-                DesactivarBoton(codigoQR);
-                DesactivarBoton(administracion);
+                OcultarBoton(codigoQR);
+                OcultarBoton(administracion);
                 break;
             case ADMINISTRADOR:
                 break;
             case SEGURIDAD:
-                DesactivarBoton(autoDiagnostico);
-                DesactivarBoton(reservaJornada);
-                DesactivarBoton(misReservas);
-                DesactivarBoton(reportes);
+                OcultarBoton(autoDiagnostico);
+                OcultarBoton(reservaJornada);
+                OcultarBoton(misReservas);
+                OcultarBoton(reportes);
                 break;
             default:
-                DesactivarBoton(autoDiagnostico);
-                DesactivarBoton(reservaJornada);
-                DesactivarBoton(misReservas);
-                DesactivarBoton(codigoQR);
-                DesactivarBoton(reportes);
-                DesactivarBoton(administracion);
+                OcultarBoton(autoDiagnostico);
+                OcultarBoton(reservaJornada);
+                OcultarBoton(misReservas);
+                OcultarBoton(codigoQR);
+                OcultarBoton(reportes);
+                OcultarBoton(administracion);
                 break;
         }
     }

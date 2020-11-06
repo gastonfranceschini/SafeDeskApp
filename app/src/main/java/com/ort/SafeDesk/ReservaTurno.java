@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +31,7 @@ import com.ort.SafeDesk.Model.Piso;
 import com.ort.SafeDesk.Model.TurnoBody;
 import com.ort.SafeDesk.Model.UsuarioDep;
 import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.utils.Commons;
 
 import org.json.JSONObject;
 
@@ -36,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +65,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     private List<Edificio> edificios;
     private List<UsuarioDep> usuarios;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +86,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         configUsuariosSpinner();
         imageButton.setOnClickListener(this);
         reserva.setOnClickListener(this);
+
+        context = this.context;
 
        List<String> selFecha = new ArrayList<String>();
         selFecha.add("Selecciona Fecha");
@@ -169,6 +177,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             DatePickerDialog datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
                     fecha.setText(day + "/" + (month+1) + "/" + year);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     //String currentDateandTime = sdf.format(new Date());
@@ -179,7 +188,10 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                 }
             }
                     ,ano, mes, dia);
+
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            // AR convierto el datePicker en español (lo tengo que hacer en el contexto del datePicker para que funcione)
+            Commons.cambiarContextoEspanol(datePicker.getContext());
             datePicker.show();
         }
         else if(reserva.equals(view)) {
