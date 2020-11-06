@@ -1,5 +1,7 @@
 package com.ort.SafeDesk.Model;
 
+import java.util.Date;
+
 public class Diagnostico {
 
     private boolean Temperatura;

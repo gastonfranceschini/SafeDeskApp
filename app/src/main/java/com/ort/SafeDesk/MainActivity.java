@@ -11,11 +11,20 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.ort.SafeDesk.Interface.GetDiagnosticoUser;
+import com.ort.SafeDesk.Interface.PostTurno;
+import com.ort.SafeDesk.Model.Diagnostico;
 import com.ort.SafeDesk.Model.Token;
+import com.ort.SafeDesk.Model.TurnoBody;
+import com.ort.SafeDesk.utils.ApiUtils;
 import com.ort.SafeDesk.utils.Global;
 import com.ort.SafeDesk.utils.SettingPreferences;
 
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int ADMINISTRADOR = 4;
     private static final int SEGURIDAD = 5;
     private TextView myJsonTxtView;
+    private boolean resp;
 
     private CardView autoDiagnostico;
     private CardView reservaJornada;
@@ -58,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (Global.token.getEmail() != null)
             email.setText(Global.token.getEmail());
+
+        if(!isAutoDiagActive()){ OcultarBoton(autoDiagnostico); }
 
         switchReserva = findViewById(R.id.switchReserva);
 
@@ -96,17 +108,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void DesactivarBoton(CardView view)
-    {
-        view.setEnabled(false);
-        view.setCardBackgroundColor(getResources().getColor(R.color.colorDisabled));
+    private boolean isAutoDiagActive(){
+        GetDiagnosticoUser userDiag = (GetDiagnosticoUser) ApiUtils.getAPI(GetDiagnosticoUser.class);
+
+        Call<Boolean> call = userDiag.getUserDiagnostico();
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.isSuccessful()){
+                    if(response.body()){
+                        resp = true;
+                    }else{
+                        resp = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+        return resp;
     }
 
     private void OcultarBoton(CardView view)
     {
         view.setVisibility(View.GONE);
     }
-
 
     private void setEnableCardViews(int idTipoUsuario){
         switch(idTipoUsuario){
