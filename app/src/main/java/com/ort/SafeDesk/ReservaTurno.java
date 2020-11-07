@@ -1,13 +1,18 @@
 package com.ort.SafeDesk;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +25,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.ort.SafeDesk.Interface.GetEdificios;
 import com.ort.SafeDesk.Interface.GetHora;
 import com.ort.SafeDesk.Interface.GetPisos;
@@ -35,6 +44,7 @@ import com.ort.SafeDesk.utils.Commons;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -218,7 +228,43 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    private void saveTurno(TurnoBody turnoNuevo){
+    private void generarAgenda(final TurnoBody turnoNuevo)
+    {
+
+        AlertDialog.Builder builder = null;
+        builder = new AlertDialog.Builder(this);
+
+        String msj = "¿Deseas crear un nuevo evento en tu calendario?";
+        builder.setMessage(msj);
+        builder.setTitle("Nueva Reserva");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+            Calendar beginTime = Calendar.getInstance();
+
+            beginTime.set(ano,mes,dia);
+            //beginTime.set(2012, 0, 19, 7, 30);
+            //Calendar endTime = Calendar.getInstance();
+            //endTime.set(2012, 0, 19, 10, 30);
+            calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+            //calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+            calendarIntent.putExtra(CalendarContract.Events.TITLE, "Jornada Laboral");
+            calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, turnoNuevo.getEdificio());
+            startActivity(Intent.createChooser(calendarIntent, "Agendar Nueva Jornada:"));
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                accessMainApp();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void saveTurno(final TurnoBody turnoNuevo){
         PostTurno postTurno = (PostTurno) ApiUtils.getAPI(PostTurno.class);
 
         Call<TurnoBody> call = postTurno.saveTurno(turnoNuevo);
@@ -227,7 +273,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<TurnoBody> call, Response<TurnoBody> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
-                    accessMainApp();
+                    generarAgenda(turnoNuevo);
+                    //accessMainApp();
                 }
                 else
                 {

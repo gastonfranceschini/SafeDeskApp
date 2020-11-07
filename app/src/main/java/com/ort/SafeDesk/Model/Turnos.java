@@ -14,6 +14,7 @@ public class Turnos {
     private String Piso;
     private String Edificio;
     private String Horario;
+    private String GeoPos;
 
     public Turnos(String fecha, String piso, String edificio, String horario){
         this.FechaTurno = fecha;
@@ -24,6 +25,10 @@ public class Turnos {
 
     public int getTurnoId() {
         return TurnoId;
+    }
+
+    public String getGeoPos() {
+        return GeoPos;
     }
 
     public String getFechaTurno() throws ParseException {

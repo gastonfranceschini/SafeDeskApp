@@ -3,6 +3,7 @@ package com.ort.SafeDesk;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -215,9 +217,20 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             return getResources().getColor(R.color.colorDisabled);
     }
 
+    Drawable definirDraw(int valor)
+    {
+        if (valor == 1)//activo
+            return ContextCompat.getDrawable(this,R.drawable.spinner_background_enabled);
+        else if (valor == 2) //obligatorio
+            return ContextCompat.getDrawable(this,R.drawable.spinner_background_mandatory);
+        else //desactivado
+            return ContextCompat.getDrawable(this,R.drawable.spinner_background_disabled);
+    }
+
     private void EvaluarActivacionSpinner(Spinner spinner, int valor)
     {
-        spinner.setBackgroundColor(definirColor(valor));
+        //spinner.setBackgroundColor(definirColor(valor));
+        spinner.setBackground(definirDraw(valor));
         spinner.setEnabled(valor > 0);
     }
 
@@ -386,11 +399,23 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     {
         Intent intent = new Intent(Intent.ACTION_VIEW); //ACTION_GET_CONTENT,
         intent.setDataAndType(selectedUri, "text/csv");
-
         getPermisos(intent,selectedUri);
 
         try {
-            startActivity(Intent.createChooser(intent, "Seleccionar Visualizador"));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(Intent.createChooser(intent, "Seleccionar Visualizador"));
+            }
+            else
+            {
+                Toast.makeText(this, "No hay ningun visualizador de CSV instalado, te recomendamos instalar Google Sheets y reintentar generar el reporte.", Toast.LENGTH_SHORT).show();
+                final String appPackageName = "com.google.android.apps.docs.editors.sheets";
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+
         } catch (ActivityNotFoundException e) {
             Toast.makeText(getApplicationContext(), "ActivityNotFound" , Toast.LENGTH_LONG).show();
         }
