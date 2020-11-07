@@ -7,7 +7,9 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView myJsonTxtView;
     private boolean resp;
 
+    private LinearLayout perfil;
     private CardView autoDiagnostico;
     private CardView reservaJornada;
     private CardView misReservas;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        perfil = findViewById(R.id.layoutperfil);
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
         misReservas = findViewById(R.id.cardView3);
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setEnableCardViews(Global.token.getIdTipoDeUsuario());
 
         //onClickListeners
+        perfil.setOnClickListener(this);
         autoDiagnostico.setOnClickListener(this);
         reservaJornada.setOnClickListener(this);
         misReservas.setOnClickListener(this);
@@ -88,7 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (autoDiagnostico.equals(view)) {
+        if (perfil.equals(view)){
+            accessMainApp(EditarPerfil.class);
+        }else if (autoDiagnostico.equals(view)) {
             accessMainApp(DiagnosticoActivity.class);
         }else if(reservaJornada.equals(view)){
             accessMainApp(ReservaTurno.class);

@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -19,8 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ReportesActivity"></activity>
+        <activity android:name=".CambioContrasena"></activity>
+        <activity android:name=".EditarPerfil" />
+        <activity android:name=".ReportesActivity" />
         <activity
             android:name=".AdministracionActivity"
             android:label="@string/title_activity_administracion" />
@@ -47,7 +47,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.ort.SafeDesk.fileprovider"
@@ -57,8 +56,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
-
-
     </application>
 
 </manifest>
