@@ -2,6 +2,9 @@ package com.ort.SafeDesk.utils;
 
 
 public class ApiUtils {
+    public static final String CONFIG_TURNOS = "TurnosActivo";
+    public static final String CONFIG_DIAGNOSTICOS = "DiagnosticosActivo";
+
 
     private ApiUtils() {}
 
