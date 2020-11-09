@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Global.token.getEmail() != null)
             email.setText(Global.token.getEmail());
 
-        if(!isAutoDiagActive()){ OcultarBoton(autoDiagnostico); }
+        //if(!isAutoDiagActive()){ OcultarBoton(autoDiagnostico); }
 
         switchReserva = findViewById(R.id.switchReserva);
 
