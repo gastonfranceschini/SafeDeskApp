@@ -29,6 +29,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.ort.SafeDesk.Interface.GetDiagnosticoUser;
 import com.ort.SafeDesk.Interface.GetEdificios;
 import com.ort.SafeDesk.Interface.GetHora;
 import com.ort.SafeDesk.Interface.GetPisos;
@@ -81,7 +82,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_turno);
-
+        isAutoDiagActive();
         fecha = findViewById(R.id.editTextFecha1);
         cupoE = findViewById(R.id.textView5);
         cupoP = findViewById(R.id.textView6);
@@ -165,6 +166,31 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private void isAutoDiagActive(){
+        GetDiagnosticoUser userDiag = (GetDiagnosticoUser) ApiUtils.getAPI(GetDiagnosticoUser.class);
+
+        Call<Boolean> call = userDiag.getUserDiagnostico();
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.isSuccessful()){
+                    if(response.body()){
+                        //todo legal sigo sacando el turno
+                    }else{
+                        //obligo a realizar el autodiagnostico
+                        accessMainApp(DiagnosticoActivity.class);
+                        Toast.makeText(getApplicationContext(),"Debe actualizar el autodiagnostico, antes de sacar un nuevo turno.",Toast. LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     private void setCuposView(TextView view){
         if(cupoE.equals(view)){
@@ -195,6 +221,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
                     fechaSelected = year + "-" + (month +1) + "-" + day;
                     //Date fecha = new Date(year, month, day);
                     configEdificiosSpinner(fechaSelected);
+                    isAutoDiagActive();
                 }
             }
                     ,ano, mes, dia);
@@ -223,11 +250,10 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void accessMainApp() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void accessMainApp(Class activity) {
+        Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
-
     private void generarAgenda(final TurnoBody turnoNuevo)
     {
 
@@ -256,7 +282,7 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                accessMainApp();
+                accessMainApp(MainActivity.class);
             }
         });
         AlertDialog dialog = builder.create();
@@ -273,8 +299,8 @@ public class ReservaTurno extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<TurnoBody> call, Response<TurnoBody> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
-                    generarAgenda(turnoNuevo);
-                    //accessMainApp();
+                    //generarAgenda(turnoNuevo);
+                    accessMainApp(MainActivity.class);
                 }
                 else
                 {

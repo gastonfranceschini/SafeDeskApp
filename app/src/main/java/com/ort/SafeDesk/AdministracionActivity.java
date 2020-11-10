@@ -1,5 +1,6 @@
 package com.ort.SafeDesk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,17 +49,23 @@ public class AdministracionActivity extends AppCompatActivity implements View.On
     }
     private void guardarConfiguraciones()
     {
+        setConfiguracion(ApiUtils.CONFIG_TURNOS, enabledReserva.isChecked());
+        setConfiguracion(ApiUtils.CONFIG_DIAGNOSTICOS,enabledAutodiag.isChecked());
 
     }
+
     private void responseConfig(String nombre, Configuracion config)
     {
+        boolean checked = false;
+        if (config.getValor() == 1)
+            checked = true;
         switch (nombre)
         {
             case ApiUtils.CONFIG_TURNOS:
-                enabledReserva.setChecked(config.getValor() == "1");
+                enabledReserva.setChecked(checked);
                 break;
             case ApiUtils.CONFIG_DIAGNOSTICOS:
-                enabledAutodiag.setChecked(config.getValor() == "1");
+                enabledAutodiag.setChecked(checked);
                 break;
         }
     }
@@ -69,7 +76,6 @@ public class AdministracionActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<Configuracion>() {
             @Override
             public void onResponse(Call<Configuracion> call, Response<Configuracion> response) {
-
                 if (response.isSuccessful()) {
                     Configuracion config = response.body();
                     responseConfig(Nombre, config);
@@ -85,6 +91,43 @@ public class AdministracionActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onFailure(Call<Configuracion> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void accessMainApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    private void setConfiguracion(String Nombre,boolean Valor) {
+        String Activado = "0";
+
+        if (Valor)
+            Activado = "1";
+
+        Reportes setConfig = (Reportes) ApiUtils.getAPI(Reportes.class);
+        Call<ResponseBody> call = setConfig.setConfig(Nombre,Activado);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    //Configuracion config = response.body();
+                    //responseConfig(Nombre, config);
+                    Toast.makeText(getApplicationContext(), "Configuracion Guardada", Toast.LENGTH_LONG).show();
+                    accessMainApp();
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

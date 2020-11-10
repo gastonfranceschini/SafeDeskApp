@@ -84,23 +84,23 @@
                         android:id="@+id/nomperfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="30dp"
                         android:fontFamily="@font/armata"
                         android:text="nombre"
                         android:textColor="#000"
                         android:textSize="18dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginEnd="30dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/infotxt"/>
+                        app:layout_constraintTop_toBottomOf="@+id/infotxt" />
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="36dp"
                         android:fontFamily="@font/armata"
-                        android:text="Apelido"
+                        android:text="DNI"
                         android:textColor="#000"
                         android:textSize="18dp"
                         android:textStyle="bold"
@@ -108,44 +108,17 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
                     <TextView
-                        android:id="@+id/apellidoperfil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginTop="35dp"
-                        android:fontFamily="@font/armata"
-                        android:text="apellido"
-                        android:textColor="#000"
-                        android:textSize="18dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nomperfil" />
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="35dp"
-                        android:fontFamily="@font/armata"
-                        android:text="DNI"
-                        android:textColor="#000"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-                    <TextView
                         android:id="@+id/dniperfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginEnd="40dp"
                         android:fontFamily="@font/armata"
                         android:text="dni"
                         android:textColor="#000"
                         android:textSize="18dp"
-                        android:layout_marginTop="35dp"
-                        android:layout_marginEnd="30dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/apellidoperfil"/>
+                        app:layout_constraintTop_toBottomOf="@+id/nomperfil" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -165,8 +138,8 @@
                         android:id="@+id/emailperfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
                         android:layout_marginTop="35dp"
+                        android:layout_marginEnd="30dp"
                         android:fontFamily="@font/armata"
                         android:text="email@email.com"
                         android:textColor="#000"
@@ -192,8 +165,8 @@
                         android:id="@+id/gerenperfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
                         android:layout_marginTop="35dp"
+                        android:layout_marginEnd="30dp"
                         android:fontFamily="@font/armata"
                         android:text="gerencia"
                         android:textColor="#000"
@@ -219,13 +192,13 @@
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginEnd="30dp"
                         android:background="@drawable/button_gradient"
                         android:fontFamily="@font/armata"
                         android:text="Cambiar"
-                        android:textSize="13dp"
                         android:textColor="#fff"
-                        android:layout_marginTop="35dp"
-                        android:layout_marginEnd="30dp"
+                        android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/gerenperfil" />
 
@@ -234,16 +207,14 @@
                         android:layout_width="128dp"
                         android:layout_height="44dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
                         android:layout_marginBottom="45dp"
                         android:background="@drawable/button_gradient"
                         android:fontFamily="@font/armata"
-                        android:text="Confirmar"
+                        android:text="Volver"
                         android:textColor="#fff"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,7 +16,7 @@ public class EditarPerfil extends AppCompatActivity implements View.OnClickListe
     private Button confirmar;
     private Button cambiar;
     private TextView nombre;
-    private TextView apellido;
+    //private TextView apellido;
     private TextView dni;
     private TextView email;
     private TextView gerencia;
@@ -29,7 +29,7 @@ public class EditarPerfil extends AppCompatActivity implements View.OnClickListe
         confirmar = findViewById(R.id.btn_finperfil);
         cambiar = findViewById(R.id.btn_cambiopass);
         nombre = findViewById(R.id.nomperfil);
-        apellido = findViewById(R.id.apellidoperfil);
+        //apellido = findViewById(R.id.apellidoperfil);
         dni = findViewById(R.id.dniperfil);
         email = findViewById(R.id.emailperfil);
         gerencia = findViewById(R.id.gerenperfil);
@@ -40,6 +40,8 @@ public class EditarPerfil extends AppCompatActivity implements View.OnClickListe
         if (Global.token.getEmail() != null)
             email.setText(Global.token.getEmail());
 
+        dni.setText(Global.token.getUserId());
+        gerencia.setText(Global.token.getGerencia());
         confirmar.setOnClickListener(this);
         cambiar.setOnClickListener(this);
     }
@@ -58,7 +60,4 @@ public class EditarPerfil extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-    }
 }
