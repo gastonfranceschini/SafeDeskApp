@@ -44,7 +44,7 @@ public class MisReservasActivity extends AppCompatActivity {
     private TextView reservaElegida;
     private LinearLayout reservasPasadas, codigoQR;
     private ArrayAdapter aAdapter1, aAdapter2;
-    private String[] users1 = {"test"};
+    private String[] users1 = {"Cargando..."};
     private List<Turnos> ListaTurnos;
     final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -181,7 +181,8 @@ public class MisReservasActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String geoPos = ListaTurnos.get(position).getGeoPos();
-                Uri location = Uri.parse("geo:" + geoPos + "?z=16"); // z param is zoom level
+                //Uri location = Uri.parse("geo:" + geoPos + "?z=16"); // z param is zoom level
+                Uri location = Uri.parse("google.navigation:q=" + geoPos + ""); // z param is zoom level
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 startActivity(Intent.createChooser(mapIntent, "Ir al edificio con:"));
             }

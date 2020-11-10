@@ -16,6 +16,12 @@ public class Token {
     @SerializedName("IdGerencia")
     private int IdGerencia;
 
+    @SerializedName("Gerencia")
+    private String Gerencia;
+
+    @SerializedName("CambioPassObligatorio")
+    private int CambioPassObligatorio;
+
 
     public String getUserId() {
         return userId;
@@ -37,6 +43,14 @@ public class Token {
     public int getIdGerencia() {
         return IdGerencia;
     }
+    public String getGerencia() {
+        return Gerencia;
+    }
+    public int getCambioPassObligatorio() {
+        return CambioPassObligatorio;
+    }
 
-
+    public void setCambioPassObligatorio(int cambioPassObligatorio) {
+        CambioPassObligatorio = cambioPassObligatorio;
+    }
 }

@@ -12,15 +12,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ort.SafeDesk.Interface.GetDiagnosticoUser;
 import com.ort.SafeDesk.Interface.PostTurno;
+import com.ort.SafeDesk.Interface.Reportes;
+import com.ort.SafeDesk.Model.Configuracion;
 import com.ort.SafeDesk.Model.Diagnostico;
 import com.ort.SafeDesk.Model.Token;
 import com.ort.SafeDesk.Model.TurnoBody;
 import com.ort.SafeDesk.utils.ApiUtils;
 import com.ort.SafeDesk.utils.Global;
 import com.ort.SafeDesk.utils.SettingPreferences;
+
+import org.json.JSONObject;
 
 import java.util.Locale;
 
@@ -56,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (Global.token.getCambioPassObligatorio() == 1)
+        {
+            Toast.makeText(getApplicationContext(), "Debe cambiar la contraseña.", Toast.LENGTH_LONG).show();
+            accessMainApp(CambioContrasena.class);
+        }
+
         perfil = findViewById(R.id.layoutperfil);
         autoDiagnostico = findViewById(R.id.cardView1);
         reservaJornada = findViewById(R.id.cardView2);
@@ -73,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Global.token.getEmail() != null)
             email.setText(Global.token.getEmail());
 
-        if(!isAutoDiagActive()){ OcultarBoton(autoDiagnostico); }
+        //if(!isAutoDiagActive()){ OcultarBoton(autoDiagnostico); }
 
         switchReserva = findViewById(R.id.switchReserva);
 
@@ -88,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         administracion.setOnClickListener(this);
         reportes.setOnClickListener(this);
         cerrarSesion.setOnClickListener(this);
+        getConfiguracion(ApiUtils.CONFIG_TURNOS);
+        getConfiguracion(ApiUtils.CONFIG_DIAGNOSTICOS);
     }
 
 
@@ -173,6 +186,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 OcultarBoton(administracion);
                 break;
         }
+    }
+    
+    private void responseConfig(String nombre, Configuracion config)
+    {
+        boolean checked = false;
+        if (config.getValor() == 1)
+            checked = true;
+        switch (nombre)
+        {
+            case ApiUtils.CONFIG_TURNOS:
+                if (!checked) OcultarBoton(reservaJornada);
+                break;
+            case ApiUtils.CONFIG_DIAGNOSTICOS:
+                if (!checked) OcultarBoton(autoDiagnostico);
+                break;
+        }
+    }
+    private void getConfiguracion(final String Nombre) {
+        Reportes getConfig = (Reportes) ApiUtils.getAPI(Reportes.class);
+        Call<Configuracion> call = getConfig.getConfig(Nombre);
+
+        call.enqueue(new Callback<Configuracion>() {
+            @Override
+            public void onResponse(Call<Configuracion> call, Response<Configuracion> response) {
+                if (response.isSuccessful()) {
+                    Configuracion config = response.body();
+                    responseConfig(Nombre, config);
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Configuracion> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void accessMainApp(Class activity) {

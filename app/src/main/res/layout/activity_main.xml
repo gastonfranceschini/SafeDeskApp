@@ -26,12 +26,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:gravity="center"
                 android:fontFamily="@font/armata"
+                android:gravity="center"
                 android:text="Alancito"
                 android:textColor="#fff"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
+            <ImageView
+                android:tint="@color/colorBlanco"
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:baselineAligned="false"
+                android:cropToPadding="true"
+                android:rotation="0"
+                android:rotationX="0"
+                android:rotationY="0"
+                android:scaleType="fitCenter"
+                android:soundEffectsEnabled="true"
+                app:srcCompat="@drawable/ic_baseline_perm_identity_24" />
 
             <TextView
                 android:id="@+id/txtemail"
@@ -40,11 +54,11 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="40dp"
-                android:gravity="center"
                 android:fontFamily="@font/armata"
-                android:textSize="12dp"
+                android:gravity="center"
+                android:text="example@email.com"
                 android:textColor="#fff"
-                android:text="example@email.com"/>
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -501,11 +515,12 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginTop="12dp"
                                 android:layout_marginBottom="12dp"
+                                android:adjustViewBounds="false"
                                 android:padding="10dp"
                                 android:src="@drawable/ic_baseline_exit_to_app_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/txttitle7"

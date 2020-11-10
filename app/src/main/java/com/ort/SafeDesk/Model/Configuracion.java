@@ -3,14 +3,14 @@ package com.ort.SafeDesk.Model;
 
 public class Configuracion {
 
-    private String Nombre;
-    private String Valor;
+    //private String nombre;
+    private int valor;
 
-    public String getValor() {
-        return Valor;
+    public int getValor() {
+        return valor;
     }
 
-    public String getNombre() {
-        return Nombre;
-    }
+   /* public String getNombre() {
+        return nombre;
+    }*/
 }
