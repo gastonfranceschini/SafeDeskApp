@@ -54,7 +54,7 @@ public class CambioContrasena extends AppCompatActivity implements View.OnClickL
         if (cambiar.equals(view)){
 
 
-            if  (!nueva.getText().toString().equals(""))
+            if  (nueva.getText().toString().equals(""))
             {
                 Toast.makeText(getApplicationContext(), "La contraseña nueva no puede estar vacia.", Toast.LENGTH_LONG).show();
                 return;
