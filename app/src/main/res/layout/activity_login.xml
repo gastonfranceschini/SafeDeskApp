@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="hideKeyboard"
     tools:context=".LoginActivity"
     android:background="@drawable/gradient">
 
@@ -24,7 +25,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="hideKeyboard">
+            >
 
             <TextView
                 android:id="@+id/txt_login"
