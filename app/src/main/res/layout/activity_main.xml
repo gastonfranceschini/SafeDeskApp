@@ -17,48 +17,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgicoperfil"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:padding="5dp"
+                android:tint="@color/colorBlanco"
+                android:src="@drawable/ic_baseline_perm_identity_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtnombre"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/armata"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="80dp"
+                android:text="Nombre Apellido"
                 android:gravity="center"
-                android:text="Alancito"
+                android:fontFamily="@font/armata"
                 android:textColor="#fff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:tint="@color/colorBlanco"
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:baselineAligned="false"
-                android:cropToPadding="true"
-                android:rotation="0"
-                android:rotationX="0"
-                android:rotationY="0"
-                android:scaleType="fitCenter"
-                android:soundEffectsEnabled="true"
-                app:srcCompat="@drawable/ic_baseline_perm_identity_24" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgicoperfil"
+                app:layout_constraintTop_toTopOf="@+id/imgicoperfil"/>
 
             <TextView
                 android:id="@+id/txtemail"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="40dp"
-                android:fontFamily="@font/armata"
-                android:gravity="center"
+                android:layout_marginBottom="12dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="example@email.com"
+                android:gravity="center"
+                android:fontFamily="@font/armata"
                 android:textColor="#fff"
-                android:textSize="12dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtnombre"
+                app:layout_constraintStart_toStartOf="@+id/txtnombre"
+                app:layout_constraintTop_toBottomOf="@+id/txtnombre"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
