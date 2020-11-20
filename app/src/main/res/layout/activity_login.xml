@@ -8,47 +8,82 @@
     tools:context=".LoginActivity"
     android:background="@drawable/gradient">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp">
+
+        <TextView
+            android:id="@+id/txtperfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/armata"
+            android:gravity="center"
+            android:text="Inicia Sesion"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="25dp"
+            app:cardCornerRadius="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/txt_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
                 android:fontFamily="@font/armata"
-                android:text="INICIA SESIÓN"
+                android:text="SAFE DESK"
                 android:textColor="#364e74"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_marginTop="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_login"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginRight="12dp"
                 android:hint="DNI"
-                android:textColorHint="#364e74">
+                android:textColorHint="#364e74"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="90dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_login">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -60,14 +95,14 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/username"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginTop="45dp"
                 android:hint="Contraseña"
                 android:textColorHint="#364e74"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="#364e74">
+                app:passwordToggleTint="#364e74"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -79,40 +114,26 @@
                 android:id="@+id/btn_login"
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/password"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
                 android:background="@drawable/button_gradient"
                 android:fontFamily="@font/armata"
                 android:text="Ingresar"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="120dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="418dp"
-        android:layout_height="277dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:fontFamily="@font/armata"
-        android:text="SAFEDESK"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
+    </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
