@@ -22,10 +22,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.ort.SafeDesk.Interface.GetTurnos;
-import com.ort.SafeDesk.Interface.GetTurnosHistoricos;
-import com.ort.SafeDesk.Model.Turnos;
-import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.Interface.APITurnos;
+import com.ort.SafeDesk.Model.Turno;
+import com.ort.SafeDesk.Utils.ApiUtils;
 
 import org.json.JSONObject;
 
@@ -45,23 +44,23 @@ public class MisReservasActivity extends AppCompatActivity {
     private LinearLayout reservasPasadas, codigoQR;
     private ArrayAdapter aAdapter1, aAdapter2;
     private String[] users1 = {"Cargando..."};
-    private List<Turnos> ListaTurnos;
+    private List<Turno> ListaTurnos;
     final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private void getTurnos(){
 
-        GetTurnos getTurnos = (GetTurnos) ApiUtils.getAPI(GetTurnos.class);
+        APITurnos getTurnos = (APITurnos) ApiUtils.getAPI(APITurnos.class);
 
-        Call<List<Turnos>> call = getTurnos.getTurnos();
+        Call<List<Turno>> call = getTurnos.getTurnos();
 
-        call.enqueue(new Callback<List<Turnos>>() {
+        call.enqueue(new Callback<List<Turno>>() {
             @Override
-            public void onResponse(Call<List<Turnos>> call, Response<List<Turnos>> response) {
+            public void onResponse(Call<List<Turno>> call, Response<List<Turno>> response) {
 
                 if (response.isSuccessful()) {
                     ListaTurnos = response.body();
                     List<String> ListaTurnosS = new ArrayList<String>();
-                    for(Turnos t : ListaTurnos){
+                    for(Turno t : ListaTurnos){
                         try {
                             ListaTurnosS.add(t.getFechaTurno() + " - " + t.getEdificio() + " - " + t.getPiso());
                         } catch (ParseException e) {
@@ -83,24 +82,24 @@ public class MisReservasActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Turnos>> call, Throwable t) {
+            public void onFailure(Call<List<Turno>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void getTurnosHistorico(){
-        GetTurnosHistoricos getTurnosHistoria = (GetTurnosHistoricos) ApiUtils.getAPI(GetTurnosHistoricos.class);
-        Call<List<Turnos>> call = getTurnosHistoria.getTurnos();
-        call.enqueue(new Callback<List<Turnos>>() {
+        APITurnos getTurnosHistoria = (APITurnos) ApiUtils.getAPI(APITurnos.class);
+        Call<List<Turno>> call = getTurnosHistoria.getTurnosHistoricos();
+        call.enqueue(new Callback<List<Turno>>() {
             @Override
-            public void onResponse(Call<List<Turnos>> call, Response<List<Turnos>> response) {
+            public void onResponse(Call<List<Turno>> call, Response<List<Turno>> response) {
 
                 if (response.isSuccessful()) {
-                    List<Turnos> ListaTurnosH = response.body();
+                    List<Turno> ListaTurnosH = response.body();
 
                     List<String> ListaTurnosHS = new ArrayList<String>();
-                    for(Turnos t : ListaTurnosH){
+                    for(Turno t : ListaTurnosH){
                         try {
                             ListaTurnosHS.add(t.getFechaTurno() + " - " + t.getEdificio() + " - " + t.getPiso());
                         } catch (ParseException e) {
@@ -121,7 +120,7 @@ public class MisReservasActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Turnos>> call, Throwable t) {
+            public void onFailure(Call<List<Turno>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -139,7 +138,7 @@ public class MisReservasActivity extends AppCompatActivity {
         aAdapter1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListaTurnos);
         mListView1.setAdapter(aAdapter1);
     }
-    private String construirMsgTurno(Turnos turno) throws ParseException {
+    private String construirMsgTurno(Turno turno) throws ParseException {
         return
                 "Fecha: " + turno.getFechaTurno() + "\n" +
                         "Edificio: " + turno.getEdificio() + " " + turno.getPiso() + "\n" +

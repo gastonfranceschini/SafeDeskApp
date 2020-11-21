@@ -1,8 +1,8 @@
 package com.ort.SafeDesk.Model;
 
-import com.ort.SafeDesk.Interface.Spinnereable;
+import com.ort.SafeDesk.Interface.ISpinnereable;
 
-public class Hora implements Spinnereable {
+public class Hora implements ISpinnereable {
     private int id;
     private String horario;
     private int Cupo;

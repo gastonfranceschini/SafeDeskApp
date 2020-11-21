@@ -27,7 +27,7 @@ public class Token {
         return userId;
     }
 
-    public String getToken() {
+    public String getTokenKey() {
         return token;
     }
 

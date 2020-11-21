@@ -1,8 +1,8 @@
 package com.ort.SafeDesk.Model;
 
-import com.ort.SafeDesk.Interface.Spinnereable;
+import com.ort.SafeDesk.Interface.ISpinnereable;
 
-public class Reporte implements Spinnereable {
+public class Reporte implements ISpinnereable {
 
     private String Nombre;
     private int Id;

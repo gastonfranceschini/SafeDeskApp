@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ort.SafeDesk.Interface.APIDiagnostico;
+import com.ort.SafeDesk.Interface.APIDiagnosticos;
 import com.ort.SafeDesk.Model.Diagnostico;
-import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.Utils.ApiUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,16 +52,16 @@ public class DiagnosticoActivity extends AppCompatActivity {
     }
 
     private void saveAutoDiagnostico(){
-        APIDiagnostico apiDiagnostico = (APIDiagnostico) ApiUtils.getAPI(APIDiagnostico.class);
+        APIDiagnosticos apiDiagnostico = (APIDiagnosticos) ApiUtils.getAPI(APIDiagnosticos.class);
 
         Diagnostico diagnostico = new Diagnostico(temperatura.isChecked(), perdidaGusto.isChecked(), contactoCercano.isChecked(), embarazada.isChecked(),
                 cancer.isChecked(), diabetes.isChecked(), hepatitis.isChecked(), perdidaOlfato.isChecked(), dolorGarganta.isChecked(),
                 dificultadRespiratoria.isChecked());
 
-        Call<Diagnostico> call = apiDiagnostico.saveDiagnostico(diagnostico);
-        call.enqueue(new Callback<Diagnostico>()  {
+        Call<Boolean> call = apiDiagnostico.saveDiagnostico(diagnostico);
+        call.enqueue(new Callback<Boolean>()  {
             @Override
-            public void onResponse(Call<Diagnostico> call, Response<Diagnostico> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"Guardado con exito",Toast. LENGTH_SHORT).show();
                     accessMainApp();
@@ -74,7 +73,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Diagnostico> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
                 Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
