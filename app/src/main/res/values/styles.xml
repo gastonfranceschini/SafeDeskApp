@@ -7,5 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="diagnostico">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#000</item>
+        <item name="stTextSize">20sp</item>
+        <item name="stIconStart">@drawable/ic_baseline_exclamation</item>
+        <item name="stIconEnd">@drawable/ic_baseline_exclamation</item>
+        <item name="stColorBackground">#ff0000</item>
+        <item name="stLength">LONG</item>
+    </style>
 </resources>

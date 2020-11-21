@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.muddzdev:styleabletoast:2.2.4'
 }

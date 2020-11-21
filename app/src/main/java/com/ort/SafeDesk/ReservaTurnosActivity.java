@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.ort.SafeDesk.Interface.APIDiagnosticos;
 import com.ort.SafeDesk.Interface.APITurnos;
 import com.ort.SafeDesk.Interface.APIUsuarios;
@@ -170,7 +171,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
                     }else{
                         //obligo a realizar el autodiagnostico
                         accessMainApp(DiagnosticoActivity.class);
-                        Toast.makeText(getApplicationContext(),"Debe actualizar el autodiagnostico, antes de sacar un nuevo turno.",Toast. LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Debe actualizar el autodiagnostico, antes de sacar un nuevo turno.", R.style.diagnostico).show();
                     }
                 }
             }
