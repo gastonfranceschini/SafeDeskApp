@@ -5,38 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.ort.SafeDesk.Interface.GetTurnos;
-import com.ort.SafeDesk.Interface.GetTurnosHistoricos;
-import com.ort.SafeDesk.Model.Turnos;
-import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.Interface.APITurnos;
+import com.ort.SafeDesk.Model.Turno;
+import com.ort.SafeDesk.Utils.ApiUtils;
 
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -68,13 +56,13 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
 
     private void scanCode() {
         IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(CaptureAct.class);
+        integrator.setCaptureActivity(CapturesActivity.class);
         integrator.setOrientationLocked(false);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt("Escaneando ...");
         integrator.initiateScan();
     }
-    private String construirMsgTurno(Turnos turno) throws ParseException {
+    private String construirMsgTurno(Turno turno) throws ParseException {
         return
                 "Fecha: " + turno.getFechaTurno() + "\n" +
                 "Edificio: " + turno.getEdificio() + "\n" +
@@ -84,7 +72,7 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void chequeoTurno(Turnos turno) throws ParseException {
+    private void chequeoTurno(Turno turno) throws ParseException {
         //ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
         //LocalTime now = LocalTime.now(z);
         //LocalTime limit = LocalTime.parse( turno.getHorario() );
@@ -123,15 +111,15 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void getTurno(int idTurno){
-        GetTurnos getTurno = (GetTurnos) ApiUtils.getAPI(GetTurnos.class);
-        Call<Turnos> call = getTurno.getTurno(idTurno);
-        call.enqueue(new Callback<Turnos>() {
+        APITurnos getTurno = (APITurnos) ApiUtils.getAPI(APITurnos.class);
+        Call<Turno> call = getTurno.getTurno(idTurno);
+        call.enqueue(new Callback<Turno>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onResponse(Call<Turnos> call, Response<Turnos> response) {
+            public void onResponse(Call<Turno> call, Response<Turno> response) {
 
                 if (response.isSuccessful()) {
-                    Turnos turno = response.body();
+                    Turno turno = response.body();
                     try {
                         chequeoTurno(turno);
                     } catch (ParseException e) {
@@ -149,7 +137,7 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
                 }
             }
             @Override
-            public void onFailure(Call<Turnos> call, Throwable t) {
+            public void onFailure(Call<Turno> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

@@ -9,16 +9,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ort.SafeDesk.Interface.Reportes;
-import com.ort.SafeDesk.Interface.Usuarios;
+import com.ort.SafeDesk.Interface.APIReportes;
 import com.ort.SafeDesk.Model.Configuracion;
-import com.ort.SafeDesk.Model.UsuarioDep;
-import com.ort.SafeDesk.utils.ApiUtils;
+import com.ort.SafeDesk.Utils.ApiUtils;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -70,7 +65,7 @@ public class AdministracionActivity extends AppCompatActivity implements View.On
         }
     }
     private void getConfiguracion(final String Nombre) {
-        Reportes getConfig = (Reportes) ApiUtils.getAPI(Reportes.class);
+        APIReportes getConfig = (APIReportes) ApiUtils.getAPI(APIReportes.class);
         Call<Configuracion> call = getConfig.getConfig(Nombre);
 
         call.enqueue(new Callback<Configuracion>() {
@@ -105,7 +100,7 @@ public class AdministracionActivity extends AppCompatActivity implements View.On
         if (Valor)
             Activado = "1";
 
-        Reportes setConfig = (Reportes) ApiUtils.getAPI(Reportes.class);
+        APIReportes setConfig = (APIReportes) ApiUtils.getAPI(APIReportes.class);
         Call<ResponseBody> call = setConfig.setConfig(Nombre,Activado);
 
         call.enqueue(new Callback<ResponseBody>() {

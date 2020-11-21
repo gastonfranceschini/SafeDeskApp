@@ -18,14 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CambioContrasena"></activity>
-        <activity android:name=".EditarPerfil" />
+        <activity android:name=".CambioPasswordActivity"></activity>
+        <activity android:name=".EditarPerfilActivity" />
         <activity android:name=".ReportesActivity" />
         <activity
             android:name=".AdministracionActivity"
             android:label="@string/title_activity_administracion" />
         <activity android:name=".SplashScreen" />
-        <activity android:name=".ReservaTurno" />
+        <activity android:name=".ReservaTurnosActivity" />
         <activity android:name=".DiagnosticoActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MisReservasActivity" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CaptureAct"
+            android:name=".CapturesActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />

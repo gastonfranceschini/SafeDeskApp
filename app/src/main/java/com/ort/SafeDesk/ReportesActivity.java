@@ -2,24 +2,19 @@ package com.ort.SafeDesk;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,24 +28,20 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ort.SafeDesk.Interface.GetEdificios;
-import com.ort.SafeDesk.Interface.GetHora;
-import com.ort.SafeDesk.Interface.GetPisos;
-import com.ort.SafeDesk.Interface.PostTurno;
-import com.ort.SafeDesk.Interface.Reportes;
-import com.ort.SafeDesk.Interface.Spinnereable;
-import com.ort.SafeDesk.Interface.Usuarios;
+import com.ort.SafeDesk.Interface.APIReportes;
+import com.ort.SafeDesk.Interface.APITurnos;
+import com.ort.SafeDesk.Interface.ISpinnereable;
+import com.ort.SafeDesk.Interface.APIUsuarios;
 import com.ort.SafeDesk.Model.Edificio;
-import com.ort.SafeDesk.Model.Gerencias;
+import com.ort.SafeDesk.Model.Gerencia;
 import com.ort.SafeDesk.Model.Hora;
 import com.ort.SafeDesk.Model.Piso;
 import com.ort.SafeDesk.Model.Reporte;
 import com.ort.SafeDesk.Model.ReporteDTO;
-import com.ort.SafeDesk.Model.TurnoBody;
-import com.ort.SafeDesk.Model.UsuarioDep;
-import com.ort.SafeDesk.utils.ApiUtils;
-import com.ort.SafeDesk.utils.Commons;
-import com.ort.SafeDesk.utils.Global;
+import com.ort.SafeDesk.Model.Usuario;
+import com.ort.SafeDesk.Utils.ApiUtils;
+import com.ort.SafeDesk.Utils.Commons;
+import com.ort.SafeDesk.Utils.Global;
 
 import org.json.JSONObject;
 
@@ -62,16 +53,13 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.os.Environment.getExternalStoragePublicDirectory;
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class ReportesActivity extends AppCompatActivity implements View.OnClickListener {
@@ -96,9 +84,9 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     private List<Piso> pisos;
     private List<Hora> horas;
     private List<Edificio> edificios;
-    private List<UsuarioDep> usuarios;
+    private List<Usuario> usuarios;
 
-    private List<Gerencias> gerencias;
+    private List<Gerencia> gerencias;
     private List<Reporte> reportes;
     private Switch formatoAlternativo;
     private Reporte reporteSeleccionado;
@@ -282,7 +270,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    private boolean validarYAgregarSpinner(List<String> campos,List<String> valores,List<? extends Spinnereable> datos, Spinner spinner,int valorRep,String valorBack)
+    private boolean validarYAgregarSpinner(List<String> campos, List<String> valores, List<? extends ISpinnereable> datos, Spinner spinner, int valorRep, String valorBack)
     {
         if (valorRep == 1)//activo
         {
@@ -342,7 +330,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void postReporte(List<String> campos, List<String> valores){
-        Reportes reportes = (Reportes) ApiUtils.getAPI(Reportes.class);
+        APIReportes reportes = (APIReportes) ApiUtils.getAPI(APIReportes.class);
 
         Call<ResponseBody> call = reportes.getReporteDinamico(new ReporteDTO(campos,valores,formatoAlternativo.isChecked()) ,reporteSeleccionado.getId());
         call.enqueue(new Callback<ResponseBody>()  {
@@ -511,7 +499,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             llenarSpinnersString(pisosDP, new ArrayList<String>(),reporteSeleccionado.isSelPiso());
         }
 
-        GetPisos getPisos = (GetPisos)ApiUtils.getAPI(GetPisos.class);
+        APITurnos getPisos = (APITurnos)ApiUtils.getAPI(APITurnos.class);
         Call<List<Piso>> call = getPisos.getPisos("2099-1-1", idEdificio);
         call.enqueue(new Callback<List<Piso>>() {
             @Override
@@ -537,7 +525,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             llenarSpinnersString(horasDP, new ArrayList<String>(),reporteSeleccionado.isSelHorario());
         }
 
-        GetHora getHora = (GetHora)ApiUtils.getAPI(GetHora.class);
+        APITurnos getHora = (APITurnos)ApiUtils.getAPI(APITurnos.class);
         Call<List<Hora>> call = getHora.getHoras(idEdificio, "2099-1-1");
         call.enqueue(new Callback<List<Hora>>() {
             @Override
@@ -559,7 +547,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
 
     private void configEdificiosSpinner(String fechaParam){
 
-        GetEdificios getEdificios = (GetEdificios)ApiUtils.getAPI(GetEdificios.class);
+        APITurnos getEdificios = (APITurnos)ApiUtils.getAPI(APITurnos.class);
         Call<List<Edificio>> call = getEdificios.getEdificios(fechaParam);
 
         call.enqueue(new Callback<List<Edificio>>() {
@@ -582,17 +570,17 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void configGerenciasSpinner(){
-        Usuarios getGerencias = (Usuarios)ApiUtils.getAPI(Usuarios.class);
+        APIUsuarios getGerencias = (APIUsuarios)ApiUtils.getAPI(APIUsuarios.class);
 
-        Call<List<Gerencias>> call = getGerencias.getGerencias();
+        Call<List<Gerencia>> call = getGerencias.getGerencias();
 
-        call.enqueue(new Callback<List<Gerencias>>() {
+        call.enqueue(new Callback<List<Gerencia>>() {
             @Override
-            public void onResponse(Call<List<Gerencias>> call, Response<List<Gerencias>> response) {
+            public void onResponse(Call<List<Gerencia>> call, Response<List<Gerencia>> response) {
                 gerencias = response.body();
                 List<String> gerenciasList = new ArrayList<String>();
 
-                for(Gerencias u : gerencias){
+                for(Gerencia u : gerencias){
                     gerenciasList.add(u.getNombre());
                 }
 
@@ -600,7 +588,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(Call<List<Gerencias>> call, Throwable t) {
+            public void onFailure(Call<List<Gerencia>> call, Throwable t) {
 
             }
         });
@@ -609,7 +597,7 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void configReportesSpinner(){
-        Reportes getReportes = (Reportes) ApiUtils.getAPI(Reportes.class);
+        APIReportes getReportes = (APIReportes) ApiUtils.getAPI(APIReportes.class);
 
         Call<List<Reporte>> call = getReportes.getReportes();
 
@@ -633,23 +621,23 @@ public class ReportesActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void configUsuariosSpinner(){
-        Usuarios getUsuarios = (Usuarios)ApiUtils.getAPI(Usuarios.class);
+        APIUsuarios getUsuarios = (APIUsuarios)ApiUtils.getAPI(APIUsuarios.class);
 
-        Call<List<UsuarioDep>> call = getUsuarios.getUsuariosDependientes();
+        Call<List<Usuario>> call = getUsuarios.getUsuariosDependientes();
 
-        call.enqueue(new Callback<List<UsuarioDep>>() {
+        call.enqueue(new Callback<List<Usuario>>() {
             @Override
-            public void onResponse(Call<List<UsuarioDep>> call, Response<List<UsuarioDep>> response) {
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 usuarios = response.body();
                 List<String> usuariosList = new ArrayList<String>();
-                for(UsuarioDep u : usuarios){
+                for(Usuario u : usuarios){
                     usuariosList.add(u.getNombre());
                 }
                 llenarSpinnersString(usuariosDP, usuariosList,reporteSeleccionado.isSelUsuario());
             }
 
             @Override
-            public void onFailure(Call<List<UsuarioDep>> call, Throwable t) {
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
 
             }
         });

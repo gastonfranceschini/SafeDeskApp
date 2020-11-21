@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:onClick="hideKeyboard"
-    tools:context=".CambioContrasena">
+    tools:context=".CambioPasswordActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"

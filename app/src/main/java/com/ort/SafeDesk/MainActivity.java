@@ -5,29 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ort.SafeDesk.Interface.GetDiagnosticoUser;
-import com.ort.SafeDesk.Interface.PostTurno;
-import com.ort.SafeDesk.Interface.Reportes;
+import com.ort.SafeDesk.Interface.APIDiagnosticos;
+import com.ort.SafeDesk.Interface.APIReportes;
 import com.ort.SafeDesk.Model.Configuracion;
-import com.ort.SafeDesk.Model.Diagnostico;
 import com.ort.SafeDesk.Model.Token;
-import com.ort.SafeDesk.Model.TurnoBody;
-import com.ort.SafeDesk.utils.ApiUtils;
-import com.ort.SafeDesk.utils.Global;
-import com.ort.SafeDesk.utils.SettingPreferences;
+import com.ort.SafeDesk.Utils.ApiUtils;
+import com.ort.SafeDesk.Utils.Global;
+import com.ort.SafeDesk.Utils.SettingPreferences;
 
 import org.json.JSONObject;
-
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Global.token.getCambioPassObligatorio() == 1)
         {
             Toast.makeText(getApplicationContext(), "Debe cambiar la contraseña.", Toast.LENGTH_LONG).show();
-            accessMainApp(CambioContrasena.class);
+            accessMainApp(CambioPasswordActivity.class);
         }
 
         perfil = findViewById(R.id.layoutperfil);
@@ -107,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (perfil.equals(view)){
-            accessMainApp(EditarPerfil.class);
+            accessMainApp(EditarPerfilActivity.class);
         }else if (autoDiagnostico.equals(view)) {
             accessMainApp(DiagnosticoActivity.class);
         }else if(reservaJornada.equals(view)){
-            accessMainApp(ReservaTurno.class);
+            accessMainApp(ReservaTurnosActivity.class);
         }else if(misReservas.equals(view)){
             accessMainApp(MisReservasActivity.class);
         }else if(codigoQR.equals(view)) {
@@ -129,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean isAutoDiagActive(){
-        GetDiagnosticoUser userDiag = (GetDiagnosticoUser) ApiUtils.getAPI(GetDiagnosticoUser.class);
+        APIDiagnosticos userDiag = (APIDiagnosticos) ApiUtils.getAPI(APIDiagnosticos.class);
 
         Call<Boolean> call = userDiag.getUserDiagnostico();
         call.enqueue(new Callback<Boolean>() {
@@ -204,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void getConfiguracion(final String Nombre) {
-        Reportes getConfig = (Reportes) ApiUtils.getAPI(Reportes.class);
+        APIReportes getConfig = (APIReportes) ApiUtils.getAPI(APIReportes.class);
         Call<Configuracion> call = getConfig.getConfig(Nombre);
 
         call.enqueue(new Callback<Configuracion>() {
