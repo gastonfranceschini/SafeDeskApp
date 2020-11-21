@@ -301,6 +301,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
                     Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
                     generarAgenda(turnoNuevo);
                     //accessMainApp(MainActivity.class);
+                    //onBackPressed();
                 }
                 else
                 {
