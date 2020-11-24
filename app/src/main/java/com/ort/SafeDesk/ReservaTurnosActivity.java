@@ -171,7 +171,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
                     }else{
                         //obligo a realizar el autodiagnostico
                         accessMainApp(DiagnosticoActivity.class);
-                        StyleableToast.makeText(getApplicationContext(),"Debe actualizar el autodiagnostico, antes de sacar un nuevo turno.", R.style.diagnostico).show();
+                        StyleableToast.makeText(getApplicationContext(),"Deberás actualizar tu autodiagnóstico, antes de sacar un nuevo turno.", R.style.diagnostico).show();
                     }
                 }
             }
@@ -233,7 +233,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             }
             else
             {
-                Toast.makeText(getApplicationContext(),"Faltan seleccionar parametros!",Toast. LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Faltan parametros por seleccionar!",Toast. LENGTH_SHORT).show();
             }
 
         }
@@ -299,7 +299,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<TurnoDTO> call, Response<TurnoDTO> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Turno registrado correctamente!",Toast. LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Tu turno fue registrado correctamente!",Toast. LENGTH_LONG).show();
                     generarAgenda(turnoNuevo);
                     //accessMainApp(MainActivity.class);
                     //onBackPressed();

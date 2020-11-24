@@ -63,12 +63,12 @@ public class DiagnosticoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Guardado con exito",Toast. LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Diagnóstico guardado con éxito!",Toast. LENGTH_SHORT).show();
                     accessMainApp();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Error al guardar",Toast. LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Error al guardar el diagnóstico. \n Inténtalo nuevamente por favor.",Toast. LENGTH_SHORT).show();
                 }
             }
 
