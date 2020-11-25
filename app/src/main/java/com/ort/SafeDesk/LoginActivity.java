@@ -1,16 +1,25 @@
 package com.ort.SafeDesk;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ort.SafeDesk.Interface.APILogin;
 import com.ort.SafeDesk.Model.Token;
@@ -29,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button logButton;
     private TextInputLayout username;
+    private TextInputEditText etdni;
     private TextInputLayout password;
     //private TextView myJsonTxtView;
     private SettingPreferences settingPreferences;
@@ -46,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
 
         logButton = findViewById(R.id.btn_login);
         username = findViewById(R.id.username);
+        etdni = findViewById(R.id.etdni);
+        etdni.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         password = findViewById(R.id.password);
         logButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +110,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void accessMainApp() {
-        Toast.makeText(getApplicationContext(),"Bienvenido a Safe Desk " + Global.token.getNombre(),Toast. LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Bienvenido a Safe Desk " + Global.token.getNombre(),Toast. LENGTH_SHORT).show();
+        mostrarToast(1, "Bienvenido a Safe Desk" + Global.token.getNombre());
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -110,6 +123,37 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    public void mostrarToast(int estado, String textoT){
+        ViewGroup view = findViewById(R.id.container_toast);
+        View v = getLayoutInflater().inflate(R.layout.custom_toast, view);
+        ImageView ico = findViewById(R.id.icontoast);
+
+        switch (estado){
+            case 1:
+                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_success));
+                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_check_24));
+                break;
+            case 2:
+                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_warning));
+                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_warning_24));
+                break;
+            case 3:
+                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_error));
+                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_error_24));
+                break;
+            default:
+                throw new IllegalStateException("Error de tipo: " + textoT);
+        }
+        TextView textView = v.findViewById(R.id.toast_text);
+        textView.setText(textoT);
+
+        Toast toast = new Toast(this);
+        //toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(v);
+        toast.show();
     }
 
 }
