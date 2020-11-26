@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.ort.SafeDesk.LoginActivity;
 
 import com.ort.SafeDesk.Interface.APIUsuarios;
 import com.ort.SafeDesk.Model.ChangePassDTO;
@@ -56,15 +61,15 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
 
             if  (nueva.getText().toString().equals(""))
             {
-                Toast.makeText(getApplicationContext(), "La contraseña nueva no puede estar vacia.", Toast.LENGTH_LONG).show();
-                //ct.mostrarToast(2, "La contraseña nueva no puede estar vacia");
+                //Toast.makeText(getApplicationContext(), "La contraseña nueva no puede estar vacia.", Toast.LENGTH_LONG).show();
+                mostrarToast(2, "La contraseña nueva no puede estar vacia");
                 return;
             }
 
             if  (!nueva.getText().toString().equals(confirma.getText().toString()))
             {
-                Toast.makeText(getApplicationContext(), "La contraseña nueva y la confirmacion no coinciden.", Toast.LENGTH_LONG).show();
-                //ct.mostrarToast(3, "La contraseña nueva y la confirmacion no coinciden");
+                //Toast.makeText(getApplicationContext(), "La contraseña nueva y la confirmacion no coinciden.", Toast.LENGTH_LONG).show();
+                mostrarToast(2, "La contraseña nueva y la confirmacion no coinciden");
                 return;
             }
 
@@ -87,15 +92,17 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
                     Global.token.setCambioPassObligatorio(0);
                     //Global.save();
                     settingPreferences.saveToken(Global.token);
-                    Toast.makeText(getApplicationContext(), "Password cambiada correctamente.", Toast.LENGTH_LONG).show();
-                    //ct.mostrarToast(1, "Password cambiada correctamente");
+                    //Toast.makeText(getApplicationContext(), "Password cambiada correctamente.", Toast.LENGTH_LONG).show();
+                    mostrarToast(1, "Password cambiada correctamente");
                     accessMainApp();
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        mostrarToast(3, jObjError.getString("error"));
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        mostrarToast(2, e.getMessage());
                     }
                 }
             }
@@ -110,5 +117,32 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
     private void accessMainApp(Class activity) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
+    }
+
+    private void mostrarToast(int estado, String textoT){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout;
+
+        switch (estado){
+            case 1:
+                layout = inflater.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.container_toast));
+                break;
+            case 2:
+                layout = inflater.inflate(R.layout.custom_toast2, (ViewGroup)findViewById(R.id.container_toast2));
+                break;
+            case 3:
+                layout = inflater.inflate(R.layout.custom_toast3, (ViewGroup)findViewById(R.id.container_toast3));
+                break;
+            default:
+                throw new IllegalStateException("Error de tipo: " + textoT);
+        }
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(textoT);
+
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
     }
 }

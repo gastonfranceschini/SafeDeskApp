@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -63,18 +66,21 @@ public class DiagnosticoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Diagnóstico guardado con éxito!",Toast. LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Diagnóstico guardado con éxito!",Toast. LENGTH_SHORT).show();
+                    mostrarToast(1,"Diagnóstico guardado con éxito!");
                     accessMainApp();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Error al guardar el diagnóstico. \n Inténtalo nuevamente por favor.",Toast. LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Error al guardar el diagnóstico. \n Inténtalo nuevamente por favor.",Toast. LENGTH_SHORT).show();
+                    mostrarToast(3,"Error al guardar el diagnóstico. \n Inténtalo nuevamente por favor.");
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                //Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                mostrarToast(1, t.getMessage());
             }
         });
     }
@@ -103,5 +109,32 @@ public class DiagnosticoActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void mostrarToast(int estado, String textoT){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout;
+
+        switch (estado){
+            case 1:
+                layout = inflater.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.container_toast));
+                break;
+            case 2:
+                layout = inflater.inflate(R.layout.custom_toast2, (ViewGroup)findViewById(R.id.container_toast2));
+                break;
+            case 3:
+                layout = inflater.inflate(R.layout.custom_toast3, (ViewGroup)findViewById(R.id.container_toast3));
+                break;
+            default:
+                throw new IllegalStateException("Error de tipo: " + textoT);
+        }
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(textoT);
+
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
     }
 }

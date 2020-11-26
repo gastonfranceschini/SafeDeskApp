@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -74,16 +77,19 @@ public class MisReservasActivity extends AppCompatActivity {
                 {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        mostrarToast(2,jObjError.getString("error"));
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        mostrarToast(2,e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Turno>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                mostrarToast(2,t.getMessage());
             }
         });
     }
@@ -112,16 +118,19 @@ public class MisReservasActivity extends AppCompatActivity {
                 {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        mostrarToast(3,jObjError.getString("error"));
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        mostrarToast(2,e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Turno>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                mostrarToast(3,t.getMessage());
             }
         });
 
@@ -221,8 +230,33 @@ public class MisReservasActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
+    public void mostrarToast(int estado, String textoT){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout;
+
+        switch (estado){
+            case 1:
+                layout = inflater.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.container_toast));
+                break;
+            case 2:
+                layout = inflater.inflate(R.layout.custom_toast2, (ViewGroup)findViewById(R.id.container_toast2));
+                break;
+            case 3:
+                layout = inflater.inflate(R.layout.custom_toast3, (ViewGroup)findViewById(R.id.container_toast3));
+                break;
+            default:
+                throw new IllegalStateException("Error de tipo: " + textoT);
+        }
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(textoT);
+
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 
 }

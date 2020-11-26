@@ -104,9 +104,11 @@ public class LoginActivity extends AppCompatActivity {
     {
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
-            Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+            mostrarToast(3, jObjError.getString("error"));
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            mostrarToast(2, e.getMessage());
         }
     }
 

@@ -10,7 +10,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -234,8 +237,8 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             }
             else
             {
-                Toast.makeText(getApplicationContext(),"Faltan parametros por seleccionar!",Toast. LENGTH_SHORT).show();
-                //ct.mostrarToast(2, "Faltan parametros por seleccionar!");
+                //Toast.makeText(getApplicationContext(),"Faltan parametros por seleccionar!",Toast. LENGTH_SHORT).show();
+                mostrarToast(2, "Faltan parametros por seleccionar!");
             }
 
         }
@@ -301,8 +304,8 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<TurnoDTO> call, Response<TurnoDTO> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Tu turno fue registrado correctamente!",Toast. LENGTH_LONG).show();
-                    //ct.mostrarToast(1, "Tu turno fue registrado correctamente!");
+                    //Toast.makeText(getApplicationContext(),"Tu turno fue registrado correctamente!",Toast. LENGTH_LONG).show();
+                    mostrarToast(1, "Tu turno fue registrado correctamente!");
                     generarAgenda(turnoNuevo);
                     //accessMainApp(MainActivity.class);
                     //onBackPressed();
@@ -311,16 +314,19 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
                 {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        mostrarToast(3,jObjError.getString("error"));
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        mostrarToast(2,e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<TurnoDTO> call, Throwable t) {
-                Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                //Toast. makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                mostrarToast(3,t.getMessage());
             }
         });
     }
@@ -423,5 +429,32 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
         }
+
+    public void mostrarToast(int estado, String textoT){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout;
+
+        switch (estado){
+            case 1:
+                layout = inflater.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.container_toast));
+                break;
+            case 2:
+                layout = inflater.inflate(R.layout.custom_toast2, (ViewGroup)findViewById(R.id.container_toast2));
+                break;
+            case 3:
+                layout = inflater.inflate(R.layout.custom_toast3, (ViewGroup)findViewById(R.id.container_toast3));
+                break;
+            default:
+                throw new IllegalStateException("Error de tipo: " + textoT);
+        }
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(textoT);
+
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 
 }
