@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void accessMainApp() {
         //Toast.makeText(getApplicationContext(),"Bienvenido a Safe Desk " + Global.token.getNombre(),Toast. LENGTH_SHORT).show();
-        mostrarToast(1, "Bienvenido a Safe Desk" + Global.token.getNombre());
+        mostrarToast(1, "Bienvenido a Safe Desk, " + Global.token.getNombre());
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -126,33 +126,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void mostrarToast(int estado, String textoT){
-        ViewGroup view = findViewById(R.id.container_toast);
-        View v = getLayoutInflater().inflate(R.layout.custom_toast, view);
-        ImageView ico = findViewById(R.id.icontoast);
+        LayoutInflater inflater = getLayoutInflater();
+        View layout;
 
         switch (estado){
             case 1:
-                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_success));
-                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_check_24));
+                layout = inflater.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.container_toast));
                 break;
             case 2:
-                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_warning));
-                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_warning_24));
+                layout = inflater.inflate(R.layout.custom_toast2, (ViewGroup)findViewById(R.id.container_toast2));
                 break;
             case 3:
-                v.setBackground(ContextCompat.getDrawable(this,R.drawable.toast_error));
-                ico.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_error_24));
+                layout = inflater.inflate(R.layout.custom_toast3, (ViewGroup)findViewById(R.id.container_toast3));
                 break;
             default:
                 throw new IllegalStateException("Error de tipo: " + textoT);
         }
-        TextView textView = v.findViewById(R.id.toast_text);
+        TextView textView = layout.findViewById(R.id.toast_text);
         textView.setText(textoT);
 
-        Toast toast = new Toast(this);
-        //toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM,0,200);
         toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(v);
+        toast.setView(layout);
         toast.show();
     }
 
