@@ -67,6 +67,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
     private List<Hora> horas;
     private List<Edificio> edificios;
     private List<Usuario> usuarios;
+    //LoginActivity ct = new LoginActivity();
 
     private Context context;
 
@@ -234,6 +235,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             else
             {
                 Toast.makeText(getApplicationContext(),"Faltan parametros por seleccionar!",Toast. LENGTH_SHORT).show();
+                //ct.mostrarToast(2, "Faltan parametros por seleccionar!");
             }
 
         }
@@ -300,6 +302,7 @@ public class ReservaTurnosActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<TurnoDTO> call, Response<TurnoDTO> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"Tu turno fue registrado correctamente!",Toast. LENGTH_LONG).show();
+                    //ct.mostrarToast(1, "Tu turno fue registrado correctamente!");
                     generarAgenda(turnoNuevo);
                     //accessMainApp(MainActivity.class);
                     //onBackPressed();

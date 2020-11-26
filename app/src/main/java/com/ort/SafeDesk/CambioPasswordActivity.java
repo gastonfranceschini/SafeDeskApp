@@ -30,6 +30,7 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
     private EditText confirma;
     private Button cambiar;
     private SettingPreferences settingPreferences;
+    //LoginActivity ct = new LoginActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +57,14 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
             if  (nueva.getText().toString().equals(""))
             {
                 Toast.makeText(getApplicationContext(), "La contraseña nueva no puede estar vacia.", Toast.LENGTH_LONG).show();
+                //ct.mostrarToast(2, "La contraseña nueva no puede estar vacia");
                 return;
             }
 
             if  (!nueva.getText().toString().equals(confirma.getText().toString()))
             {
                 Toast.makeText(getApplicationContext(), "La contraseña nueva y la confirmacion no coinciden.", Toast.LENGTH_LONG).show();
+                //ct.mostrarToast(3, "La contraseña nueva y la confirmacion no coinciden");
                 return;
             }
 
@@ -85,6 +88,7 @@ public class CambioPasswordActivity extends AppCompatActivity implements View.On
                     //Global.save();
                     settingPreferences.saveToken(Global.token);
                     Toast.makeText(getApplicationContext(), "Password cambiada correctamente.", Toast.LENGTH_LONG).show();
+                    //ct.mostrarToast(1, "Password cambiada correctamente");
                     accessMainApp();
                 } else {
                     try {

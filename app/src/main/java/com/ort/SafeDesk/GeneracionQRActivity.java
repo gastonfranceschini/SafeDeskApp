@@ -2,6 +2,7 @@ package com.ort.SafeDesk;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +35,8 @@ import retrofit2.Response;
 
 public class GeneracionQRActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button button;
+    //Button button;
+    CardView boton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,11 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
 
         scanCode();
 
-        button = (Button)findViewById(R.id.scanQR);
-        button.setOnClickListener(this);
+        //button = (Button)findViewById(R.id.scanQR);
+        //button.setOnClickListener(this);
+        boton = (CardView)findViewById(R.id.scanQR);
+        boton.setOnClickListener(this);
+
     }
 
     @Override
@@ -59,7 +64,7 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
         integrator.setCaptureActivity(CapturesActivity.class);
         integrator.setOrientationLocked(false);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Escaneando ...");
+        integrator.setPrompt("Escaneando...");
         integrator.initiateScan();
     }
     private String construirMsgTurno(Turno turno) throws ParseException {
