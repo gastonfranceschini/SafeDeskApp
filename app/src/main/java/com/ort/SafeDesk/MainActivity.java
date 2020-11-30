@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case ADMINISTRADOR:
                 break;
             case SEGURIDAD:
+                OcultarBoton(administracion);
                 OcultarBoton(autoDiagnostico);
                 OcultarBoton(reservaJornada);
                 OcultarBoton(misReservas);

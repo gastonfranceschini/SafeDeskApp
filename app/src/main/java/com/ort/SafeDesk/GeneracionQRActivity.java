@@ -115,8 +115,9 @@ public class GeneracionQRActivity extends AppCompatActivity implements View.OnCl
         });
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(colorBackground));
-//        dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor();
-//        dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor();
+        //dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+        //dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+        dialog.show();
 
     }
 
